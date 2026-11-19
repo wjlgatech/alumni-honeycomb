@@ -1,6 +1,8 @@
 # 🐝 Alumni Honeycomb · 校友蜂巢
 
-**Live:** https://alumni-honeycomb.vercel.app · 中文 first, English one tap away · installable on any phone
+**Live:** https://alumni-honeycomb.vercel.app · **中国大陆请用 / in mainland China use:** https://wjlgatech.github.io/alumni-honeycomb
+
+中文 first, English one tap away · installable on any phone · the mirror loaded from 8/8 mainland probes on 2026-11-19; `*.vercel.app` from 0/6 ([why](docs/CHINA-ACCESS.md))
 
 > **Every student, every season, is the CEO of something they love, while coaching others and being coached.**
 > 每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。
@@ -66,8 +68,9 @@ a public ledger. Details: [docs/ARCHITECTURE.md §3](docs/ARCHITECTURE.md), [doc
 operators, maintains this code and publishes the federation's numbers. It never chooses a hive's members, holds its
 roster or charges anything. [docs/GOVERNANCE.md](docs/GOVERNANCE.md)
 
-**Reachable from China.** The page loads nothing from other domains: no foreign fonts, CDNs or analytics, and a test
-enforces it. The hosting domain is the remaining risk, and it is measured, not assumed: [docs/CHINA-ACCESS.md](docs/CHINA-ACCESS.md).
+**Reachable from China.** The page loads nothing from other domains (no foreign fonts, CDNs or analytics; a test enforces it)
+and uses relative paths, so the same `web/` folder runs on any host. `*.vercel.app` is DNS-poisoned on the mainland, so
+Chinese readers get the GitHub Pages mirror, which `make china` measures from mainland probes: [docs/CHINA-ACCESS.md](docs/CHINA-ACCESS.md).
 
 **The personal first step: the Calling Compass.** Eight questions, two minutes, scored only in your browser. It shows where
 you stand in spirit, mind, heart and strategy, then asks you to write one experience others don't have. That sentence may
@@ -83,6 +86,9 @@ be what you lead as CEO next season.
 pip install pyyaml pytest              # the only dependencies
 make check                             # data drift · charter rules · federation · tests · quality floor
 make demo                              # the site at http://127.0.0.1:8799
+make deploy                            # Vercel production + live check
+make mirror                            # GitHub Pages mirror (mainland China) + live check
+make china                             # measure both URLs from mainland probes (Globalping, free)
 python -m honeycomb check   hives/example/hive.yml          # P1–P6 on a hive file; exit 1 on any problem
 python -m honeycomb pulse   hives/example/hive.yml          # vital signs + the 10X targets
 python -m honeycomb recruit hives/example/hive.yml c-calling-salon   # shortlist for empty seats
@@ -138,7 +144,7 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 | `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `build`, CLI (`__main__`) |
 | `hives/example/` | a simulated hive; real hives live in `hives-private/` (gitignored) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
-| `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
+| `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
 | `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges

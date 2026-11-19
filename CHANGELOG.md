@@ -13,8 +13,12 @@ All notable changes to this project are recorded here (Keep a Changelog).
 - Docs: SPEC §0 with a 10X that can fail, ARCHITECTURE, GOVERNANCE (the decentralized committee), CHINA-ACCESS, STATUS.
 - Gates: `make check` (drift, charter rules, federation, pytest + node golden test, quality floor), CI workflow, `live_check.py`.
 
+### Changed
+- Mainland China access: `*.vercel.app` measured 0/6 mainland probes (DNS poisoned). Added a GitHub Pages mirror (8/8 probes), relative asset paths so one `web/` folder runs on any host, `make mirror` and `make china` (Globalping probe script).
+
 ### Investigated / Rejected
 - **A token or on-chain registry for the "web3 committee"**: rejected. Token issuance and trading are illegal in mainland China (2021-09-24 notice), and minors' data must not sit on a public ledger. A signed hash plus git votes verifies membership and governance for the first dozens of hives.
 - **A hosted app with logins and a database for v0.1**: rejected for now. A 10–50 person hive runs on one YAML file; build it when an operator says the file is the bottleneck.
 - **An LLM matcher**: rejected for v0.1. With 10–50 people, rule-based reasons a human can argue with beat a model's opaque ranking.
 - **"Alumni Companion" (one-to-one companion pairs)**: the first draft this session. Replaced by the honeycomb, because pairs don't make anyone a CEO and don't switch roles.
+- **Relying on `*.vercel.app` for China**: rejected by measurement (0/6 mainland probes, decoy DNS answers). A custom domain on Vercel reached 6/6, so the durable fix is a domain (D-DOMAIN), not a host change.

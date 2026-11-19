@@ -32,3 +32,6 @@ live-check:   ## every asset the live page needs returns 200
 mirror:       ## publish web/ to GitHub Pages (the mainland-China-reachable mirror), then check it
 	./scripts/publish_mirror.sh
 	python3 scripts/live_check.py https://wjlgatech.github.io/alumni-honeycomb
+
+china:        ## measure the live URL and the mirror from mainland China probes (Globalping, free)
+	python3 scripts/china_probe.py

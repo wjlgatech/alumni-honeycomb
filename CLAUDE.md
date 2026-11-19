@@ -17,7 +17,9 @@ Public, MIT-licensed repo: never commit a real roster, name, contact detail or a
 
 ## Gates
 `make check` before every PR (drift · example hive · federation · pytest + node golden test · quality floor).
-`make deploy` = check → Vercel prod → `live_check.py`. Doc sync: a behavior change ships with `CHANGELOG.md`,
+`make deploy` = check → Vercel prod → `live_check.py`. `make mirror` republishes `web/` to GitHub Pages, the URL
+mainland China can reach (`*.vercel.app` is DNS-poisoned there); `make china` measures both from mainland probes.
+Asset paths in `web/` stay relative (the mirror lives under `/alumni-honeycomb/`). Doc sync: a behavior change ships with `CHANGELOG.md`,
 `README.md` and this file in the same PR.
 
 ## Where things are
@@ -31,4 +33,4 @@ Public, MIT-licensed repo: never commit a real roster, name, contact detail or a
 | Federation: hash, registry, 2/3 vote | `honeycomb/federation.py`, `data/federation.yml`, `docs/GOVERNANCE.md` |
 | Calling Compass | `data/compass.yml`, `web/compass.js`, `honeycomb/compass.py`, `tests/compass.test.mjs` |
 | Website | `web/index.html` (中文 first; three levels: concept · architecture · details), PWA files in `web/` |
-| China access | `docs/CHINA-ACCESS.md` |
+| China access | `docs/CHINA-ACCESS.md`, `scripts/publish_mirror.sh`, `scripts/china_probe.py` |
