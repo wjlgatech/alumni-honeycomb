@@ -24,9 +24,10 @@ demo:         ## open the site locally at http://127.0.0.1:8799
 
 deploy: check ## publish web/ to Vercel production, then check the live site
 	vercel --prod --yes
+	python3 scripts/live_check.py https://alumni-honeycomb.vercel.app
 	$(MAKE) live-check
 
-live-check:   ## every asset the live page needs returns 200
+live-check:   ## every asset the page needs returns 200 at the public address (futuremake.io/honeycomb)
 	python3 scripts/live_check.py
 
 mirror:       ## publish web/ to GitHub Pages (the mainland-China-reachable mirror), then check it

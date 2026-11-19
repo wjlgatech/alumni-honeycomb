@@ -1,6 +1,6 @@
 """Fetch the live site and every same-origin asset it names; exit 1 if any is not HTTP 200.
 
-Usage: python3 scripts/live_check.py [base-url]   (default: the URL in data/site.yml)
+Usage: python3 scripts/live_check.py [base-url]   (default: home_url in data/site.yml)
 """
 
 from __future__ import annotations
@@ -39,5 +39,5 @@ def main(base: str) -> int:
 
 
 if __name__ == "__main__":
-    default = yaml.safe_load((ROOT / "data" / "site.yml").read_text(encoding="utf-8"))["live_url"]
+    default = yaml.safe_load((ROOT / "data" / "site.yml").read_text(encoding="utf-8"))["home_url"]
     sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else default))

@@ -1,6 +1,6 @@
 """Measure whether mainland China can load the site, using free Globalping probes (no key needed).
 
-    python3 scripts/china_probe.py                 # probe live_url and mirror_url from data/site.yml
+    python3 scripts/china_probe.py                 # probe home_url and mirror_url from data/site.yml
     python3 scripts/china_probe.py https://x.y/    # probe one URL
 
 Prints one row per probe and a summary per URL; exits 1 if the mirror is reachable from fewer than
@@ -58,14 +58,14 @@ def probe(url: str, limit: int = 8) -> tuple[int, int]:
 
 
 def main(argv: list[str]) -> int:
-    """Probe the given URL, or both site URLs; fail if the mirror is mostly unreachable."""
+    """Probe the given URL, or the home URL and the mirror; fail if either is mostly unreachable."""
     if argv:
         ok, total = probe(argv[0])
         return 0 if total and ok * 2 >= total else 1
     site = yaml.safe_load((ROOT / "data" / "site.yml").read_text(encoding="utf-8"))
-    probe(site["live_url"] + "/")
+    home_ok, home_total = probe(site["home_url"])
     ok, total = probe(site["mirror_url"] + "/")
-    return 0 if total and ok * 2 >= total else 1
+    return 0 if home_total and home_ok * 2 >= home_total and total and ok * 2 >= total else 1
 
 
 if __name__ == "__main__":

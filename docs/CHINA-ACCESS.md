@@ -21,14 +21,17 @@
 
 Re-measure any time with `make china` (`scripts/china_probe.py`; free, no key; exits 1 if the mirror drops below half).
 
-**So, today:** share `https://wjlgatech.github.io/alumni-honeycomb` with people in mainland China. `make mirror` republishes it
-from the same `web/` folder (`scripts/publish_mirror.sh` pushes `web/` to the `gh-pages` branch).
+**Resolved 2026-11-19: the public address is https://futuremake.io/honeycomb.** futuremake.io is Paul's portfolio site (Vercel
+project `agentic-portfolio`, custom domain, reachable from mainland China). Its `vercel.json` rewrites `/honeycomb` and
+`/honeycomb/:path+` to this repo's Vercel origin at the edge, so a reader's browser only ever talks to futuremake.io and every
+deploy of this repo shows up there with nothing copied. Because Next.js strips trailing slashes, the page is served at
+`/honeycomb` (no slash) and sets its own `<base href>` from `location.pathname` (first script in `web/index.html`), which
+keeps the relative asset paths right on all three hosts.
 
-**Durable fix (decision D-DOMAIN in `docs/SPEC.md` §4):** one custom domain on Vercel would serve everyone from one URL,
-because the measurement shows Vercel's servers are reachable under a custom name. Options, cheapest first:
-1. A subdomain of a domain Paul already owns, e.g. `honeycomb.futuremake.io` (free; one CNAME `honeycomb → cname.vercel-dns.com`
-   in that domain's Cloudflare DNS; then `vercel domains add honeycomb.futuremake.io`).
-2. A new neutral domain for the project (~US$10–15/year).
-3. A mainland host with ICP filing: only if probes ever show the custom domain failing. It needs a mainland entity or individual and weeks of filing.
+| Address | Role | Mainland China |
+|---|---|---|
+| https://futuremake.io/honeycomb | **share this one**, with everyone | reachable (see `docs/STATUS.md`) |
+| https://wjlgatech.github.io/alumni-honeycomb | backup mirror (`make mirror`) | 8/8 |
+| https://alumni-honeycomb.vercel.app | origin only; never share it with China readers | 0/6 |
 
 GitHub Pages is a mirror, not a promise: GitHub has been intermittently disrupted in China before. That is why the probe is a script, not a sentence.
