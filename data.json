@@ -1,0 +1,568 @@
+{
+ "arc": {
+  "loop": {
+   "en": "Today's seeker is tomorrow's companion.",
+   "from": "give",
+   "to": "prepare",
+   "zh": "今天的同行对象，是明天的同行者。"
+  },
+  "stages": [
+   {
+    "companion_en": "Help them see their unique experience and conviction, not just their scores.",
+    "companion_zh": "帮他看见自己独特的经历和信念，而不只是分数。",
+    "door": "before the door",
+    "en": "Prepare",
+    "id": "prepare",
+    "pain_en": "Will AI make me obsolete before I start? Which major, which path?",
+    "pain_zh": "AI 会不会让我还没开始就被淘汰？选什么专业、哪条路？",
+    "who_en": "high-schoolers, applicants, job seekers",
+    "who_zh": "高中生、申请者、求职者",
+    "zh": "准备",
+    "zh_door": "入门之前"
+   },
+   {
+    "companion_en": "Walk the first year with them: adjusting, courses, the first project, the first failure.",
+    "companion_zh": "第一年有人同行：适应、选课、第一个项目、第一次失败。",
+    "door": "the door",
+    "doors": [
+     {
+      "en": "Education door (school admission)",
+      "id": "school",
+      "zh": "教育之门（升学录取）"
+     },
+     {
+      "en": "Business door (company hiring)",
+      "id": "company",
+      "zh": "商业之门（企业招聘）"
+     }
+    ],
+    "en": "Enter",
+    "id": "enter",
+    "pain_en": "I got in, and now I'm more anxious: everyone here seems stronger.",
+    "pain_zh": "进了名校/大厂，反而更焦虑：周围人都比我强。",
+    "who_en": "students in admission season, new hires",
+    "who_zh": "录取季的学生、拿到 offer 的新人",
+    "zh": "入门",
+    "zh_door": "入门"
+   },
+   {
+    "companion_en": "One honest conversation a month, plus one next step that can be checked.",
+    "companion_zh": "每月一次真话对话 + 一个可以检验的下一步。",
+    "door": "through the door",
+    "en": "Grow",
+    "id": "grow",
+    "pain_en": "How do I grow skill and leadership? What is worth learning when AI keeps changing?",
+    "pain_zh": "专业能力和领导力怎么长？AI 时代学什么才不白学？",
+    "who_en": "students, graduate students, first three years at work",
+    "who_zh": "在读学生、研究生、职场前三年",
+    "zh": "成长",
+    "zh_door": "门内成长"
+   },
+   {
+    "companion_en": "The alumni network opens doors: referrals, cofounders, first users.",
+    "companion_zh": "校友网络开门：内推、合伙人、第一批用户。",
+    "door": "beyond the door",
+    "en": "Launch",
+    "id": "launch",
+    "pain_en": "A job or a venture? How do I live outside the big-company story?",
+    "pain_zh": "就业还是创业？大公司的叙事之外，我还能怎么活？",
+    "who_en": "graduates, career changers, founders",
+    "who_zh": "毕业生、转行者、创业者",
+    "zh": "出发",
+    "zh_door": "出门之时"
+   },
+   {
+    "companion_en": "Become the next person's companion: the flywheel completes one turn.",
+    "companion_zh": "成为下一个人的同行者：飞轮转完一圈。",
+    "door": "holding the door",
+    "en": "Give back",
+    "id": "give",
+    "pain_en": "I made it through. How do I help the next person?",
+    "pain_zh": "我走过来了，怎么帮下一个人少走弯路？",
+    "who_en": "anyone who has walked the first four stages",
+    "who_zh": "走过前面四步的人",
+    "zh": "回馈",
+    "zh_door": "为后来者扶门"
+   }
+  ]
+ },
+ "boundaries": {
+  "rules": [
+   {
+    "en": "Faith is an invitation, never pressure. Never claim to know God's will for someone. Respect every belief and unbelief.",
+    "id": "invitation",
+    "zh": "信仰是邀请，从不施压。不替任何人宣称\"神的旨意\"。尊重每个人的信仰和不信。"
+   },
+   {
+    "en": "For self-harm, depression or a health crisis, refer at once to qualified help (local emergency number, campus counselling, a doctor). A companion is not a therapist.",
+    "id": "qualified-help",
+    "zh": "遇到自伤、抑郁、身体危机，立刻转介专业帮助（当地急救电话、学校心理中心、医生）。同行者不是治疗师。"
+   },
+   {
+    "checked": "guardian_for_minors",
+    "en": "A seeker under 18 must have an informed parent or guardian, who knows when and with whom any one-to-one online conversation happens.",
+    "id": "minors",
+    "zh": "未满 18 岁的同行对象，必须有一位知情的父母或监护人；线上一对一对话须让监护人知道时间和对象。"
+   },
+   {
+    "checked": "no_contact_fields",
+    "en": "Repo and circle files use pseudonyms plus year/field only. Never real names, phone numbers, emails, WeChat ids or ID numbers.",
+    "id": "pseudonyms",
+    "zh": "仓库和圈子文件里只用化名和年级/领域，不写真名、电话、邮箱、微信号、身份证号。"
+   },
+   {
+    "checked": "next_step_on_conversation",
+    "en": "Every conversation ends with one written next step that can be checked.",
+    "id": "next-step",
+    "zh": "每次对话都以一个写下来、可检验的下一步结束。"
+   },
+   {
+    "en": "Companionship is free, sells nothing, and refers to no paid agents. Refer only people you actually know.",
+    "id": "no-money",
+    "zh": "同行不收费、不推销、不介绍有偿中介。内推只推荐你真正了解的人。"
+   },
+   {
+    "en": "A circle is a volunteer alumni group and does not represent any university or company.",
+    "id": "not-affiliated",
+    "zh": "圈子是校友自发组织，不代表任何大学或公司。"
+   }
+  ]
+ },
+ "charter": {
+  "federation": {
+   "autonomy": {
+    "en": "Each school's hive runs itself: its own people, data, site and rhythm.",
+    "zh": "每个学校的蜂巢独立运营：自己的人、自己的数据、自己的网站、自己的节奏。"
+   },
+   "exit": {
+    "en": "Any hive may fork and leave at any time, with all of its data.",
+    "zh": "任何蜂巢随时可以分叉（fork）离开，带走自己的全部数据。"
+   },
+   "shared": {
+    "en": "The charter (this file), how the North Star is computed, and the open-source code.",
+    "zh": "宪章（本文件）、北极星的计算方法、开源代码。"
+   },
+   "vote": {
+    "en": "Changing the charter needs 2/3 of registered hives, one hive one vote.",
+    "zh": "修改宪章需 2/3 的在册蜂巢同意，一巢一票。"
+   }
+  },
+  "north_star": {
+   "en": "Every student, every season, is the CEO of something they love, while coaching others and being coached.",
+   "measure": "role_switchers",
+   "zh": "每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。"
+  },
+  "philosophy": [
+   {
+    "en": "Everyone has a calling and worth that no technology changes. AI is an amplifier, not a replacement.",
+    "id": "calling",
+    "zh": "每个人都有呼召和价值，不因任何技术而改变。AI 是放大器，不是替代者。"
+   },
+   {
+    "en": "We are companions, not only door-openers: spirit, mind, heart and strategy, walked together.",
+    "id": "companion",
+    "zh": "我们是同行者，不只是开门人：灵、智、情、策，四个方面一起走。"
+   },
+   {
+    "en": "One person plays different roles in different cells: advisor, core teammate, apprentice. Roles flow with your stage; none is fixed.",
+    "id": "three-roles",
+    "zh": "同一个人在不同的蜂房里扮演不同角色：顾问、核心队员、学徒。角色随阶段流动，不固定。"
+   },
+   {
+    "en": "At any time, you are the CEO of something you have a vision and a conviction for.",
+    "id": "always-ceo",
+    "zh": "任何时候，你都是某件你有异象、有信念之事的 CEO。"
+   }
+  ],
+  "principles": [
+   {
+    "checked": "cell_shape",
+    "en": "A cell = 1 CEO + 2-3 advisors + 2-3 core teammates + 2-3 apprentices, for one season (about 3 months).",
+    "id": "P1-cell-shape",
+    "zh": "一个蜂房 = 1 位 CEO + 2–3 位顾问 + 2–3 位核心队员 + 2–3 位学徒，一季（约 3 个月）为期。"
+   },
+   {
+    "checked": "vision_and_good",
+    "en": "Write what success looks like before acting. Every cell has a one-line vision and one checkable success criterion.",
+    "id": "P2-criteria-first",
+    "zh": "先写\"怎样算成功\"，再开始做。每个蜂房有一句异象和一条可检验的成功标准。"
+   },
+   {
+    "checked": "closed_has_evidence",
+    "en": "When a season ends, the result says what was observed, not what was hoped.",
+    "id": "P3-evidence",
+    "zh": "一季结束，结果要写\"看到了什么\"，不写\"希望什么\"。"
+   },
+   {
+    "checked": "checkin_next_step",
+    "en": "Every check-in ends with one written next step that can be checked.",
+    "id": "P4-next-step",
+    "zh": "每次碰头都以一个写下来、可检验的下一步结束。"
+   },
+   {
+    "checked": "capacity",
+    "en": "One person holds at most 3 roles a season, and at most 1 CEO role. Passion must be sustainable.",
+    "id": "P5-capacity",
+    "zh": "一个人一季最多 3 个角色，最多 1 个 CEO 角色。热情要能持续。"
+   },
+   {
+    "checked": "safety",
+    "en": "Minors have an informed guardian; data uses pseudonyms only; crises go to qualified help; faith is an invitation, never pressure.",
+    "id": "P6-safety",
+    "zh": "未成年人有知情的监护人；数据只用化名；危机转介专业帮助；信仰是邀请，从不施压。"
+   },
+   {
+    "en": "No fees, no selling, no tokens.",
+    "id": "P7-free",
+    "zh": "不收费、不推销、不发币。"
+   }
+  ],
+  "version": "1.0.0"
+ },
+ "charter_sha256": "4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30",
+ "compass": {
+  "amplifier": [
+   {
+    "en": "Do the same work faster: AI is your tool.",
+    "x": "×10",
+    "zh": "同样的事做得更快：AI 是你的工具。"
+   },
+   {
+    "en": "Turn your experience into a small product or service for a hundred people with your pain.",
+    "x": "×100",
+    "zh": "把你的经历做成一个小产品或服务，帮到一百个和你有同样痛点的人。"
+   },
+   {
+    "en": "Build it with others: your conviction becomes their starting point.",
+    "x": "×1000",
+    "zh": "带一群人一起做：你的信念成为别人的起点。"
+   }
+  ],
+  "golden": [
+   {
+    "answers": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "levels": {
+     "heart": "frozen",
+     "mind": "frozen",
+     "spirit": "frozen",
+     "strategy": "frozen"
+    },
+    "start": "spirit"
+   },
+   {
+    "answers": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "levels": {
+     "heart": "amplified",
+     "mind": "amplified",
+     "spirit": "amplified",
+     "strategy": "amplified"
+    },
+    "start": null
+   },
+   {
+    "answers": [
+     3,
+     2,
+     1,
+     1,
+     2,
+     0,
+     3,
+     3
+    ],
+    "levels": {
+     "heart": "shaken",
+     "mind": "shaken",
+     "spirit": "standing",
+     "strategy": "amplified"
+    },
+    "start": "mind"
+   },
+   {
+    "answers": [
+     2,
+     1,
+     3,
+     3,
+     0,
+     1,
+     2,
+     2
+    ],
+    "levels": {
+     "heart": "frozen",
+     "mind": "amplified",
+     "spirit": "shaken",
+     "strategy": "standing"
+    },
+    "start": "heart"
+   }
+  ],
+  "levels": [
+   {
+    "en": "Frozen",
+    "hint_en": "Don't plan yet. First, tell one person the truth.",
+    "hint_zh": "先别急着规划，先找一个人说真话。",
+    "id": "frozen",
+    "max": 1,
+    "min": 0,
+    "zh": "冻住"
+   },
+   {
+    "en": "Shaken",
+    "hint_en": "You're already looking for a way. A companion makes this step shorter.",
+    "hint_zh": "你已经在找路了，一位同行者能让这一步变短。",
+    "id": "shaken",
+    "max": 3,
+    "min": 2,
+    "zh": "动摇"
+   },
+   {
+    "en": "Standing",
+    "hint_en": "The ground is there. Next: amplify it, and bring one person with you.",
+    "hint_zh": "根基在。下一步是把它放大，并带上一个人。",
+    "id": "standing",
+    "max": 5,
+    "min": 4,
+    "zh": "站稳"
+   },
+   {
+    "en": "Amplified",
+    "hint_en": "You could be someone else's companion now.",
+    "hint_zh": "你可以成为别人的同行者了。",
+    "id": "amplified",
+    "max": 6,
+    "min": 6,
+    "zh": "放大"
+   }
+  ],
+  "questions": [
+   {
+    "dim": "spirit",
+    "en": "I believe my worth does not depend on whether AI can replace my work.",
+    "id": "s1",
+    "zh": "我相信我的价值不取决于 AI 能不能替代我的工作。"
+   },
+   {
+    "dim": "spirit",
+    "en": "I roughly know which people I want to solve which problem for in my life.",
+    "id": "s2",
+    "zh": "我大概知道，我这一生想为哪一群人解决什么问题。"
+   },
+   {
+    "dim": "mind",
+    "en": "This month I used AI to make something I could not have made before.",
+    "id": "m1",
+    "zh": "这个月我用 AI 做出过一个以前做不出来的东西。"
+   },
+   {
+    "dim": "mind",
+    "en": "I can name one experience others don't have, and one thing it taught me.",
+    "id": "m2",
+    "zh": "我能说出一段别人没有的经历，以及它教会我的一件事。"
+   },
+   {
+    "dim": "heart",
+    "en": "When I think about the future, I can still sleep and eat most of the time.",
+    "id": "h1",
+    "zh": "想到未来时，我大多数时候睡得着、吃得下。"
+   },
+   {
+    "dim": "heart",
+    "en": "There is at least one person I can tell my real fear to.",
+    "id": "h2",
+    "zh": "有至少一个人，我可以对他说出我真正的害怕。"
+   },
+   {
+    "dim": "strategy",
+    "en": "I know which door is next for me (school, a job, or a venture).",
+    "id": "t1",
+    "zh": "我知道我面前的下一扇门是哪一扇（升学、求职或创业）。"
+   },
+   {
+    "dim": "strategy",
+    "en": "I have written one next step I can do this week and check when it's done.",
+    "id": "t2",
+    "zh": "我写下了一个这周就能做、做完能被检验的下一步。"
+   }
+  ],
+  "scale": [
+   {
+    "en": "Not me at all",
+    "score": 0,
+    "zh": "完全不是我"
+   },
+   {
+    "en": "A little",
+    "score": 1,
+    "zh": "有一点像"
+   },
+   {
+    "en": "Mostly",
+    "score": 2,
+    "zh": "大部分是"
+   },
+   {
+    "en": "That's me",
+    "score": 3,
+    "zh": "就是我"
+   }
+  ]
+ },
+ "dimensions": {
+  "dimensions": [
+   {
+    "companion_en": "Help them believe everyone has a calling and worth that no technology changes. Faith is an invitation, never pressure.",
+    "companion_zh": "帮他相信：每个人都有呼召和价值，不因任何技术而改变。信仰是邀请，从不强加。",
+    "en": "Spirit · identity and calling",
+    "icon": "🕊",
+    "id": "spirit",
+    "question_en": "Who am I, and why am I here?",
+    "question_zh": "我是谁？我为什么在这里？",
+    "zh": "灵 · 身份与呼召"
+   },
+   {
+    "companion_en": "Connect one real skill to AI tools together, and make one thing they can show someone.",
+    "companion_zh": "一起把一项真实技能和 AI 工具接起来，做出一个能给人看的东西。",
+    "en": "Mind · skills and AI fluency",
+    "icon": "🧠",
+    "id": "mind",
+    "question_en": "What can I do, and how far can AI multiply it?",
+    "question_zh": "我会什么？AI 能把它放大多少倍？",
+    "zh": "智 · 能力与 AI 素养"
+   },
+   {
+    "companion_en": "Listen first. Sleep, movement and friends count. In a crisis, refer to qualified help.",
+    "companion_zh": "先听，后说。睡眠、运动、朋友都算数。遇到危机，转介专业帮助。",
+    "en": "Heart · emotions, relationships and body",
+    "icon": "❤️",
+    "id": "heart",
+    "question_en": "Am I okay, and who is beside me?",
+    "question_zh": "我还好吗？谁在我身边？",
+    "zh": "情 · 情绪、关系与身体"
+   },
+   {
+    "companion_en": "Every conversation ends with one written next step that can be checked.",
+    "companion_zh": "每次对话结束，都有一个写下来的、可以检验的下一步。",
+    "en": "Strategy · path and next step",
+    "icon": "🧭",
+    "id": "strategy",
+    "question_en": "Which door is next, and what is the next step?",
+    "question_zh": "下一扇门是哪扇？下一步是什么？",
+    "zh": "策 · 路径与下一步"
+   }
+  ]
+ },
+ "honeycomb": {
+  "capacity": {
+   "ceo_per_season": 1,
+   "roles_per_season": 3
+  },
+  "cell": {
+   "advisors": {
+    "max": 3,
+    "min": 2
+   },
+   "apprentices": {
+    "max": 3,
+    "min": 2
+   },
+   "core": {
+    "max": 3,
+    "min": 2
+   },
+   "statuses": [
+    "forming",
+    "active",
+    "closed"
+   ]
+  },
+  "roles": [
+   {
+    "en": "CEO",
+    "icon": "👑",
+    "id": "ceo",
+    "who_en": "The one with the vision and the conviction. Recruits the team, owns the result. A student or an alumnus.",
+    "who_zh": "有异象、有信念的那个人。招募队员，对结果负责。学生或校友都可以。",
+    "zh": "CEO"
+   },
+   {
+    "en": "Advisor",
+    "icon": "🦉",
+    "id": "advisor",
+    "must_be": "alumnus",
+    "who_en": "Someone who has walked this road. An alumnus of this school or another; meets at least monthly.",
+    "who_zh": "走过这条路的人。本校或外校校友，每月至少一次碰头。",
+    "zh": "顾问"
+   },
+   {
+    "en": "Core",
+    "icon": "🛡",
+    "id": "core",
+    "who_en": "Peers like a Navy SEAL team, who make the thing happen with the CEO.",
+    "who_zh": "像海豹突击队一样的同伴，和 CEO 一起把事情做成。",
+    "zh": "核心队员"
+   },
+   {
+    "en": "Apprentice",
+    "icon": "🌱",
+    "id": "apprentice",
+    "who_en": "A newcomer who learns by doing alongside. Next season they may be a CEO.",
+    "who_zh": "跟着做、跟着学的后来者。下一季可能就是 CEO。",
+    "zh": "学徒"
+   }
+  ],
+  "season": {
+   "college_total": 12,
+   "en": "A season is about 3 months. Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.",
+   "months": 3,
+   "per_year": 3,
+   "zh": "一季约 3 个月。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。"
+  }
+ },
+ "strategy": {
+  "targets": [
+   {
+    "due": "2026-12-19",
+    "id": "T1",
+    "measure": "active_cells",
+    "target": 2,
+    "why": "Two full cells (CEO + 2-3 advisors + 2-3 core + 2-3 apprentices) meeting = the honeycomb is real, not a WeChat group."
+   },
+   {
+    "due": "2027-03-31",
+    "id": "T2",
+    "measure": "role_switchers",
+    "target": 3,
+    "why": "Three people who held two different roles (e.g. CEO in one cell, apprentice in another) = the North Star moves."
+   },
+   {
+    "due": "2027-06-30",
+    "id": "T3",
+    "measure": "hives",
+    "target": 2,
+    "why": "A second school runs its own hive under the same charter = the federation exists, not just one club."
+   }
+  ],
+  "tripwire": "If T1 is below 1 on 2026-12-19, do not add a second school, a token, or any feature. Ask the people who stopped what stopped them, and build that.\n"
+ },
+ "version": "0.1.0"
+}
