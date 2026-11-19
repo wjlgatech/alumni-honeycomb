@@ -1,3 +1,4 @@
-# Where the site lives. tests/test_docs.py asserts the README carries this exact URL at the top.
+# Where the site lives. tests/test_docs.py asserts the README carries these exact URLs at the top.
 live_url: https://alumni-honeycomb.vercel.app
+mirror_url: https://wjlgatech.github.io/alumni-honeycomb
 repo_url: https://github.com/wjlgatech/alumni-honeycomb
