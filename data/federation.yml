@@ -1,0 +1,20 @@
+# The federation registry: which hives exist and which charter they signed.
+# A hive joins by pull request: add a row here, with its charter_sha256 equal to a known charter hash.
+# `python -m honeycomb federation check` verifies every row. Aggregate numbers only; never names.
+charters:
+  - version: 1.0.0
+    sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30   # = sha256(data/charter.yml); `python -m honeycomb federation hash`
+hives:
+  - id: example
+    school_zh: 示例大学（模拟）
+    school_en: Example University (simulated)
+    operator: Organizer (sim)
+    charter_version: 1.0.0
+    status: simulated
+    path: hives/example/hive.yml
+proposals: []
+#  - id: CP-001
+#    title: ...
+#    diff: the charter change, as a PR link
+#    votes: {example: yes}
+#    status: open | ratified | rejected   # ratified when yes >= 2/3 of registered, non-simulated hives

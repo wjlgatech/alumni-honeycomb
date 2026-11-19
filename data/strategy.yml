@@ -1,0 +1,22 @@
+# The 10X, defined so it can fail. Computed by `python -m honeycomb pulse <hive>` (honeycomb/pulse.py)
+# and `python -m honeycomb federation check` (hives). The first real hive is Paul's circle: his own kids,
+# his schoolmates' kids, and SYSU students (kept in hives-private/, never committed).
+targets:
+  - id: T1
+    measure: active_cells
+    target: 2
+    due: 2026-12-19
+    why: Two full cells (CEO + 2-3 advisors + 2-3 core + 2-3 apprentices) meeting = the honeycomb is real, not a WeChat group.
+  - id: T2
+    measure: role_switchers
+    target: 3
+    due: 2027-03-31
+    why: Three people who held two different roles (e.g. CEO in one cell, apprentice in another) = the North Star moves.
+  - id: T3
+    measure: hives
+    target: 2
+    due: 2027-06-30
+    why: A second school runs its own hive under the same charter = the federation exists, not just one club.
+tripwire: >
+  If T1 is below 1 on 2026-12-19, do not add a second school, a token, or any feature. Ask the people who
+  stopped what stopped them, and build that.

@@ -1,0 +1,7 @@
+# Real hive rosters never go in git (charter P6). Keep them here.
+hives-private/
+__pycache__/
+.pytest_cache/
+.vercel
+.DS_Store
+data/quality-history.jsonl

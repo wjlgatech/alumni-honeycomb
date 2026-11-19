@@ -1,0 +1,75 @@
+# A SIMULATED hive so the tools have something to run on. Every person is fictional ("(sim)").
+# A real hive keeps its file OUT of git (hives-private/<school>.yml is gitignored) and publishes only
+# aggregate numbers: `python -m honeycomb pulse hives-private/<school>.yml --json > pulse.json`.
+hive:
+  id: example
+  school_zh: 示例大学（模拟）
+  school_en: Example University (simulated)
+  simulated: true
+  operator: Organizer (sim)
+  charter: {version: 1.0.0, sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30}
+
+members:
+  # type: student | alumnus.  school: lets advisors come from another school.
+  - {id: a-lin, name: Lin (sim), type: alumnus, school: example, class_of: 2005, field: software, languages: [zh, en], strengths: [mind, strategy]}
+  - {id: a-chen, name: Chen (sim), type: alumnus, school: example, class_of: 1998, field: medicine, languages: [zh], strengths: [heart, spirit]}
+  - {id: a-wang, name: Wang (sim), type: alumnus, school: example, class_of: 2010, field: finance, languages: [zh, en], strengths: [strategy]}
+  - {id: a-zhao, name: Zhao (sim), type: alumnus, school: other-university, class_of: 2001, field: education, languages: [zh, en], strengths: [spirit, heart]}
+  - {id: s-mei, name: Mei (sim), type: student, year: 3, field: physics, languages: [zh, en], age_band: adult}
+  - {id: s-jun, name: Jun (sim), type: student, year: 2, field: computer science, languages: [zh], age_band: adult}
+  - {id: s-ying, name: Ying (sim), type: student, year: 4, field: biology, languages: [zh, en], age_band: adult}
+  - {id: s-tao, name: Tao (sim), type: student, year: 1, field: economics, languages: [zh], age_band: adult}
+  - {id: s-hao, name: Hao (sim), type: student, year: 0, field: undecided, languages: [zh], age_band: under18, guardian: Parent of Hao (sim)}
+  - {id: s-xin, name: Xin (sim), type: student, year: 1, field: design, languages: [zh], age_band: adult}
+
+seasons:
+  - {id: 2026-S3, start: 2026-06-01, end: 2026-08-31}
+  - {id: 2026-S4, start: 2026-10-01, end: 2026-12-31}
+
+cells:
+  - id: c-ai-tutor
+    season: 2026-S3
+    status: closed
+    ceo: s-ying
+    vision: An AI-assisted biology study group that helps first-years pass the hardest course
+    good: "Good: 6 first-years use it weekly for 6 weeks and all pass the mid-term"
+    advisors: [a-lin, a-chen]
+    core: [s-mei, s-tao]
+    apprentices: [s-jun, s-xin]
+    outcome:
+      evidence: "7 first-years used it weekly for 5 weeks (sign-in sheet); 6 of 7 passed the mid-term (self-reported)"
+      learned: Weekly use dropped after week 5 when exams moved; next time align with the exam calendar
+  - id: c-physics-ai
+    season: 2026-S4
+    status: active
+    ceo: s-mei
+    vision: Help high-school students see physics with AI-made simulations they build themselves
+    good: "Good: 3 high-schoolers each build one simulation and explain it to their class"
+    advisors: [a-lin, a-zhao]
+    core: [s-jun, s-ying]
+    apprentices: [s-hao, s-xin]
+  - id: c-food-waste
+    season: 2026-S4
+    status: active
+    ceo: s-jun
+    vision: Cut canteen food waste with a pre-order app the canteen actually uses
+    good: "Good: the canteen runs the pre-order for 4 weeks and logged waste falls by 20%"
+    advisors: [a-wang, a-chen]
+    core: [s-mei, s-tao]
+    apprentices: [s-ying, s-hao]
+  - id: c-calling-salon
+    season: 2026-S4
+    status: forming
+    ceo: a-zhao
+    vision: A monthly salon where alumni and students talk honestly about AI, fear and calling
+    good: "Good: 3 salons, 12+ students each, and 5 students ask to join a cell"
+    advisors: [a-chen]
+    core: []
+    apprentices: []
+
+checkins:
+  - {cell: c-ai-tutor, date: 2026-07-10, next_step: "Recruit 6 first-years at orientation"}
+  - {cell: c-physics-ai, date: 2026-10-20, dims: [mind, strategy], next_step: "Each core member drafts one simulation idea"}
+  - {cell: c-physics-ai, date: 2026-11-10, dims: [mind, heart], next_step: "Hao presents his pendulum demo to two classmates"}
+  - {cell: c-food-waste, date: 2026-10-28, dims: [strategy], next_step: "Interview the canteen manager with 5 questions"}
+  - {cell: c-food-waste, date: 2026-11-14, dims: [strategy, spirit], next_step: "Paper prototype tested with 10 students at lunch"}

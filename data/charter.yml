@@ -1,0 +1,63 @@
+# The CHARTER is the shared protocol of the federation: the only thing every hive must hold in common.
+# Everything not written here is the hive's own decision (subsidiarity).
+# A hive "signs" by putting this file's SHA-256 (`python -m honeycomb federation hash`) in its hive.yml.
+# Changing this file changes the hash, so a change is a proposal (data/federation.yml) ratified by hives.
+version: 1.0.0
+north_star:
+  zh: 每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。
+  en: Every student, every season, is the CEO of something they love, while coaching others and being coached.
+  measure: role_switchers   # people who held 2+ different roles; computed by honeycomb/pulse.py
+philosophy:
+  - id: calling
+    zh: 每个人都有呼召和价值，不因任何技术而改变。AI 是放大器，不是替代者。
+    en: Everyone has a calling and worth that no technology changes. AI is an amplifier, not a replacement.
+  - id: companion
+    zh: 我们是同行者，不只是开门人：灵、智、情、策，四个方面一起走。
+    en: "We are companions, not only door-openers: spirit, mind, heart and strategy, walked together."
+  - id: three-roles
+    zh: 同一个人在不同的蜂房里扮演不同角色：顾问、核心队员、学徒。角色随阶段流动，不固定。
+    en: "One person plays different roles in different cells: advisor, core teammate, apprentice. Roles flow with your stage; none is fixed."
+  - id: always-ceo
+    zh: 任何时候，你都是某件你有异象、有信念之事的 CEO。
+    en: At any time, you are the CEO of something you have a vision and a conviction for.
+principles:
+  - id: P1-cell-shape
+    zh: 一个蜂房 = 1 位 CEO + 2–3 位顾问 + 2–3 位核心队员 + 2–3 位学徒，一季（约 3 个月）为期。
+    en: A cell = 1 CEO + 2-3 advisors + 2-3 core teammates + 2-3 apprentices, for one season (about 3 months).
+    checked: cell_shape
+  - id: P2-criteria-first
+    zh: 先写"怎样算成功"，再开始做。每个蜂房有一句异象和一条可检验的成功标准。
+    en: Write what success looks like before acting. Every cell has a one-line vision and one checkable success criterion.
+    checked: vision_and_good
+  - id: P3-evidence
+    zh: 一季结束，结果要写"看到了什么"，不写"希望什么"。
+    en: When a season ends, the result says what was observed, not what was hoped.
+    checked: closed_has_evidence
+  - id: P4-next-step
+    zh: 每次碰头都以一个写下来、可检验的下一步结束。
+    en: Every check-in ends with one written next step that can be checked.
+    checked: checkin_next_step
+  - id: P5-capacity
+    zh: 一个人一季最多 3 个角色，最多 1 个 CEO 角色。热情要能持续。
+    en: One person holds at most 3 roles a season, and at most 1 CEO role. Passion must be sustainable.
+    checked: capacity
+  - id: P6-safety
+    zh: 未成年人有知情的监护人；数据只用化名；危机转介专业帮助；信仰是邀请，从不施压。
+    en: Minors have an informed guardian; data uses pseudonyms only; crises go to qualified help; faith is an invitation, never pressure.
+    checked: safety
+  - id: P7-free
+    zh: 不收费、不推销、不发币。
+    en: No fees, no selling, no tokens.
+federation:
+  autonomy:
+    zh: 每个学校的蜂巢独立运营：自己的人、自己的数据、自己的网站、自己的节奏。
+    en: "Each school's hive runs itself: its own people, data, site and rhythm."
+  shared:
+    zh: 宪章（本文件）、北极星的计算方法、开源代码。
+    en: The charter (this file), how the North Star is computed, and the open-source code.
+  vote:
+    zh: 修改宪章需 2/3 的在册蜂巢同意，一巢一票。
+    en: Changing the charter needs 2/3 of registered hives, one hive one vote.
+  exit:
+    zh: 任何蜂巢随时可以分叉（fork）离开，带走自己的全部数据。
+    en: Any hive may fork and leave at any time, with all of its data.

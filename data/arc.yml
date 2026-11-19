@@ -1,0 +1,71 @@
+# The arc: five stages a person walks through, and the loop that makes it compound.
+# The last stage ("give") feeds the first: today's seeker is tomorrow's companion.
+# Generated into web/data.json by `make build`. Edit here, never in web/.
+stages:
+  - id: prepare
+    zh: 准备
+    en: Prepare
+    door: before the door
+    zh_door: 入门之前
+    who_zh: 高中生、申请者、求职者
+    who_en: high-schoolers, applicants, job seekers
+    pain_zh: AI 会不会让我还没开始就被淘汰？选什么专业、哪条路？
+    pain_en: Will AI make me obsolete before I start? Which major, which path?
+    companion_zh: 帮他看见自己独特的经历和信念，而不只是分数。
+    companion_en: Help them see their unique experience and conviction, not just their scores.
+  - id: enter
+    zh: 入门
+    en: Enter
+    door: the door
+    zh_door: 入门
+    who_zh: 录取季的学生、拿到 offer 的新人
+    who_en: students in admission season, new hires
+    pain_zh: 进了名校/大厂，反而更焦虑：周围人都比我强。
+    pain_en: "I got in, and now I'm more anxious: everyone here seems stronger."
+    companion_zh: 第一年有人同行：适应、选课、第一个项目、第一次失败。
+    companion_en: "Walk the first year with them: adjusting, courses, the first project, the first failure."
+    doors:
+      - id: school
+        zh: 教育之门（升学录取）
+        en: Education door (school admission)
+      - id: company
+        zh: 商业之门（企业招聘）
+        en: Business door (company hiring)
+  - id: grow
+    zh: 成长
+    en: Grow
+    door: through the door
+    zh_door: 门内成长
+    who_zh: 在读学生、研究生、职场前三年
+    who_en: students, graduate students, first three years at work
+    pain_zh: 专业能力和领导力怎么长？AI 时代学什么才不白学？
+    pain_en: How do I grow skill and leadership? What is worth learning when AI keeps changing?
+    companion_zh: 每月一次真话对话 + 一个可以检验的下一步。
+    companion_en: One honest conversation a month, plus one next step that can be checked.
+  - id: launch
+    zh: 出发
+    en: Launch
+    door: beyond the door
+    zh_door: 出门之时
+    who_zh: 毕业生、转行者、创业者
+    who_en: graduates, career changers, founders
+    pain_zh: 就业还是创业？大公司的叙事之外，我还能怎么活？
+    pain_en: A job or a venture? How do I live outside the big-company story?
+    companion_zh: 校友网络开门：内推、合伙人、第一批用户。
+    companion_en: "The alumni network opens doors: referrals, cofounders, first users."
+  - id: give
+    zh: 回馈
+    en: Give back
+    door: holding the door
+    zh_door: 为后来者扶门
+    who_zh: 走过前面四步的人
+    who_en: anyone who has walked the first four stages
+    pain_zh: 我走过来了，怎么帮下一个人少走弯路？
+    pain_en: I made it through. How do I help the next person?
+    companion_zh: 成为下一个人的同行者：飞轮转完一圈。
+    companion_en: "Become the next person's companion: the flywheel completes one turn."
+loop:
+  from: give
+  to: prepare
+  zh: 今天的同行对象，是明天的同行者。
+  en: Today's seeker is tomorrow's companion.

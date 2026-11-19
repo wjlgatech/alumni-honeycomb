@@ -1,0 +1,41 @@
+# The honeycomb model: roles, the shape of a cell, and the season clock.
+roles:
+  - id: ceo
+    icon: "👑"
+    zh: CEO
+    en: CEO
+    who_zh: 有异象、有信念的那个人。招募队员，对结果负责。学生或校友都可以。
+    who_en: The one with the vision and the conviction. Recruits the team, owns the result. A student or an alumnus.
+  - id: advisor
+    icon: "🦉"
+    zh: 顾问
+    en: Advisor
+    who_zh: 走过这条路的人。本校或外校校友，每月至少一次碰头。
+    who_en: Someone who has walked this road. An alumnus of this school or another; meets at least monthly.
+    must_be: alumnus
+  - id: core
+    icon: "🛡"
+    zh: 核心队员
+    en: Core
+    who_zh: 像海豹突击队一样的同伴，和 CEO 一起把事情做成。
+    who_en: Peers like a Navy SEAL team, who make the thing happen with the CEO.
+  - id: apprentice
+    icon: "🌱"
+    zh: 学徒
+    en: Apprentice
+    who_zh: 跟着做、跟着学的后来者。下一季可能就是 CEO。
+    who_en: A newcomer who learns by doing alongside. Next season they may be a CEO.
+cell:
+  advisors: {min: 2, max: 3}
+  core: {min: 2, max: 3}
+  apprentices: {min: 2, max: 3}
+  statuses: [forming, active, closed]
+season:
+  months: 3
+  per_year: 3      # spring, summer-light, autumn; a hive may choose 4
+  college_total: 12
+  zh: 一季约 3 个月。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。
+  en: A season is about 3 months. Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.
+capacity:
+  roles_per_season: 3
+  ceo_per_season: 1

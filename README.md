@@ -1,0 +1,152 @@
+# 🐝 Alumni Honeycomb · 校友蜂巢
+
+**Live:** https://alumni-honeycomb.vercel.app · 中文 first, English one tap away · installable on any phone
+
+> **Every student, every season, is the CEO of something they love, while coaching others and being coached.**
+> 每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。
+
+An open-source kit for an **international alumni ecosystem**. Alumni walk with students before the door
+(admission, hiring), through it (professional and leadership growth) and beyond it (jobs and ventures). They walk as
+companions in **spirit, mind, heart and strategy**, not only as people who open a door. Each school runs its own
+**hive**, and all hives keep one shared **charter**.
+
+Read it in three levels. Stop when you have what you need.
+
+---
+
+## Level 1 · The concept (one minute)
+
+**Why.** Many students we met in China fear that AI will make them obsolete before they start. These were our
+schoolmates' children and students at SYSU, Peking, Tsinghua, Fudan, Zhejiang and other universities. We believe
+everyone has a calling and worth that no technology changes. AI is an amplifier: one person's unique experience and
+conviction, multiplied ×10, ×100 or ×1000, can walk them out of the old script.
+
+**The picture: a honeycomb.** Picture a small kitchen brigade that cooks one dish for one season. One person had the
+idea and leads it (the **CEO**). Two or three experienced chefs drop by to guide (the **advisors**, who are alumni). Two
+or three teammates cook alongside (the **core**). Two or three newcomers learn by doing (the **apprentices**). Next
+season the same person may be an apprentice in a friend's kitchen and an advisor in a third. Over four years of college
+that is about **12 seasons**: 12 times coached, many more times coaching others, and 12 things led.
+
+```
+        🦉 advisor   🦉 advisor
+   🛡 core     👑 CEO     🛡 core          one cell = 1 CEO + 2–3 advisors + 2–3 core + 2–3 apprentices
+        🌱 apprentice 🌱 apprentice         one season = 3 months · roles switch between cells
+```
+
+**The rule that makes it different:** at any time, you are the CEO of *something* you have a vision and a conviction
+for. Roles flow with your stage of growth. None of them is fixed.
+
+---
+
+## Level 2 · The architecture (ten minutes)
+
+Three layers, smallest first:
+
+| Layer | Plain idea | Exact handle |
+|---|---|---|
+| 🔶 **Cell** | one team, one thing, one season | `cells[]` in a hive file: `ceo`, `advisors`, `core`, `apprentices`, `vision`, `good`, `status` |
+| 🐝 **Hive** | one school runs itself | one YAML file per school, `hives-private/<school>.yml` (never committed) |
+| 🌐 **Federation** | all hives keep one charter; nobody gives orders | `data/charter.yml` (signed by SHA-256) + `data/federation.yml` (registry, proposals) |
+
+```mermaid
+flowchart LR
+  C["🌐 Charter<br/>North Star · P1–P7"] -->|hive signs sha256| H["🐝 Hive<br/>one school"]
+  H --> X["🔶 Cells<br/>CEO + advisors + core + apprentices"]
+  X -->|check-ins → next step<br/>close → evidence| H
+  H -->|pulse: numbers only| F["📊 Federation pulse"]
+  F -->|2/3 of hives vote| C
+```
+
+**Decentralized, without a token.** We keep the ideas of web3 and leave out the chain. The protocol is a file anyone can
+fork. Membership is a hash anyone can verify. Each school owns its data. Rule changes need 2/3 of hives, one hive one vote.
+Any hive can fork and leave. There is no token: it would be illegal in mainland China, and student data must never sit on
+a public ledger. Details: [docs/ARCHITECTURE.md §3](docs/ARCHITECTURE.md), [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
+
+**The committee empowers; it doesn't command.** One steward per hive sits on the Council. It keeps the charter, trains new
+operators, maintains this code and publishes the federation's numbers. It never chooses a hive's members, holds its
+roster or charges anything. [docs/GOVERNANCE.md](docs/GOVERNANCE.md)
+
+**Reachable from China.** The page loads nothing from other domains: no foreign fonts, CDNs or analytics, and a test
+enforces it. The hosting domain is the remaining risk, and it is measured, not assumed: [docs/CHINA-ACCESS.md](docs/CHINA-ACCESS.md).
+
+**The personal first step: the Calling Compass.** Eight questions, two minutes, scored only in your browser. It shows where
+you stand in spirit, mind, heart and strategy, then asks you to write one experience others don't have. That sentence may
+be what you lead as CEO next season.
+
+---
+
+## Level 3 · For implementers and operators
+
+### Run it
+
+```bash
+pip install pyyaml pytest              # the only dependencies
+make check                             # data drift · charter rules · federation · tests · quality floor
+make demo                              # the site at http://127.0.0.1:8799
+python -m honeycomb check   hives/example/hive.yml          # P1–P6 on a hive file; exit 1 on any problem
+python -m honeycomb pulse   hives/example/hive.yml          # vital signs + the 10X targets
+python -m honeycomb recruit hives/example/hive.yml c-calling-salon   # shortlist for empty seats
+python -m honeycomb federation check | hash                  # verify the registry / the charter fingerprint
+python -m honeycomb compass 3 2 1 1 2 0 3 3                  # score 8 compass answers
+```
+
+### A hive file, in one screen
+
+```yaml
+hive:     {id, school_zh, school_en, simulated, operator, charter: {version, sha256}}
+members:  - {id, name, type: student|alumnus, school, field, languages, age_band, guardian}   # pseudonyms only
+seasons:  - {id: 2026-S4, start: 2026-10-01, end: 2026-12-31}
+cells:    - {id, season, status: forming|active|closed, ceo, vision, good: "Good: …",
+             advisors: [2–3 alumni], core: [2–3], apprentices: [2–3], outcome: {evidence, learned}}
+checkins: - {cell, date, dims: [spirit|mind|heart|strategy], next_step}
+```
+
+A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10 people, 4 cells, 2 seasons, 4 role-switchers).
+
+### The charter's principles and the code that enforces them
+
+| Principle | Enforced by |
+|---|---|
+| P1 cell = 1 CEO + 2–3 advisors (alumni) + 2–3 core + 2–3 apprentices, one season | `check.cell_shape` |
+| P2 a vision and a `Good:` success criterion before acting | `check.vision_and_good` |
+| P3 a closed cell records what was observed | `check.closed_has_evidence` |
+| P4 every check-in ends in a written next step | `check.checkin_next_step` |
+| P5 at most 3 roles and 1 CEO role per person per season | `check.capacity` |
+| P6 guardians for minors, pseudonyms, no contact details | `check.safety` |
+| P7 no fees, no selling, no tokens | the Council |
+
+### The 10X, defined so it can fail
+
+| ID | Measure (`honeycomb/pulse.py`) | Target | Due |
+|---|---|---|---|
+| T1 | `active_cells` in the first real hive | ≥ 2 | 2026-12-19 |
+| T2 | `role_switchers` (2+ different roles held) | ≥ 3 | 2027-03-31 |
+| T3 | `hives` registered, non-simulated | ≥ 2 | 2027-06-30 |
+
+If T1 is below 1 on 2026-12-19: no second school, no feature, no token. Ask the people who stopped why. ([docs/SPEC.md](docs/SPEC.md) §0)
+
+### Start a hive at your school
+
+Fork → write `hives-private/<school>.yml` → `check` until green → put `federation hash` in your file → PR one row into
+`data/federation.yml`. Full steps: [docs/GOVERNANCE.md](docs/GOVERNANCE.md#how-a-hive-joins).
+
+### Repo map
+
+| Path | What |
+|---|---|
+| `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
+| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `build`, CLI (`__main__`) |
+| `hives/example/` | a simulated hive; real hives live in `hives-private/` (gitignored) |
+| `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
+| `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [STATUS](docs/STATUS.md) |
+
+### Honest edges
+
+- No server, logins or database yet. A hive of 10–50 people runs on one file and a group chat; the app comes when an operator says the file is the bottleneck.
+- `recruit` is rule-based (shared language, same field, capacity, role eligibility). It drafts a shortlist; the CEO recruits.
+- The example hive is fiction. Its numbers prove the tools run; they are not the 10X.
+- A volunteer alumni project. It does not represent any university or company.
+
+MIT licensed. Lineage: the loop discipline comes from Stanford Eden's core-team app, and the "each engagement compounds the
+next" idea comes from Future Makers Strategic Collab.

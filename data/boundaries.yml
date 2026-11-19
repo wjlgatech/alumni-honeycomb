@@ -1,0 +1,27 @@
+# The companion code. Every circle adopts these as written; `companion check` refuses a circle file
+# that breaks the machine-checkable ones (marked `checked:`).
+rules:
+  - id: invitation
+    zh: 信仰是邀请，从不施压。不替任何人宣称"神的旨意"。尊重每个人的信仰和不信。
+    en: Faith is an invitation, never pressure. Never claim to know God's will for someone. Respect every belief and unbelief.
+  - id: qualified-help
+    zh: 遇到自伤、抑郁、身体危机，立刻转介专业帮助（当地急救电话、学校心理中心、医生）。同行者不是治疗师。
+    en: For self-harm, depression or a health crisis, refer at once to qualified help (local emergency number, campus counselling, a doctor). A companion is not a therapist.
+  - id: minors
+    checked: guardian_for_minors
+    zh: 未满 18 岁的同行对象，必须有一位知情的父母或监护人；线上一对一对话须让监护人知道时间和对象。
+    en: A seeker under 18 must have an informed parent or guardian, who knows when and with whom any one-to-one online conversation happens.
+  - id: pseudonyms
+    checked: no_contact_fields
+    zh: 仓库和圈子文件里只用化名和年级/领域，不写真名、电话、邮箱、微信号、身份证号。
+    en: Repo and circle files use pseudonyms plus year/field only. Never real names, phone numbers, emails, WeChat ids or ID numbers.
+  - id: next-step
+    checked: next_step_on_conversation
+    zh: 每次对话都以一个写下来、可检验的下一步结束。
+    en: Every conversation ends with one written next step that can be checked.
+  - id: no-money
+    zh: 同行不收费、不推销、不介绍有偿中介。内推只推荐你真正了解的人。
+    en: Companionship is free, sells nothing, and refers to no paid agents. Refer only people you actually know.
+  - id: not-affiliated
+    zh: 圈子是校友自发组织，不代表任何大学或公司。
+    en: A circle is a volunteer alumni group and does not represent any university or company.

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>校友蜂巢 · Alumni Honeycomb</title>
+<meta name="description" content="校友蜂巢：每个学生每一季都是自己热爱之事的 CEO，同时有 2–3 位校友顾问、2–3 位核心队员、2–3 位学徒。每所学校独立运营，共守一部宪章。Alumni Honeycomb: every student, every season, is the CEO of something they love, with 2-3 alumni advisors, 2-3 core teammates and 2-3 apprentices. Each school runs its own hive under one shared charter.">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#d97757">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="校友蜂巢">
+<style>
+:root{--bg:#faf9f5;--card:#fff;--soft:#f0eee6;--ink:#141413;--muted:#5e5d59;--line:#e3e0d6;--accent:#d97757;--blue:#6a9bcc;--green:#788c5d;--honey:#e9b949}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1e1b;--card:#2a2925;--soft:#33312c;--ink:#f0eee6;--muted:#b0aea5;--line:#45433d}}
+:root[data-theme="dark"]{--bg:#1f1e1b;--card:#2a2925;--soft:#33312c;--ink:#f0eee6;--muted:#b0aea5;--line:#45433d}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif}
+main{max-width:780px;margin:0 auto;padding:0 16px 48px}
+header{display:flex;align-items:center;gap:10px;max-width:780px;margin:0 auto;padding:14px 16px}
+header img{width:32px;height:32px;border-radius:8px}
+header b{flex:1;font-size:17px}
+button,.chip{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;padding:10px 20px}
+h1{font-size:clamp(26px,6vw,38px);line-height:1.25;margin:18px 0 8px}
+h2{font-size:22px;margin:30px 0 10px}
+h3{font-size:17px;margin:20px 0 6px}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:14px 0}
+summary{cursor:pointer;font-weight:600;font-size:17px}
+.comb{width:100%;max-width:440px;display:block;margin:6px auto}
+.comb text{font:600 14px system-ui,"PingFang SC",sans-serif;fill:#141413}
+.comb .hex{stroke:#141413;stroke-width:2}
+.comb .advisor{fill:#c9d9ea}.comb .core{fill:#f3d9cd}.comb .apprentice{fill:#dde5cf}.comb .ceo{fill:var(--honey)}
+.comb .you{fill:none;stroke:var(--accent);stroke-width:6;animation:hop 9s infinite}
+@keyframes hop{0%,22%{transform:translate(0,0)}25%,47%{transform:translate(90px,0)}50%,72%{transform:translate(-45px,78px)}75%,97%{transform:translate(45px,-78px)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){.comb .you{animation:none}}
+.q{margin:12px 0}.q p{margin:0 0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar{height:10px;background:var(--soft);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green)}
+textarea{width:100%;min-height:72px;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:14px;table-layout:fixed;word-break:break-word}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);padding:10px;border-radius:10px;font-size:13px;line-height:1.45}
+.muted{color:var(--muted);font-size:14px}
+footer{max-width:780px;margin:0 auto;padding:24px 16px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+a{color:var(--accent)}
+code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
+@media print{details{display:block}}
+</style>
+</head>
+<body>
+<header>
+  <img src="/icon.svg" alt="">
+  <b data-t="brand"></b>
+  <button id="install" style="display:none" data-t="install"></button>
+  <button id="lang">EN</button>
+</header>
+<main>
+  <!-- Level 1 · Concept: always open -->
+  <section id="concept">
+    <h1 data-t="h1"></h1>
+    <p class="sub" data-t="sub"></p>
+    <svg class="comb" viewBox="0 0 440 330" role="img" aria-labelledby="combTitle">
+      <title id="combTitle"></title>
+      <g id="hexes"></g>
+      <polygon class="you" points="" id="you"/>
+    </svg>
+    <p style="text-align:center" class="muted" data-t="combCaption"></p>
+    <div class="chips" id="starters"></div>
+    <p><button class="primary" id="goCompass" data-t="takeCompass"></button></p>
+  </section>
+
+  <!-- Level 2 · Architecture -->
+  <details id="architecture">
+    <summary data-t="l2"></summary>
+    <div data-t="archIntro" data-html></div>
+    <div class="grid" id="layers"></div>
+    <h3 data-t="rolesTitle"></h3>
+    <div class="grid" id="roles"></div>
+    <h3 data-t="web3Title"></h3>
+    <table id="web3"></table>
+    <h3 data-t="fourTitle"></h3>
+    <div class="grid" id="dims"></div>
+    <h3 data-t="whyTitle"></h3>
+    <div data-t="why" data-html></div>
+  </details>
+
+  <!-- Level 3 · Implementer details -->
+  <details id="details">
+    <summary data-t="l3"></summary>
+    <h3 data-t="charterTitle"></h3>
+    <p id="northstar"></p>
+    <table id="principles"></table>
+    <p class="muted" id="hash"></p>
+    <h3 data-t="dataTitle"></h3>
+    <pre id="shape"></pre>
+    <h3 data-t="cmdTitle"></h3>
+    <pre id="cmds"></pre>
+    <h3 data-t="tenxTitle"></h3>
+    <div id="tenx"></div>
+    <h3 data-t="joinTitle"></h3>
+    <div data-t="join" data-html></div>
+  </details>
+
+  <!-- The compass: a personal first step -->
+  <section id="compass">
+    <h2 data-t="compassTitle"></h2>
+    <p class="sub" data-t="compassSub"></p>
+    <div id="questions"></div>
+    <div id="result"></div>
+  </section>
+</main>
+<footer>
+  <span data-t="footer"></span>
+  · <a href="https://github.com/wjlgatech/alumni-honeycomb">GitHub</a> · MIT
+</footer>
+<script src="/compass.js"></script>
+<script>
+(function () {
+  var REPO = "https://github.com/wjlgatech/alumni-honeycomb";
+  var T = {
+    zh: {
+      brand: "校友蜂巢", install: "安装到桌面",
+      h1: "每一季，你都是某件你热爱之事的 CEO。",
+      sub: "AI 让很多学生害怕被淘汰。我们相信每个人都有不变的呼召和价值，而 AI 会把你独特的经历放大十倍、百倍。所以校友不只给你开一扇门：每 3 个月，你和 2–3 位同学、在 2–3 位校友的带领下，一起做一件你有信念的事。你辅导别人，也被别人辅导。",
+      combTitle: "一个蜂房：中间是 CEO，上面两位顾问，左右两位核心队员，下面两位学徒",
+      combCaption: "🦉 顾问 · 👑 CEO · 🛡 核心队员 · 🌱 学徒。橙色框就是你：这个蜂房里你是 CEO，那个蜂房里你是队员，另一个里你是学徒，将来你也会当顾问。角色流动，不固定。",
+      takeCompass: "先做 2 分钟的呼召指南针",
+      s_student: "我是学生：我想当 CEO", s_alum: "我是校友：我想当顾问", s_parent: "我是家长：这是什么？", s_school: "我想在我的学校开一个蜂巢",
+      l2: "第二层 · 架构：蜂房、蜂巢、联盟",
+      archIntro: "<p>想象一个蜂巢。<b>蜂房</b>是最小的单位：一件事、一位 CEO、一个季度。<b>蜂巢</b>是一所学校：自己的人、自己的节奏、自己做主。<b>联盟</b>是所有蜂巢共守的一部宪章：同一个北极星、同一套原则、同一份开源代码。没有总部发号施令，只有一份大家都签了名的约定。</p>",
+      rolesTitle: "四个角色（同一个人在不同蜂房里换着当）",
+      web3Title: "去中心化，但不发币：web3 的精神，不用区块链",
+      fourTitle: "同行的四个方面：灵 · 智 · 情 · 策",
+      whyTitle: "为什么做这件事",
+      why: "<p>我们走访中国三周，看到校友的孩子、中山大学和北大、清华、复旦、浙大等学校的学生，都在承受同一种压力：AI 发展太快，好像每个行业都会被颠覆，大规模失业就在眼前。</p><p>我们不害怕，因为我们经历过害怕：担心、焦虑、像被冻住一样动不了，然后从恐惧里站起来。每个人这一生都有呼召，都有价值，无论部署什么技术，这一点不变。</p><p>AI 是放大器和加速器：一个人独特的经历和信念，被放大十倍、百倍、千倍，就能走出旧的心智牢笼。蜂巢模型（约十年前提出）让这件事每一季都发生：你永远是某件事的 CEO，同时是别人的队员和学徒，也慢慢成为别人的顾问。</p><p>我们从自己的孩子开始，再到同学的孩子，再到同一所学校的学弟学妹，然后到更多学校、专业和领域。</p>",
+      l3: "第三层 · 细节：给实施者和执行者",
+      charterTitle: "宪章（每个蜂巢都签的那一份）", northstar: "北极星：",
+      hashNote: "宪章的 SHA-256 指纹（蜂巢签名用）：",
+      dataTitle: "数据长什么样（一个蜂巢 = 一个 YAML 文件，真实名单不进 git）",
+      cmdTitle: "命令", tenxTitle: "怎样知道它真的有用（10X 目标，会失败的那种）",
+      tenxNote: "达不到第一条，就不扩张、不加功能、不发币：先问停下来的人为什么。",
+      joinTitle: "在你的学校开一个蜂巢（5 步）",
+      join: "<ol><li>Fork 开源仓库：<a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>照 <code>hives/example/hive.yml</code> 写你的蜂巢文件，放进 <code>hives-private/</code>（不进 git，只用化名）。</li><li><code>python -m honeycomb check</code> 直到全绿。</li><li>签宪章：<code>python -m honeycomb federation hash</code> 的指纹写进你的 hive.yml，再提一个 PR 往 <code>data/federation.yml</code> 加一行。</li><li>每季末发布 <code>pulse --json</code>：只有汇总数字，没有名字。</li></ol>",
+      compassTitle: "呼召指南针（8 题，2 分钟）", compassSub: "只在你的浏览器里计算，不保存、不上传。带着结果去找你蜂房的顾问。",
+      seeResult: "看结果", needAll: "还差几题没答。", startWith: "建议从这里开始：", noGap: "四个方面都已放大。这一季，你可以当别人的顾问。",
+      ampTitle: "把你的经历放大", ampPrompt: "用一两句话写下：一段别人没有的经历，和你因此相信的一件事。这可能就是你下一季当 CEO 的那件事。",
+      copy: "复制结果，发给你的顾问", copied: "已复制。",
+      footer: "校友自发的开源项目，不代表任何大学或公司。", due: "截止",
+      layer: { cell: ["蜂房", "1 位 CEO + 2–3 顾问 + 2–3 核心 + 2–3 学徒，一季（3 个月）。大学四年约 12 季。"], hive: ["蜂巢", "一所学校的独立运营：自己的成员、季度、蜂房、碰头记录。"], fed: ["联盟", "所有蜂巢共守的宪章：北极星、原则、开源代码。改宪章要 2/3 蜂巢同意。"] },
+      web3: [["web3 的想法", "我们怎么做", "为什么不用链"], ["协议而不是平台", "宪章是一个开源文件，谁都能 fork", "文件 + git 就够了"], ["可验证的成员身份", "蜂巢在 hive.yml 里写宪章的 SHA-256；联盟自动核对", "哈希不需要矿工"], ["数据自己拥有", "名单留在各校自己手里；只公开汇总数字", "学生数据不该上任何公共账本"], ["共识治理", "改宪章 = 提案 + 2/3 蜂巢投票，一巢一票", "人数还少，PR 投票足够"], ["随时退出", "任何蜂巢可以带着数据 fork 离开", "—"], ["代币激励", "不发币（原则 P7）", "在中国大陆，代币发行和交易是违法的"]]
+    },
+    en: {
+      brand: "Alumni Honeycomb", install: "Install",
+      h1: "Every season, you are the CEO of something you love.",
+      sub: "Many students fear AI will make them obsolete. We believe everyone has a calling and worth that no technology changes, and that AI can multiply your unique experience ten- or a hundredfold. So alumni don't only open a door for you. Every 3 months, you and 2-3 classmates, guided by 2-3 alumni, build something you believe in. You coach others, and others coach you.",
+      combTitle: "One cell: the CEO in the middle, two advisors above, two core teammates beside, two apprentices below",
+      combCaption: "🦉 Advisor · 👑 CEO · 🛡 Core · 🌱 Apprentice. The orange frame is you: CEO in this cell, a teammate in that one, an apprentice in a third, and one day an advisor. Roles flow; none is fixed.",
+      takeCompass: "Start with the 2-minute Calling Compass",
+      s_student: "I'm a student: I want to be a CEO", s_alum: "I'm an alumnus: I want to advise", s_parent: "I'm a parent: what is this?", s_school: "I want to start a hive at my school",
+      l2: "Level 2 · Architecture: cell, hive, federation",
+      archIntro: "<p>Picture a beehive. A <b>cell</b> is the smallest unit: one thing, one CEO, one season. A <b>hive</b> is one school, with its own people and rhythm, making its own decisions. The <b>federation</b> is the charter every hive keeps: one North Star, one set of principles, one open-source codebase. No headquarters gives orders. There is only an agreement every hive has signed.</p>",
+      rolesTitle: "Four roles (one person switches between them in different cells)",
+      web3Title: "Decentralized, without a token: the spirit of web3, without a blockchain",
+      fourTitle: "The four dimensions of companionship: spirit · mind · heart · strategy",
+      whyTitle: "Why we are doing this",
+      why: "<p>On a three-week trip in China we met our schoolmates' children and students from Sun Yat-sen, Peking, Tsinghua, Fudan, Zhejiang and other universities. They all carry the same pressure: AI moves so fast that every industry seems about to be disrupted, and mass unemployment feels close.</p><p>We are not afraid, because we have been afraid: worried, anxious, frozen, and then we rose out of the fear. Everyone has a calling in this life and everyone has worth, whatever technology is deployed. That does not change.</p><p>AI is an amplifier and an accelerator. A person's unique experience and conviction, multiplied ten, a hundred or a thousand times, can walk them out of the old mental prison. The honeycomb model (first proposed about ten years ago) makes that happen every season: you are always the CEO of something, a teammate and apprentice to others, and in time an advisor to someone else.</p><p>We start with our own children, then our schoolmates' children, then the students of our own university, and then other schools, fields and domains.</p>",
+      l3: "Level 3 · Details: for implementers and operators",
+      charterTitle: "The charter (what every hive signs)", northstar: "North Star: ",
+      hashNote: "The charter's SHA-256 fingerprint (what a hive signs): ",
+      dataTitle: "What the data looks like (one hive = one YAML file; real rosters never go in git)",
+      cmdTitle: "Commands", tenxTitle: "How we will know it works (the 10X, defined so it can fail)",
+      tenxNote: "If the first target misses, we don't expand, add features or issue tokens. We ask the people who stopped why.",
+      joinTitle: "Start a hive at your school (5 steps)",
+      join: "<ol><li>Fork the open-source repo: <a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>Write your hive file like <code>hives/example/hive.yml</code> and keep it in <code>hives-private/</code> (never committed; pseudonyms only).</li><li>Run <code>python -m honeycomb check</code> until it is green.</li><li>Sign the charter: put the fingerprint from <code>python -m honeycomb federation hash</code> in your hive.yml, then open a PR adding one row to <code>data/federation.yml</code>.</li><li>At the end of each season, publish <code>pulse --json</code>: aggregate numbers only, no names.</li></ol>",
+      compassTitle: "The Calling Compass (8 questions, 2 minutes)", compassSub: "Scored in your browser only. Nothing is saved or sent. Bring the result to your cell's advisor.",
+      seeResult: "See my result", needAll: "A few questions are still unanswered.", startWith: "Start here: ", noGap: "All four are amplified. This season, you could advise someone.",
+      ampTitle: "Amplify your experience", ampPrompt: "In a sentence or two: one experience others don't have, and one thing you believe because of it. It may be the thing you lead as CEO next season.",
+      copy: "Copy the result for your advisor", copied: "Copied.",
+      footer: "A volunteer alumni open-source project. It does not represent any university or company.", due: "due",
+      layer: { cell: ["Cell", "1 CEO + 2-3 advisors + 2-3 core + 2-3 apprentices, for one season (3 months). Four years of college ≈ 12 seasons."], hive: ["Hive", "One school's own operation: its members, seasons, cells and check-ins."], fed: ["Federation", "The charter every hive keeps: North Star, principles, open-source code. Changing it needs 2/3 of hives."] },
+      web3: [["The web3 idea", "What we do", "Why no chain"], ["A protocol, not a platform", "The charter is an open-source file anyone can fork", "A file plus git is enough"], ["Verifiable membership", "A hive writes the charter's SHA-256 in hive.yml; the federation checks it automatically", "A hash needs no miners"], ["You own your data", "Rosters stay with each school; only aggregate numbers are public", "Student data belongs on no public ledger"], ["Governance by consensus", "Charter change = proposal + 2/3 of hives, one hive one vote", "With this few hives, PR votes suffice"], ["Exit at any time", "Any hive can fork and leave with its data", "—"], ["Token incentives", "No tokens (principle P7)", "Issuing and trading tokens is illegal in mainland China"]]
+    }
+  };
+  var D = null, lang = "zh", answers = [];
+  try { var saved = localStorage.getItem("lang"); lang = saved || "zh"; /* Mandarin first: the first readers are Chinese students and parents */ } catch (e) {}
+  if (lang !== "zh" && lang !== "en") lang = "zh";
+  function t(k) { return T[lang][k]; }
+  function L(o, k) { var key = (k ? k + "_" : "") + lang; return o[key] !== undefined ? o[key] : o[lang]; }
+  function el(tag, attrs, html) { var e = document.createElement(tag); for (var a in attrs || {}) e.setAttribute(a, attrs[a]); if (html !== undefined) e.innerHTML = html; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function hexPts(cx, cy, r) { var p = []; for (var i = 0; i < 6; i++) { var a = Math.PI / 6 + i * Math.PI / 3; p.push((cx + r * Math.cos(a)).toFixed(1) + "," + (cy + r * Math.sin(a)).toFixed(1)); } return p.join(" "); }
+
+  function drawComb() {
+    document.getElementById("combTitle").textContent = t("combTitle");
+    var R = 52, cx = 220, cy = 165, w = R * Math.sqrt(3), cells = [
+      ["ceo", 0, 0, "👑"], ["advisor", -0.5, -1, "🦉"], ["advisor", 0.5, -1, "🦉"],
+      ["core", -1, 0, "🛡"], ["core", 1, 0, "🛡"], ["apprentice", -0.5, 1, "🌱"], ["apprentice", 0.5, 1, "🌱"]];
+    var roles = {}; D.honeycomb.roles.forEach(function (r) { roles[r.id] = L(r); });
+    var g = "";
+    cells.forEach(function (c) {
+      var x = cx + c[1] * w, y = cy + c[2] * R * 1.5;
+      g += "<polygon class='hex " + c[0] + "' points='" + hexPts(x, y, R - 3) + "'/><text x='" + x + "' y='" + (y - 4) + "' text-anchor='middle'>" + c[3] + "</text><text x='" + x + "' y='" + (y + 16) + "' text-anchor='middle'>" + esc(roles[c[0]]) + "</text>";
+    });
+    document.getElementById("hexes").innerHTML = g;
+    // the "you" frame starts on the CEO and hops to a core seat, then an advisor seat (see @keyframes hop)
+    document.getElementById("you").setAttribute("points", hexPts(cx, cy, R + 2));
+  }
+  function drawStarters() {
+    var box = document.getElementById("starters"); box.innerHTML = "";
+    [["s_student", "compass"], ["s_alum", "architecture"], ["s_parent", "architecture"], ["s_school", "details"]].forEach(function (p) {
+      var b = el("button", { "class": "chip" }, esc(t(p[0])));
+      b.onclick = function () { var target = document.getElementById(p[1]); if (target.tagName === "DETAILS") target.open = true; target.scrollIntoView({ behavior: "smooth" }); };
+      box.appendChild(b);
+    });
+  }
+  function drawArchitecture() {
+    var ly = t("layer");
+    document.getElementById("layers").innerHTML = [["🔶", "cell"], ["🐝", "hive"], ["🌐", "fed"]].map(function (x) {
+      return "<div class='card'><b>" + x[0] + " " + esc(ly[x[1]][0]) + "</b><p class='muted'>" + esc(ly[x[1]][1]) + "</p></div>";
+    }).join("");
+    document.getElementById("roles").innerHTML = D.honeycomb.roles.map(function (r) {
+      return "<div class='card'><b>" + r.icon + " " + esc(L(r)) + "</b><p class='muted'>" + esc(L(r, "who")) + "</p></div>";
+    }).join("");
+    document.getElementById("web3").innerHTML = t("web3").map(function (row, i) {
+      var tag = i ? "td" : "th"; return "<tr>" + row.map(function (c) { return "<" + tag + ">" + esc(c) + "</" + tag + ">"; }).join("") + "</tr>";
+    }).join("");
+    document.getElementById("dims").innerHTML = D.dimensions.dimensions.map(function (d) {
+      return "<div class='card'><b>" + d.icon + " " + esc(L(d)) + "</b><p><i>" + esc(L(d, "question")) + "</i></p><p class='muted'>" + esc(L(d, "companion")) + "</p></div>";
+    }).join("");
+  }
+  function drawDetails() {
+    var c = D.charter;
+    document.getElementById("northstar").innerHTML = "<b>" + esc(t("northstar")) + "</b>" + esc(L(c.north_star)) + " <span class='muted'>(<code>" + c.north_star.measure + "</code>)</span>";
+    document.getElementById("principles").innerHTML = c.principles.map(function (p) {
+      return "<tr><td><code>" + p.id + "</code></td><td>" + esc(L(p)) + "</td><td class='muted'>" + (p.checked ? "<code>check." + p.checked + "</code>" : "") + "</td></tr>";
+    }).join("");
+    document.getElementById("hash").innerHTML = esc(t("hashNote")) + "<code>v" + c.version + " · " + D.charter_sha256.slice(0, 16) + "…</code>";
+    document.getElementById("shape").textContent =
+      "hive:     {id, school_zh, school_en, simulated, operator, charter: {version, sha256}}\n" +
+      "members:  - {id, name, type: student|alumnus, school, field, languages, age_band, guardian?}\n" +
+      "seasons:  - {id: 2026-S4, start, end}\n" +
+      "cells:    - id, season, status: forming|active|closed\n" +
+      "            ceo, vision, good: \"Good: ...\"\n" +
+      "            advisors: [2-3 alumni], core: [2-3], apprentices: [2-3]\n" +
+      "            outcome: {evidence, learned}        # when closed\n" +
+      "checkins: - {cell, date, dims: [spirit|mind|heart|strategy], next_step}";
+    document.getElementById("cmds").textContent =
+      "python -m honeycomb check   hives-private/<school>.yml     # P1-P6, exit 1 on any problem\n" +
+      "python -m honeycomb recruit hives-private/<school>.yml <cell-id>   # shortlist for empty seats\n" +
+      "python -m honeycomb pulse   hives-private/<school>.yml --json      # aggregate numbers, safe to publish\n" +
+      "python -m honeycomb federation check | hash                 # verify registry / charter fingerprint\n" +
+      "make check                                                  # data drift + tests + quality floor";
+    document.getElementById("tenx").innerHTML = D.strategy.targets.map(function (x) {
+      return "<div class='card'><b>" + x.id + " · <code>" + x.measure + "</code> ≥ " + x.target + "</b> <span class='muted'>(" + t("due") + " " + x.due + ")</span><p class='muted'>" + esc(x.why) + "</p></div>";
+    }).join("") + "<p class='muted'>" + esc(t("tenxNote")) + "</p>";
+  }
+  function drawQuestions() {
+    var box = document.getElementById("questions"); box.innerHTML = "";
+    D.compass.questions.forEach(function (q, i) {
+      var div = el("div", { "class": "q card" }), opts = el("div", { "class": "opts" });
+      div.appendChild(el("p", {}, (i + 1) + ". " + esc(L(q))));
+      D.compass.scale.forEach(function (s) {
+        var b = el("button", { "aria-pressed": answers[i] === s.score ? "true" : "false" }, esc(L(s)));
+        b.onclick = function () { answers[i] = s.score; drawQuestions(); };
+        opts.appendChild(b);
+      });
+      div.appendChild(opts); box.appendChild(div);
+    });
+    var go = el("button", { "class": "primary" }, esc(t("seeResult")));
+    go.onclick = showResult; box.appendChild(go);
+  }
+  function dim(id) { return D.dimensions.dimensions.filter(function (d) { return d.id === id; })[0]; }
+  function level(id) { return D.compass.levels.filter(function (l) { return l.id === id; })[0]; }
+  function showResult() {
+    var box = document.getElementById("result"), full = [];
+    for (var i = 0; i < D.compass.questions.length; i++) { if (answers[i] === undefined) { box.innerHTML = "<p class='card'>" + esc(t("needAll")) + "</p>"; return; } full.push(answers[i]); }
+    var r = Compass.score(full, D.compass), html = "<div class='card'>";
+    Compass.DIM_ORDER.forEach(function (d) {
+      html += "<p style='margin:8px 0 2px'>" + dim(d).icon + " " + esc(L(dim(d))) + " — <b>" + esc(L(level(r.levels[d]))) + "</b></p><div class='bar'><i style='width:" + (r.totals[d] / 6 * 100) + "%'></i></div>";
+    });
+    if (r.start) html += "<p><b>" + esc(t("startWith")) + dim(r.start).icon + " " + esc(L(dim(r.start))) + "</b><br>" + esc(L(level(r.levels[r.start]), "hint")) + "<br><span class='muted'>" + esc(L(dim(r.start), "companion")) + "</span></p>";
+    else html += "<p><b>" + esc(t("noGap")) + "</b></p>";
+    html += "</div><div class='card'><b>" + esc(t("ampTitle")) + "</b><p class='muted'>" + esc(t("ampPrompt")) + "</p><textarea id='mine'></textarea><div id='amp'></div><p><button id='copy'>" + esc(t("copy")) + "</button> <span id='copied' class='muted'></span></p></div>";
+    box.innerHTML = html;
+    var mine = document.getElementById("mine");
+    function amp() {
+      var words = mine.value.trim();
+      document.getElementById("amp").innerHTML = D.compass.amplifier.map(function (a) { return "<p><b>" + a.x + "</b> " + esc(L(a)) + (words ? "<br><span class='muted'>“" + esc(words) + "”</span>" : "") + "</p>"; }).join("");
+    }
+    mine.oninput = amp; amp();
+    document.getElementById("copy").onclick = function () {
+      var lines = Compass.DIM_ORDER.map(function (d) { return L(dim(d)) + ": " + L(level(r.levels[d])) + " (" + r.totals[d] + "/6)"; });
+      if (r.start) lines.push(t("startWith") + L(dim(r.start)));
+      if (mine.value.trim()) lines.push("“" + mine.value.trim() + "”");
+      var text = lines.join("\n");
+      (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { document.getElementById("copied").textContent = t("copied"); }, function () { window.prompt("", text); });
+    };
+  }
+  function render() {
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.getElementById("lang").textContent = lang === "zh" ? "EN" : "中文";
+    document.querySelectorAll("[data-t]").forEach(function (n) { var v = t(n.getAttribute("data-t")); if (n.hasAttribute("data-html")) n.innerHTML = v; else n.textContent = v; });
+    document.getElementById("goCompass").onclick = function () { document.getElementById("compass").scrollIntoView({ behavior: "smooth" }); };
+    drawComb(); drawStarters(); drawArchitecture(); drawDetails(); drawQuestions();
+    if (document.getElementById("result").innerHTML) showResult();
+  }
+  document.getElementById("lang").onclick = function () { lang = lang === "zh" ? "en" : "zh"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };
+  var h = location.hash.slice(1); if (h === "architecture" || h === "details") document.getElementById(h).open = true;
+  ["architecture", "details"].forEach(function (id) { document.getElementById(id).addEventListener("toggle", function (e) { if (e.target.open) history.replaceState(null, "", "#" + id); }); });
+  fetch("/data.json").then(function (r) { return r.json(); }).then(function (d) { D = d; render(); });
+
+  // Install: native prompt where available, Add-to-Home-Screen help on iOS.
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
+  var ib = document.getElementById("install"), deferred = null;
+  if (!(matchMedia("(display-mode: standalone)").matches || navigator.standalone)) {
+    addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; ib.style.display = ""; });
+    if (/iph|ipad|ipod/i.test(navigator.userAgent)) ib.style.display = "";
+    ib.onclick = function () {
+      if (deferred) { deferred.prompt(); deferred = null; ib.style.display = "none"; return; }
+      alert(lang === "zh" ? "在 Safari 里点“分享”，再选“添加到主屏幕”。微信里请先点右上角“在浏览器打开”。" : "In Safari, tap Share, then Add to Home Screen. In WeChat, first tap ··· and Open in Browser.");
+    };
+  }
+})();
+</script>
+</body>
+</html>

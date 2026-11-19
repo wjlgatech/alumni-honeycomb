@@ -1,0 +1,35 @@
+# The four things a companion walks with someone through. A door-opener only does "strategy";
+# a companion does all four. That is the whole difference.
+dimensions:
+  - id: spirit
+    icon: "🕊"
+    zh: 灵 · 身份与呼召
+    en: Spirit · identity and calling
+    question_zh: 我是谁？我为什么在这里？
+    question_en: Who am I, and why am I here?
+    companion_zh: 帮他相信：每个人都有呼召和价值，不因任何技术而改变。信仰是邀请，从不强加。
+    companion_en: "Help them believe everyone has a calling and worth that no technology changes. Faith is an invitation, never pressure."
+  - id: mind
+    icon: "🧠"
+    zh: 智 · 能力与 AI 素养
+    en: Mind · skills and AI fluency
+    question_zh: 我会什么？AI 能把它放大多少倍？
+    question_en: What can I do, and how far can AI multiply it?
+    companion_zh: 一起把一项真实技能和 AI 工具接起来，做出一个能给人看的东西。
+    companion_en: Connect one real skill to AI tools together, and make one thing they can show someone.
+  - id: heart
+    icon: "❤️"
+    zh: 情 · 情绪、关系与身体
+    en: Heart · emotions, relationships and body
+    question_zh: 我还好吗？谁在我身边？
+    question_en: Am I okay, and who is beside me?
+    companion_zh: 先听，后说。睡眠、运动、朋友都算数。遇到危机，转介专业帮助。
+    companion_en: "Listen first. Sleep, movement and friends count. In a crisis, refer to qualified help."
+  - id: strategy
+    icon: "🧭"
+    zh: 策 · 路径与下一步
+    en: Strategy · path and next step
+    question_zh: 下一扇门是哪扇？下一步是什么？
+    question_en: Which door is next, and what is the next step?
+    companion_zh: 每次对话结束，都有一个写下来的、可以检验的下一步。
+    companion_en: Every conversation ends with one written next step that can be checked.
