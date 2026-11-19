@@ -28,7 +28,7 @@ def main(base: str) -> int:
     """Check the page and its assets; print one row each."""
     base = base.rstrip("/")
     html = urllib.request.urlopen(base + "/", timeout=20).read().decode("utf-8")
-    paths = sorted(set(re.findall(r'(?:src|href)="(/[^"#]*)"', html)) | {"/data.json", "/sw.js", "/icon-192.png",
+    paths = sorted(set({"/" + u for u in re.findall(r'(?:src|href)="([^"#:/][^"#:]*)"', html)}) | {"/data.json", "/sw.js", "/icon-192.png",
                                                                           "/icon-512.png", "/icon-512-maskable.png"})
     bad = 0
     for p in ["/"] + paths:

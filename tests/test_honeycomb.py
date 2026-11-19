@@ -148,18 +148,19 @@ def test_site_data_has_no_drift():
 
 
 def test_site_loads_nothing_from_other_domains():
-    """China access: every asset is same-origin. Blocked CDNs/fonts are the #1 reason a page hangs in China."""
+    """China access: every asset is same-origin and relative, so the same folder works on any host or sub-path
+    (Vercel, GitHub Pages mirror). Blocked CDNs/fonts are the #1 reason a page hangs in China."""
     html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
     for tag in re.findall(r"<(?:script|link|img|iframe)[^>]*>", html):
         for url in re.findall(r"(?:src|href)=\"([^\"]+)\"", tag):
-            assert url.startswith("/"), f"external asset {url} in {tag}"
+            assert "//" not in url and not url.startswith("/"), f"use a relative same-origin path: {url} in {tag}"
     assert "@import" not in html and "fonts.googleapis" not in html
 
 
 def test_manifest_icons_exist():
     m = json.loads((ROOT / "web" / "manifest.webmanifest").read_text(encoding="utf-8"))
     for icon in m["icons"]:
-        assert (ROOT / "web" / icon["src"].lstrip("/")).stat().st_size > 100
+        assert (ROOT / "web" / icon["src"]).stat().st_size > 100
 
 
 def test_charter_hash_is_the_signed_one():

@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>校友蜂巢 · Alumni Honeycomb</title>
 <meta name="description" content="校友蜂巢：每个学生每一季都是自己热爱之事的 CEO，同时有 2–3 位校友顾问、2–3 位核心队员、2–3 位学徒。每所学校独立运营，共守一部宪章。Alumni Honeycomb: every student, every season, is the CEO of something they love, with 2-3 alumni advisors, 2-3 core teammates and 2-3 apprentices. Each school runs its own hive under one shared charter.">
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#d97757">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="校友蜂巢">
@@ -56,7 +56,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
 </head>
 <body>
 <header>
-  <img src="/icon.svg" alt="">
+  <img src="icon.svg" alt="">
   <b data-t="brand"></b>
   <button id="install" style="display:none" data-t="install"></button>
   <button id="lang">EN</button>
@@ -120,7 +120,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
   <span data-t="footer"></span>
   · <a href="https://github.com/wjlgatech/alumni-honeycomb">GitHub</a> · MIT
 </footer>
-<script src="/compass.js"></script>
+<script src="compass.js"></script>
 <script>
 (function () {
   var REPO = "https://github.com/wjlgatech/alumni-honeycomb";
@@ -314,10 +314,10 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
   document.getElementById("lang").onclick = function () { lang = lang === "zh" ? "en" : "zh"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };
   var h = location.hash.slice(1); if (h === "architecture" || h === "details") document.getElementById(h).open = true;
   ["architecture", "details"].forEach(function (id) { document.getElementById(id).addEventListener("toggle", function (e) { if (e.target.open) history.replaceState(null, "", "#" + id); }); });
-  fetch("/data.json").then(function (r) { return r.json(); }).then(function (d) { D = d; render(); });
+  fetch("data.json").then(function (r) { return r.json(); }).then(function (d) { D = d; render(); });
 
   // Install: native prompt where available, Add-to-Home-Screen help on iOS.
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
   var ib = document.getElementById("install"), deferred = null;
   if (!(matchMedia("(display-mode: standalone)").matches || navigator.standalone)) {
     addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; ib.style.display = ""; });
