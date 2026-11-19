@@ -17,7 +17,8 @@ Public, MIT-licensed repo: never commit a real roster, name, contact detail or a
 
 ## Gates
 `make check` before every PR (drift · example hive · federation · pytest + node golden test · quality floor).
-`make deploy` = check → Vercel prod → `live_check.py`. `make mirror` republishes `web/` to GitHub Pages, the URL
+`make deploy` = check → Vercel prod → `live_check.py` on the origin and on the public address https://futuremake.io/honeycomb
+(agentic-portfolio's `vercel.json` proxies `/honeycomb` here; the first `<script>` in `web/index.html` sets `<base href>`; keep it first). `make mirror` republishes `web/` to GitHub Pages, the URL
 mainland China can reach (`*.vercel.app` is DNS-poisoned there); `make china` measures both from mainland probes.
 Asset paths in `web/` stay relative (the mirror lives under `/alumni-honeycomb/`). Doc sync: a behavior change ships with `CHANGELOG.md`,
 `README.md` and this file in the same PR.

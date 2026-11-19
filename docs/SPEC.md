@@ -70,7 +70,7 @@ believe in. That is the long measure; `role_switchers` and `closed_with_evidence
 
 | ID | Question | Recommended default | Cost |
 |---|---|---|---|
-| D-DOMAIN | Buy a neutral domain (e.g. a `.org` with the project name)? | Yes: `*.vercel.app` is unreliable from the mainland and a name is reusable by every hive | ~US$10–15 / year |
+| D-DOMAIN | ~~Buy a domain?~~ Decided 2026-11-19 (Paul): it lives on futuremake.io/honeycomb | — | $0 |
 | D-CHINA-HOST | Mainland mirror? | Start with a Hong Kong/Singapore-region static host on the new domain (no ICP needed); move to a mainland host with ICP filing only if probes show it is needed | HK static ~US$0–5 / month; mainland needs a Chinese entity or individual for ICP |
 | D-FIRST-HIVE | Who is the first hive's operator, and is it "SYSU alumni" or "Paul's circle"? | Paul's circle, operated by one named alumnus; it becomes a school hive when 2 cells close | time |
 | D-COUNCIL | Who sits on the founding council (one steward per hive + founders)? | Paul + 2 stewards from the first hive; rotate yearly | time |

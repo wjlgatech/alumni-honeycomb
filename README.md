@@ -1,8 +1,8 @@
 # 🐝 Alumni Honeycomb · 校友蜂巢
 
-**Live:** https://alumni-honeycomb.vercel.app · **中国大陆请用 / in mainland China use:** https://wjlgatech.github.io/alumni-honeycomb
+**Live, everywhere including mainland China:** https://futuremake.io/honeycomb · backup mirror: https://wjlgatech.github.io/alumni-honeycomb
 
-中文 first, English one tap away · installable on any phone · the mirror loaded from 8/8 mainland probes on 2026-11-19; `*.vercel.app` from 0/6 ([why](docs/CHINA-ACCESS.md))
+中文 first, English one tap away · installable on any phone · measured from mainland probes, not assumed ([CHINA-ACCESS](docs/CHINA-ACCESS.md))
 
 > **Every student, every season, is the CEO of something they love, while coaching others and being coached.**
 > 每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。
@@ -69,8 +69,9 @@ operators, maintains this code and publishes the federation's numbers. It never 
 roster or charges anything. [docs/GOVERNANCE.md](docs/GOVERNANCE.md)
 
 **Reachable from China.** The page loads nothing from other domains (no foreign fonts, CDNs or analytics; a test enforces it)
-and uses relative paths, so the same `web/` folder runs on any host. `*.vercel.app` is DNS-poisoned on the mainland, so
-Chinese readers get the GitHub Pages mirror, which `make china` measures from mainland probes: [docs/CHINA-ACCESS.md](docs/CHINA-ACCESS.md).
+and uses relative paths, so the same `web/` folder runs on any host. The origin deploy (`*.vercel.app`) is DNS-poisoned on the
+mainland, so the public address is **futuremake.io/honeycomb**: futuremake.io's edge proxies the origin, and the browser only
+ever talks to futuremake.io. `make china` measures it from mainland probes: [docs/CHINA-ACCESS.md](docs/CHINA-ACCESS.md).
 
 **The personal first step: the Calling Compass.** Eight questions, two minutes, scored only in your browser. It shows where
 you stand in spirit, mind, heart and strategy, then asks you to write one experience others don't have. That sentence may

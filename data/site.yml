@@ -1,4 +1,7 @@
-# Where the site lives. tests/test_docs.py asserts the README carries these exact URLs at the top.
-live_url: https://alumni-honeycomb.vercel.app
+# Where the site lives. tests/test_docs.py asserts the README carries home_url and mirror_url at the top.
+# home_url: the address to share with everyone, including mainland China (futuremake.io proxies the origin at the edge).
+# origin_url: the Vercel deployment itself; NOT reachable from mainland China (*.vercel.app is DNS-poisoned there).
+home_url: https://futuremake.io/honeycomb
+origin_url: https://alumni-honeycomb.vercel.app
 mirror_url: https://wjlgatech.github.io/alumni-honeycomb
 repo_url: https://github.com/wjlgatech/alumni-honeycomb
