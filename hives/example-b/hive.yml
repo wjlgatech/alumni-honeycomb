@@ -1,0 +1,68 @@
+# A SECOND simulated hive, so federation sync and cross-hive compounding have something to run on.
+# It still signs charter 1.0.0, so `federation pull` flags it "older: re-sign" (allowed, visible).
+hive:
+  id: example-b
+  school_zh: 第二示例大学（模拟）
+  school_en: Second Example University (simulated)
+  simulated: true
+  operator: Organizer B (sim)
+  charter: {version: 1.0.0, sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30}
+
+members:
+  - {id: a-qian, name: Qian (sim), type: alumnus, school: example-b, field: education, languages: [zh, en], strengths: [mind, heart]}
+  - {id: a-sun, name: Sun (sim), type: alumnus, school: example-b, field: software, languages: [zh], strengths: [strategy]}
+  - {id: a-lin2, name: Lin B (sim), type: alumnus, school: example, field: software, languages: [zh, en], strengths: [mind]}
+  - {id: s-yu, name: Yu (sim), type: student, year: 2, field: chemistry, languages: [zh], age_band: adult}
+  - {id: s-he, name: He (sim), type: student, year: 3, field: mathematics, languages: [zh, en], age_band: adult}
+  - {id: s-gao, name: Gao (sim), type: student, year: 1, field: physics, languages: [zh], age_band: adult}
+  - {id: s-fang, name: Fang (sim), type: student, year: 2, field: history, languages: [zh], age_band: adult}
+  - {id: s-du, name: Du (sim), type: student, year: 1, field: economics, languages: [zh], age_band: adult}
+
+seasons:
+  - {id: 2026-S3, start: 2026-07-01, end: 2026-09-30}
+  - {id: 2026-S4, start: 2026-10-01, end: 2026-12-31}
+
+cells:
+  - id: c-chem-ai
+    season: 2026-S3
+    status: closed
+    tags: [ai-study, tutoring]
+    builds_on: [example/c-ai-tutor]
+    ceo: s-yu
+    vision: An AI-assisted chemistry study group for first-years, aligned with the exam calendar
+    good: "Good: 8 first-years use it weekly through the mid-term"
+    advisors: [a-qian, a-lin2]
+    core: [s-he, s-gao]
+    apprentices: [s-fang, s-du]
+    outcome:
+      evidence: "9 first-years used it weekly for 8 weeks, through the mid-term (sign-in sheet)"
+      learned: Aligning the weekly sessions with the exam calendar kept attendance; the week-5 drop seen elsewhere did not happen
+  - id: c-math-ai
+    season: 2026-S3
+    status: closed
+    tags: [ai-study, k12-outreach]
+    builds_on: [example/c-ai-tutor]
+    ceo: s-he
+    vision: Middle-school students explain one maths idea with an AI-made animation
+    good: "Good: 5 students each present one animation to their class"
+    advisors: [a-qian, a-sun]
+    core: [s-yu, s-gao]
+    apprentices: [s-fang, s-du]
+    outcome:
+      evidence: "4 of 5 students presented (teacher's note); one dropped out after week 2"
+      learned: Pair each middle-schooler with one apprentice; the one who dropped out had no pair
+  - id: c-history-ai
+    season: 2026-S4
+    status: forming
+    tags: [ai-study, humanities]
+    ceo: s-fang
+    vision: Use AI to read primary sources in history, with a study group that meets weekly
+    good: "Good: 6 students each write one source-based essay they are proud of"
+    advisors: [a-qian]
+    core: [s-du]
+    apprentices: []
+
+checkins:
+  - {cell: c-chem-ai, date: 2026-08-05, next_step: "Publish the exam-calendar schedule to the group"}
+  - {cell: c-math-ai, date: 2026-08-12, next_step: "Pair every middle-schooler with an apprentice"}
+  - {cell: c-history-ai, date: 2026-11-02, next_step: "Recruit one more advisor who reads classical Chinese"}

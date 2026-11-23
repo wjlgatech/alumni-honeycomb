@@ -134,6 +134,10 @@
     "en": "Each school's hive runs itself: its own people, data, site and rhythm.",
     "zh": "每个学校的蜂巢独立运营：自己的人、自己的数据、自己的网站、自己的节奏。"
    },
+   "clock": {
+    "en": "One clock for every hive: calendar quarters, YYYY-S1 (Jan-Mar) to YYYY-S4 (Oct-Dec). Each hive publishes its public feed at least once a season (the heartbeat).",
+    "zh": "联盟用同一个时钟：日历季度，YYYY-S1（1–3 月）到 YYYY-S4（10–12 月）。每个蜂巢每季至少发布一次公开 feed（心跳）。"
+   },
    "exit": {
     "en": "Any hive may fork and leave at any time, with all of its data.",
     "zh": "任何蜂巢随时可以分叉（fork）离开，带走自己的全部数据。"
@@ -212,14 +216,20 @@
     "zh": "未成年人有知情的监护人；数据只用化名；危机转介专业帮助；信仰是邀请，从不施压。"
    },
    {
+    "checked": "closed_shares_learning",
+    "en": "Share learnings, never people. Every closed cell records tags and what it learned, published to the federation as a learning card; rosters never leave the school.",
+    "id": "P8-share-learnings",
+    "zh": "分享学到的，不分享人。每个结束的蜂房都写下标签和“学到了什么”，作为学习卡片发给联盟；名单永远留在本校。"
+   },
+   {
     "en": "No fees, no selling, no tokens.",
     "id": "P7-free",
     "zh": "不收费、不推销、不发币。"
    }
   ],
-  "version": "1.0.0"
+  "version": "1.1.0"
  },
- "charter_sha256": "4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30",
+ "charter_sha256": "ea431e302186349970b7c978ccc4656b758a028a956f09442b22daf62fd70357",
  "compass": {
   "amplifier": [
    {
@@ -514,6 +524,32 @@
    }
   ]
  },
+ "federation_index": {
+  "as_of": "2026-11-14",
+  "charter_latest": "1.1.0",
+  "cross_hive_builds_on": 2,
+  "hives": [
+   {
+    "charter": "current",
+    "heartbeat": "current",
+    "id": "example",
+    "latest_season": "2026-S4"
+   },
+   {
+    "charter": "older: re-sign",
+    "heartbeat": "current",
+    "id": "example-b",
+    "latest_season": "2026-S4"
+   }
+  ],
+  "learning_cards": 3,
+  "open_seats": 2,
+  "ripe": [
+   "ai-study"
+  ],
+  "season_now": "2026-S4",
+  "simulated": true
+ },
  "honeycomb": {
   "capacity": {
    "ceo_per_season": 1,
@@ -603,6 +639,13 @@
     "measure": "hives",
     "target": 2,
     "why": "A second school runs its own hive under the same charter = the federation exists, not just one club."
+   },
+   {
+    "due": "2027-06-30",
+    "id": "T4",
+    "measure": "cross_hive_builds_on",
+    "target": 1,
+    "why": "One cell in one school builds on a learning card from another school = the federation compounds, not just coexists."
    }
   ],
   "tripwire": "If T1 is below 1 on 2026-12-19, do not add a second school, a token, or any feature. Ask the people who stopped what stopped them, and build that.\n"

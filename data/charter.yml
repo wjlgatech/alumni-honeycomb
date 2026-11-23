@@ -2,7 +2,7 @@
 # Everything not written here is the hive's own decision (subsidiarity).
 # A hive "signs" by putting this file's SHA-256 (`python -m honeycomb federation hash`) in its hive.yml.
 # Changing this file changes the hash, so a change is a proposal (data/federation.yml) ratified by hives.
-version: 1.0.0
+version: 1.1.0
 north_star:
   zh: 每一个学生，每一季都是某件自己热爱之事的 CEO，同时也在辅导别人、被别人辅导。
   en: Every student, every season, is the CEO of something they love, while coaching others and being coached.
@@ -45,6 +45,10 @@ principles:
     zh: 未成年人有知情的监护人；数据只用化名；危机转介专业帮助；信仰是邀请，从不施压。
     en: Minors have an informed guardian; data uses pseudonyms only; crises go to qualified help; faith is an invitation, never pressure.
     checked: safety
+  - id: P8-share-learnings
+    zh: 分享学到的，不分享人。每个结束的蜂房都写下标签和“学到了什么”，作为学习卡片发给联盟；名单永远留在本校。
+    en: Share learnings, never people. Every closed cell records tags and what it learned, published to the federation as a learning card; rosters never leave the school.
+    checked: closed_shares_learning
   - id: P7-free
     zh: 不收费、不推销、不发币。
     en: No fees, no selling, no tokens.
@@ -55,6 +59,9 @@ federation:
   shared:
     zh: 宪章（本文件）、北极星的计算方法、开源代码。
     en: The charter (this file), how the North Star is computed, and the open-source code.
+  clock:
+    zh: 联盟用同一个时钟：日历季度，YYYY-S1（1–3 月）到 YYYY-S4（10–12 月）。每个蜂巢每季至少发布一次公开 feed（心跳）。
+    en: "One clock for every hive: calendar quarters, YYYY-S1 (Jan-Mar) to YYYY-S4 (Oct-Dec). Each hive publishes its public feed at least once a season (the heartbeat)."
   vote:
     zh: 修改宪章需 2/3 的在册蜂巢同意，一巢一票。
     en: Changing the charter needs 2/3 of registered hives, one hive one vote.

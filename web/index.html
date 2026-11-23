@@ -90,6 +90,8 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     <div class="grid" id="roles"></div>
     <h3 data-t="web3Title"></h3>
     <table id="web3"></table>
+    <h3 data-t="syncTitle"></h3>
+    <div id="sync"></div>
     <h3 data-t="fourTitle"></h3>
     <div class="grid" id="dims"></div>
     <h3 data-t="whyTitle"></h3>
@@ -157,14 +159,19 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       cmdTitle: "命令", tenxTitle: "怎样知道它真的有用（10X 目标，会失败的那种）",
       tenxNote: "达不到第一条，就不扩张、不加功能、不发币：先问停下来的人为什么。",
       joinTitle: "在你的学校开一个蜂巢（5 步）",
-      join: "<ol><li>Fork 开源仓库：<a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>照 <code>hives/example/hive.yml</code> 写你的蜂巢文件，放进 <code>hives-private/</code>（不进 git，只用化名）。</li><li><code>python -m honeycomb check</code> 直到全绿。</li><li>签宪章：<code>python -m honeycomb federation hash</code> 的指纹写进你的 hive.yml，再提一个 PR 往 <code>data/federation.yml</code> 加一行。</li><li>每季末发布 <code>pulse --json</code>：只有汇总数字，没有名字。</li></ol>",
+      join: "<ol><li>Fork 开源仓库：<a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>照 <code>hives/example/hive.yml</code> 写你的蜂巢文件，放进 <code>hives-private/</code>（不进 git，只用化名）。</li><li><code>python -m honeycomb check</code> 直到全绿。</li><li>签宪章：<code>python -m honeycomb federation hash</code> 的指纹写进你的 hive.yml，再提一个 PR 往 <code>data/federation.yml</code> 加一行。</li><li>每季至少一次 <code>publish</code> 你的公开 feed（心跳）：数字、学习卡片、空位，没有名字。</li></ol>",
       compassTitle: "呼召指南针（8 题，2 分钟）", compassSub: "只在你的浏览器里计算，不保存、不上传。带着结果去找你蜂房的顾问。",
       seeResult: "看结果", needAll: "还差几题没答。", startWith: "建议从这里开始：", noGap: "四个方面都已放大。这一季，你可以当别人的顾问。",
       ampTitle: "把你的经历放大", ampPrompt: "用一两句话写下：一段别人没有的经历，和你因此相信的一件事。这可能就是你下一季当 CEO 的那件事。",
       copy: "复制结果，发给你的顾问", copied: "已复制。",
       footer: "校友自发的开源项目，不代表任何大学或公司。", due: "截止",
       layer: { cell: ["蜂房", "1 位 CEO + 2–3 顾问 + 2–3 核心 + 2–3 学徒，一季（3 个月）。大学四年约 12 季。"], hive: ["蜂巢", "一所学校的独立运营：自己的成员、季度、蜂房、碰头记录。"], fed: ["联盟", "所有蜂巢共守的宪章：北极星、原则、开源代码。改宪章要 2/3 蜂巢同意。"] },
-      web3: [["web3 的想法", "我们怎么做", "为什么不用链"], ["协议而不是平台", "宪章是一个开源文件，谁都能 fork", "文件 + git 就够了"], ["可验证的成员身份", "蜂巢在 hive.yml 里写宪章的 SHA-256；联盟自动核对", "哈希不需要矿工"], ["数据自己拥有", "名单留在各校自己手里；只公开汇总数字", "学生数据不该上任何公共账本"], ["共识治理", "改宪章 = 提案 + 2/3 蜂巢投票，一巢一票", "人数还少，PR 投票足够"], ["随时退出", "任何蜂巢可以带着数据 fork 离开", "—"], ["代币激励", "不发币（原则 P7）", "在中国大陆，代币发行和交易是违法的"]]
+      syncTitle: "各校蜂巢怎样同步、协调、复利",
+      sync: [["⏱ 同步", "同一个时钟：日历季度（2026-S4 = 10–12 月）。每个蜂巢每季发布一次公开 feed，这就是心跳。迟了会被标出来。"],
+             ["🎼 协调", "同一种格式、同一部宪章：feed 用同一个 schema，签名是宪章的 SHA-256。旧版宪章仍有效，但会提示“请重新签名”。"],
+             ["📈 复利", "每个结束的蜂房变成一张学习卡片（只有标签、标准、证据、学到了什么，没有人名）。别校的蜂房开工前先看卡片，用了就写进 builds_on。同一个标签在 2 所以上学校出现 3 次以上，系统会起草一份共享打法，交给各蜂巢投票。"]],
+      syncNow: "联盟现在", syncSim: "（模拟数据）", syncHives: "个蜂巢", syncCards: "张学习卡片", syncCross: "次跨校引用", syncSeats: "个空位", syncRipe: "份待投票的草案",
+      web3: [["web3 的想法", "我们怎么做", "为什么不用链"], ["协议而不是平台", "宪章是一个开源文件，谁都能 fork", "文件 + git 就够了"], ["可验证的成员身份", "蜂巢在 feed 里写宪章的 SHA-256；联盟自动核对", "哈希不需要矿工"], ["数据自己拥有", "名单留在各校自己手里；只公开汇总数字", "学生数据不该上任何公共账本"], ["共识治理", "改宪章 = 提案 + 2/3 蜂巢投票，一巢一票", "人数还少，PR 投票足够"], ["随时退出", "任何蜂巢可以带着数据 fork 离开", "—"], ["代币激励", "不发币（原则 P7）", "在中国大陆，代币发行和交易是违法的"]]
     },
     en: {
       brand: "Alumni Honeycomb", install: "Install",
@@ -193,14 +200,19 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       cmdTitle: "Commands", tenxTitle: "How we will know it works (the 10X, defined so it can fail)",
       tenxNote: "If the first target misses, we don't expand, add features or issue tokens. We ask the people who stopped why.",
       joinTitle: "Start a hive at your school (5 steps)",
-      join: "<ol><li>Fork the open-source repo: <a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>Write your hive file like <code>hives/example/hive.yml</code> and keep it in <code>hives-private/</code> (never committed; pseudonyms only).</li><li>Run <code>python -m honeycomb check</code> until it is green.</li><li>Sign the charter: put the fingerprint from <code>python -m honeycomb federation hash</code> in your hive.yml, then open a PR adding one row to <code>data/federation.yml</code>.</li><li>At the end of each season, publish <code>pulse --json</code>: aggregate numbers only, no names.</li></ol>",
+      join: "<ol><li>Fork the open-source repo: <a href='" + REPO + "'>" + REPO.replace("https://", "") + "</a></li><li>Write your hive file like <code>hives/example/hive.yml</code> and keep it in <code>hives-private/</code> (never committed; pseudonyms only).</li><li>Run <code>python -m honeycomb check</code> until it is green.</li><li>Sign the charter: put the fingerprint from <code>python -m honeycomb federation hash</code> in your hive.yml, then open a PR adding one row to <code>data/federation.yml</code>.</li><li>At least once a season, <code>publish</code> your public feed (the heartbeat): numbers, learning cards and open seats, no names.</li></ol>",
       compassTitle: "The Calling Compass (8 questions, 2 minutes)", compassSub: "Scored in your browser only. Nothing is saved or sent. Bring the result to your cell's advisor.",
       seeResult: "See my result", needAll: "A few questions are still unanswered.", startWith: "Start here: ", noGap: "All four are amplified. This season, you could advise someone.",
       ampTitle: "Amplify your experience", ampPrompt: "In a sentence or two: one experience others don't have, and one thing you believe because of it. It may be the thing you lead as CEO next season.",
       copy: "Copy the result for your advisor", copied: "Copied.",
       footer: "A volunteer alumni open-source project. It does not represent any university or company.", due: "due",
       layer: { cell: ["Cell", "1 CEO + 2-3 advisors + 2-3 core + 2-3 apprentices, for one season (3 months). Four years of college ≈ 12 seasons."], hive: ["Hive", "One school's own operation: its members, seasons, cells and check-ins."], fed: ["Federation", "The charter every hive keeps: North Star, principles, open-source code. Changing it needs 2/3 of hives."] },
-      web3: [["The web3 idea", "What we do", "Why no chain"], ["A protocol, not a platform", "The charter is an open-source file anyone can fork", "A file plus git is enough"], ["Verifiable membership", "A hive writes the charter's SHA-256 in hive.yml; the federation checks it automatically", "A hash needs no miners"], ["You own your data", "Rosters stay with each school; only aggregate numbers are public", "Student data belongs on no public ledger"], ["Governance by consensus", "Charter change = proposal + 2/3 of hives, one hive one vote", "With this few hives, PR votes suffice"], ["Exit at any time", "Any hive can fork and leave with its data", "—"], ["Token incentives", "No tokens (principle P7)", "Issuing and trading tokens is illegal in mainland China"]]
+      syncTitle: "How the hives stay in sync, in harmony, and compounding",
+      sync: [["⏱ Synchronize", "One clock: calendar quarters (2026-S4 = Oct–Dec). Each hive publishes its public feed once a season; that is its heartbeat. A late one is flagged."],
+             ["🎼 Harmonize", "One format and one charter: every feed uses the same schema and is signed with the charter's SHA-256. An older charter still counts but is flagged \"re-sign\"."],
+             ["📈 Compound", "Every closed cell becomes a learning card (tags, criterion, evidence, what was learned; no names). A cell at another school reads the cards before it starts and cites what it uses in builds_on. When a tag appears in 3+ cards from 2+ schools, the system drafts a shared playbook for every hive to vote on."]],
+      syncNow: "The federation now", syncSim: "(simulated data)", syncHives: "hives", syncCards: "learning cards", syncCross: "cross-school builds", syncSeats: "open seats", syncRipe: "draft(s) awaiting a vote",
+      web3: [["The web3 idea", "What we do", "Why no chain"], ["A protocol, not a platform", "The charter is an open-source file anyone can fork", "A file plus git is enough"], ["Verifiable membership", "A hive's feed carries the charter's SHA-256; the federation checks it automatically", "A hash needs no miners"], ["You own your data", "Rosters stay with each school; only aggregate numbers are public", "Student data belongs on no public ledger"], ["Governance by consensus", "Charter change = proposal + 2/3 of hives, one hive one vote", "With this few hives, PR votes suffice"], ["Exit at any time", "Any hive can fork and leave with its data", "—"], ["Token incentives", "No tokens (principle P7)", "Issuing and trading tokens is illegal in mainland China"]]
     }
   };
   var D = null, lang = "zh", answers = [];
@@ -250,6 +262,15 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       return "<div class='card'><b>" + d.icon + " " + esc(L(d)) + "</b><p><i>" + esc(L(d, "question")) + "</i></p><p class='muted'>" + esc(L(d, "companion")) + "</p></div>";
     }).join("");
   }
+  function drawSync() {
+    var f = D.federation_index || {}, html = "<div class='grid'>" + t("sync").map(function (c) {
+      return "<div class='card'><b>" + esc(c[0]) + "</b><p class='muted'>" + esc(c[1]) + "</p></div>";
+    }).join("") + "</div>";
+    if (f.hives) html += "<p class='muted'><b>" + esc(t("syncNow")) + "</b> " + (f.simulated ? esc(t("syncSim")) + " " : "") + "<code>" + esc(f.season_now) + "</code> · " +
+      f.hives.length + " " + esc(t("syncHives")) + " · " + f.learning_cards + " " + esc(t("syncCards")) + " · " + f.cross_hive_builds_on + " " + esc(t("syncCross")) +
+      " · " + f.open_seats + " " + esc(t("syncSeats")) + " · " + f.ripe.length + " " + esc(t("syncRipe")) + "</p>";
+    document.getElementById("sync").innerHTML = html;
+  }
   function drawDetails() {
     var c = D.charter;
     document.getElementById("northstar").innerHTML = "<b>" + esc(t("northstar")) + "</b>" + esc(L(c.north_star)) + " <span class='muted'>(<code>" + c.north_star.measure + "</code>)</span>";
@@ -270,7 +291,9 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       "python -m honeycomb check   hives-private/<school>.yml     # P1-P6, exit 1 on any problem\n" +
       "python -m honeycomb recruit hives-private/<school>.yml <cell-id>   # shortlist for empty seats\n" +
       "python -m honeycomb pulse   hives-private/<school>.yml --json      # aggregate numbers, safe to publish\n" +
-      "python -m honeycomb federation check | hash                 # verify registry / charter fingerprint\n" +
+      "python -m honeycomb publish hives-private/<school>.yml --out feed.json   # the PUBLIC feed: numbers, learning cards, open seats\n" +
+      "python -m honeycomb learn   hives-private/<school>.yml <cell-id>   # what other hives already learned\n" +
+      "python -m honeycomb federation check | hash | pull          # verify / charter fingerprint / merge all feeds\n" +
       "make check                                                  # data drift + tests + quality floor";
     document.getElementById("tenx").innerHTML = D.strategy.targets.map(function (x) {
       return "<div class='card'><b>" + x.id + " · <code>" + x.measure + "</code> ≥ " + x.target + "</b> <span class='muted'>(" + t("due") + " " + x.due + ")</span><p class='muted'>" + esc(x.why) + "</p></div>";
@@ -367,7 +390,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     document.getElementById("lang").textContent = lang === "zh" ? "EN" : "中文";
     document.querySelectorAll("[data-t]").forEach(function (n) { var v = t(n.getAttribute("data-t")); if (n.hasAttribute("data-html")) n.innerHTML = v; else n.textContent = v; });
     document.getElementById("goCompass").onclick = function () { document.getElementById("compass").scrollIntoView({ behavior: "smooth" }); };
-    drawComb(); drawStarters(); drawMeet(); drawArchitecture(); drawDetails(); drawQuestions();
+    drawComb(); drawStarters(); drawMeet(); drawArchitecture(); drawSync(); drawDetails(); drawQuestions();
     if (document.getElementById("result").innerHTML) showResult();
   }
   document.getElementById("lang").onclick = function () { lang = lang === "zh" ? "en" : "zh"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };

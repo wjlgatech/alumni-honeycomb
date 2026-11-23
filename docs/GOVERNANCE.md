@@ -32,11 +32,15 @@ Speak for a university: hives are volunteer alumni groups, not official universi
 1. Fork the repo; write `hives-private/<school>.yml` from `hives/example/hive.yml`.
 2. `python -m honeycomb check hives-private/<school>.yml` until it is green.
 3. Run `python -m honeycomb federation hash`; put the result in `hive.charter.sha256`.
-4. Open a PR adding one row to `data/federation.yml` → `hives` (id, school, operator pseudonym, `charter_version`, `status: active`,
-   and a `path` to a **public** file that holds only `hive:` + `pulse:` numbers, never members).
-5. The Council merges it if `make check` is green. One hive, one vote, from that moment.
+4. Run `python -m honeycomb publish hives-private/<school>.yml --out <somewhere public>/feed.json`. It refuses if the hive
+   breaks the charter or the feed names anyone. Host the file (any https URL) and open a PR adding one row to
+   `data/federation.yml` → `hives` (`id`, school, operator pseudonym, `status: active`, `feed: https://…/feed.json`).
+5. Publish the feed again at least once a season: that is the heartbeat (docs/FEDERATION.md).
+6. The Council merges it if `make check` is green. One hive, one vote, from that moment.
 
 ## Founding period
 
 Until three hives are registered, the founders (D-COUNCIL in `docs/SPEC.md` §4) act as the Council, and every decision they
-take is written in `data/federation.yml` → `proposals` with `status` and reasons, so the record exists before the vote does.
+take is written in `data/federation.yml` → `proposals` with `status: founding`, `decided_by` and reasons, so the record
+exists before the vote does. `federation check` refuses `founding` once 3 voting hives exist. The first one is
+CP-001 (charter 1.1.0: P8, the season clock and the heartbeat).
