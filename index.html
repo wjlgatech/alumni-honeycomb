@@ -52,6 +52,9 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);padding:10
 .muted{color:var(--muted);font-size:14px}
 footer{max-width:780px;margin:0 auto;padding:24px 16px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 a{color:var(--accent)}
+.eco{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:10px 0}
+.eco a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.eco a:hover{border-color:var(--accent)}.eco b{display:block;color:var(--accent)}.eco span{font-size:13px;color:var(--muted)}
 .meet-times{display:grid;gap:4px;margin:8px 0}.meet-times b{display:inline-block;min-width:5.5em}
 form.signup{display:grid;gap:8px;margin-top:10px}form.signup input,form.signup select{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}form.signup label.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}form.signup label.check input{width:auto;margin-top:4px}
 code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
@@ -79,6 +82,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     <div class="chips" id="starters"></div>
     <p><button class="primary" id="goCompass" data-t="takeCompass"></button></p>
     <div class="card" id="meet"></div>
+    <div id="eco"></div>
   </section>
 
   <!-- Level 2 · Architecture -->
@@ -125,6 +129,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
 </main>
 <footer>
   <span data-t="footer"></span>
+  · <span id="ecoFoot"></span>
   · <a href="https://github.com/wjlgatech/alumni-honeycomb">GitHub</a> · MIT
 </footer>
 <script src="compass.js"></script>
@@ -133,7 +138,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
   var REPO = "https://github.com/wjlgatech/alumni-honeycomb";
   var T = {
     zh: {
-      brand: "校友蜂巢", install: "安装到桌面",
+      brand: "校友蜂巢", install: "安装到桌面", ecoTitle: "同一个生态里的伙伴：",
       meetKicker: "报名 · 线上见面", meetBeijing: "北京", meetPacific: "美西", meetEastern: "美东", meetYours: "你的时间", meetAgenda: "流程（75 分钟）",
       fName: "称呼", fRole: "我是", fSchool: "学校（选填）", fContact: "邮箱或微信号（用来提醒你）", fNote: "想说的话（选填）",
       fAdult: "我已满 18 岁，或我是家长、替孩子报名。", fSubmit: "报名，拿到会议链接", roles: { student: "学生", alumnus: "校友", parent: "家长", other: "其他" },
@@ -174,7 +179,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       web3: [["web3 的想法", "我们怎么做", "为什么不用链"], ["协议而不是平台", "宪章是一个开源文件，谁都能 fork", "文件 + git 就够了"], ["可验证的成员身份", "蜂巢在 feed 里写宪章的 SHA-256；联盟自动核对", "哈希不需要矿工"], ["数据自己拥有", "名单留在各校自己手里；只公开汇总数字", "学生数据不该上任何公共账本"], ["共识治理", "改宪章 = 提案 + 2/3 蜂巢投票，一巢一票", "人数还少，PR 投票足够"], ["随时退出", "任何蜂巢可以带着数据 fork 离开", "—"], ["代币激励", "不发币（原则 P7）", "在中国大陆，代币发行和交易是违法的"]]
     },
     en: {
-      brand: "Alumni Honeycomb", install: "Install",
+      brand: "Alumni Honeycomb", install: "Install", ecoTitle: "Part of the same ecosystem:",
       meetKicker: "Sign up · online meeting", meetBeijing: "Beijing", meetPacific: "Pacific", meetEastern: "Eastern", meetYours: "Your time", meetAgenda: "Agenda (75 minutes)",
       fName: "Your name", fRole: "I am a", fSchool: "School (optional)", fContact: "Email or WeChat ID (for the reminder)", fNote: "Anything you'd like to say (optional)",
       fAdult: "I am 18 or older, or I am a parent signing up for my child.", fSubmit: "Sign up and get the meeting link", roles: { student: "student", alumnus: "alumnus", parent: "parent", other: "other" },
@@ -299,6 +304,19 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       return "<div class='card'><b>" + x.id + " · <code>" + x.measure + "</code> ≥ " + x.target + "</b> <span class='muted'>(" + t("due") + " " + x.due + ")</span><p class='muted'>" + esc(x.why) + "</p></div>";
     }).join("") + "<p class='muted'>" + esc(t("tenxNote")) + "</p>";
   }
+  // The FutureMake ecosystem: the sibling communities, each a real, China-reachable address (checked 2026-11-23).
+  var ECO = [
+    { url: "https://futuremake.io/all-in-ai", zh: ["ALL-IN AI 2027", "硅谷 × 深圳，两场七天高管静修（2027 年 3 月、4 月，筹备中）"], en: ["ALL-IN AI 2027", "Two seven-day US–China executive retreats (Mar & Apr 2027, being planned)"] },
+    { url: "https://fmsc.futuremake.io/", zh: ["FM-SC", "和前沿 AI 公司的合作，事前写下要验证什么，事后核对结果"], en: ["FM-SC", "Collaborations with frontier AI companies, written down before and checked after"] },
+    { url: "https://eden.futuremake.io/", zh: ["Stanford Eden", "以信仰为根基的核心团队：祷告、计划、行动、核对结果"], en: ["Stanford Eden", "A faith-rooted core team that prays, plans, acts and checks what happened"] },
+    { url: "https://futuremake.io/hub/ecosystem", zh: ["FutureMake 生态", "四个共同体、文章和在线应用，都在一页"], en: ["The FutureMake Ecosystem", "All four communities, the articles and the live apps on one page"] }
+  ];
+  function drawEco() {
+    document.getElementById("eco").innerHTML = "<p class='muted' style='margin:14px 0 0'>" + esc(t("ecoTitle")) + "</p><div class='eco'>" + ECO.map(function (e) {
+      var l = e[lang]; return "<a href='" + e.url + "'><b>" + esc(l[0]) + " →</b><span>" + esc(l[1]) + "</span></a>";
+    }).join("") + "</div>";
+    document.getElementById("ecoFoot").innerHTML = ECO.map(function (e) { return "<a href='" + e.url + "'>" + esc(e[lang][0]) + "</a>"; }).join(" · ");
+  }
   var SIGNUP_HOSTS = ["futuremake.io", "www.futuremake.io", "localhost", "127.0.0.1"];
   function when(iso, zone) {
     return new Date(iso).toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { timeZone: zone, weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
@@ -390,7 +408,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     document.getElementById("lang").textContent = lang === "zh" ? "EN" : "中文";
     document.querySelectorAll("[data-t]").forEach(function (n) { var v = t(n.getAttribute("data-t")); if (n.hasAttribute("data-html")) n.innerHTML = v; else n.textContent = v; });
     document.getElementById("goCompass").onclick = function () { document.getElementById("compass").scrollIntoView({ behavior: "smooth" }); };
-    drawComb(); drawStarters(); drawMeet(); drawArchitecture(); drawSync(); drawDetails(); drawQuestions();
+    drawComb(); drawStarters(); drawMeet(); drawEco(); drawArchitecture(); drawSync(); drawDetails(); drawQuestions();
     if (document.getElementById("result").innerHTML) showResult();
   }
   document.getElementById("lang").onclick = function () { lang = lang === "zh" ? "en" : "zh"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };
