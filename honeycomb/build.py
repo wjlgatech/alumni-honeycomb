@@ -9,7 +9,7 @@ from . import __version__
 from .data import ROOT, charter_sha256, load
 
 OUT = ROOT / "web" / "data.json"
-SOURCES = ("charter", "honeycomb", "arc", "dimensions", "compass", "boundaries", "strategy")
+SOURCES = ("charter", "honeycomb", "events", "arc", "dimensions", "compass", "boundaries", "strategy")
 
 
 def render() -> str:

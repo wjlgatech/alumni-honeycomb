@@ -52,6 +52,8 @@ pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);padding:10
 .muted{color:var(--muted);font-size:14px}
 footer{max-width:780px;margin:0 auto;padding:24px 16px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 a{color:var(--accent)}
+.meet-times{display:grid;gap:4px;margin:8px 0}.meet-times b{display:inline-block;min-width:5.5em}
+form.signup{display:grid;gap:8px;margin-top:10px}form.signup input,form.signup select{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}form.signup label.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}form.signup label.check input{width:auto;margin-top:4px}
 code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
 @media print{details{display:block}}
 </style>
@@ -76,6 +78,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     <p style="text-align:center" class="muted" data-t="combCaption"></p>
     <div class="chips" id="starters"></div>
     <p><button class="primary" id="goCompass" data-t="takeCompass"></button></p>
+    <div class="card" id="meet"></div>
   </section>
 
   <!-- Level 2 · Architecture -->
@@ -129,12 +132,17 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
   var T = {
     zh: {
       brand: "校友蜂巢", install: "安装到桌面",
+      meetKicker: "报名 · 线上见面", meetBeijing: "北京", meetPacific: "美西", meetEastern: "美东", meetYours: "你的时间", meetAgenda: "流程（75 分钟）",
+      fName: "称呼", fRole: "我是", fSchool: "学校（选填）", fContact: "邮箱或微信号（用来提醒你）", fNote: "想说的话（选填）",
+      fAdult: "我已满 18 岁，或我是家长、替孩子报名。", fSubmit: "报名，拿到会议链接", roles: { student: "学生", alumnus: "校友", parent: "家长", other: "其他" },
+      fDone: "报名成功！这是会议链接：", fCount: "人已报名", fCal: "加到 Google 日历", fNoLink: "链接会在会前发给你。",
+      fElsewhere: "报名请到：", fErr: "没有保存成功：",
       h1: "每一季，你都是某件你热爱之事的 CEO。",
       sub: "AI 让很多学生害怕被淘汰。我们相信每个人都有不变的呼召和价值，而 AI 会把你独特的经历放大十倍、百倍。所以校友不只给你开一扇门：每 3 个月，你和 2–3 位同学、在 2–3 位校友的带领下，一起做一件你有信念的事。你辅导别人，也被别人辅导。",
       combTitle: "一个蜂房：中间是 CEO，上面两位顾问，左右两位核心队员，下面两位学徒",
       combCaption: "🦉 顾问 · 👑 CEO · 🛡 核心队员 · 🌱 学徒。橙色框就是你：这个蜂房里你是 CEO，那个蜂房里你是队员，另一个里你是学徒，将来你也会当顾问。角色流动，不固定。",
       takeCompass: "先做 2 分钟的呼召指南针",
-      s_student: "我是学生：我想当 CEO", s_alum: "我是校友：我想当顾问", s_parent: "我是家长：这是什么？", s_school: "我想在我的学校开一个蜂巢",
+      s_meet: "📅 报名 12 月 6 日（北京）线上见面", s_student: "我是学生：我想当 CEO", s_alum: "我是校友：我想当顾问", s_parent: "我是家长：这是什么？", s_school: "我想在我的学校开一个蜂巢",
       l2: "第二层 · 架构：蜂房、蜂巢、联盟",
       archIntro: "<p>想象一个蜂巢。<b>蜂房</b>是最小的单位：一件事、一位 CEO、一个季度。<b>蜂巢</b>是一所学校：自己的人、自己的节奏、自己做主。<b>联盟</b>是所有蜂巢共守的一部宪章：同一个北极星、同一套原则、同一份开源代码。没有总部发号施令，只有一份大家都签了名的约定。</p>",
       rolesTitle: "四个角色（同一个人在不同蜂房里换着当）",
@@ -160,12 +168,17 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     },
     en: {
       brand: "Alumni Honeycomb", install: "Install",
+      meetKicker: "Sign up · online meeting", meetBeijing: "Beijing", meetPacific: "Pacific", meetEastern: "Eastern", meetYours: "Your time", meetAgenda: "Agenda (75 minutes)",
+      fName: "Your name", fRole: "I am a", fSchool: "School (optional)", fContact: "Email or WeChat ID (for the reminder)", fNote: "Anything you'd like to say (optional)",
+      fAdult: "I am 18 or older, or I am a parent signing up for my child.", fSubmit: "Sign up and get the meeting link", roles: { student: "student", alumnus: "alumnus", parent: "parent", other: "other" },
+      fDone: "You're in! Here is the meeting link: ", fCount: "people signed up", fCal: "Add to Google Calendar", fNoLink: "We'll send you the link before the meeting.",
+      fElsewhere: "Sign up at: ", fErr: "Not saved: ",
       h1: "Every season, you are the CEO of something you love.",
       sub: "Many students fear AI will make them obsolete. We believe everyone has a calling and worth that no technology changes, and that AI can multiply your unique experience ten- or a hundredfold. So alumni don't only open a door for you. Every 3 months, you and 2-3 classmates, guided by 2-3 alumni, build something you believe in. You coach others, and others coach you.",
       combTitle: "One cell: the CEO in the middle, two advisors above, two core teammates beside, two apprentices below",
       combCaption: "🦉 Advisor · 👑 CEO · 🛡 Core · 🌱 Apprentice. The orange frame is you: CEO in this cell, a teammate in that one, an apprentice in a third, and one day an advisor. Roles flow; none is fixed.",
       takeCompass: "Start with the 2-minute Calling Compass",
-      s_student: "I'm a student: I want to be a CEO", s_alum: "I'm an alumnus: I want to advise", s_parent: "I'm a parent: what is this?", s_school: "I want to start a hive at my school",
+      s_meet: "📅 Sign up: online meeting Dec 5 (US) / Dec 6 (Beijing)", s_student: "I'm a student: I want to be a CEO", s_alum: "I'm an alumnus: I want to advise", s_parent: "I'm a parent: what is this?", s_school: "I want to start a hive at my school",
       l2: "Level 2 · Architecture: cell, hive, federation",
       archIntro: "<p>Picture a beehive. A <b>cell</b> is the smallest unit: one thing, one CEO, one season. A <b>hive</b> is one school, with its own people and rhythm, making its own decisions. The <b>federation</b> is the charter every hive keeps: one North Star, one set of principles, one open-source codebase. No headquarters gives orders. There is only an agreement every hive has signed.</p>",
       rolesTitle: "Four roles (one person switches between them in different cells)",
@@ -216,7 +229,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
   }
   function drawStarters() {
     var box = document.getElementById("starters"); box.innerHTML = "";
-    [["s_student", "compass"], ["s_alum", "architecture"], ["s_parent", "architecture"], ["s_school", "details"]].forEach(function (p) {
+    [["s_meet", "meet"], ["s_student", "compass"], ["s_alum", "architecture"], ["s_parent", "architecture"], ["s_school", "details"]].forEach(function (p) {
       var b = el("button", { "class": "chip" }, esc(t(p[0])));
       b.onclick = function () { var target = document.getElementById(p[1]); if (target.tagName === "DETAILS") target.open = true; target.scrollIntoView({ behavior: "smooth" }); };
       box.appendChild(b);
@@ -262,6 +275,50 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     document.getElementById("tenx").innerHTML = D.strategy.targets.map(function (x) {
       return "<div class='card'><b>" + x.id + " · <code>" + x.measure + "</code> ≥ " + x.target + "</b> <span class='muted'>(" + t("due") + " " + x.due + ")</span><p class='muted'>" + esc(x.why) + "</p></div>";
     }).join("") + "<p class='muted'>" + esc(t("tenxNote")) + "</p>";
+  }
+  var SIGNUP_HOSTS = ["futuremake.io", "www.futuremake.io", "localhost", "127.0.0.1"];
+  function when(iso, zone) {
+    return new Date(iso).toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { timeZone: zone, weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+  function gcal(e) {
+    var f = function (d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); };
+    var s = new Date(e.start_utc), en = new Date(s.getTime() + e.minutes * 60000);
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(L(e)) + "&dates=" + f(s) + "/" + f(en) + "&details=" + encodeURIComponent("https://futuremake.io/honeycomb");
+  }
+  function drawMeet() {
+    var box = document.getElementById("meet"), e = (D.events && D.events.events || [])[0];
+    if (!e) { box.style.display = "none"; return; }
+    var mine = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var html = "<p class='muted' style='margin:0'>" + esc(t("meetKicker")) + " · " + esc(e.platform) + "</p><h2 style='margin:4px 0 6px'>" + esc(L(e)) + "</h2>" +
+      "<div class='meet-times'><span><b>" + esc(t("meetBeijing")) + "</b>" + esc(when(e.start_utc, "Asia/Shanghai")) + "</span><span><b>" + esc(t("meetPacific")) + "</b>" + esc(when(e.start_utc, "America/Los_Angeles")) +
+      "</span><span><b>" + esc(t("meetEastern")) + "</b>" + esc(when(e.start_utc, "America/New_York")) + "</span><span><b>" + esc(t("meetYours")) + "</b>" + esc(when(e.start_utc, mine)) + "</span></div>" +
+      "<p class='muted'>" + esc(L(e, "why")) + " " + esc(L(e, "china")) + "</p>" +
+      "<details><summary>" + esc(t("meetAgenda")) + "</summary><ol>" + e.agenda.map(function (a) { return "<li>" + esc(L(a)) + " <span class='muted'>(" + a.min + "′)</span></li>"; }).join("") + "</ol></details>";
+    if (SIGNUP_HOSTS.indexOf(location.hostname) < 0) {
+      html += "<p>" + esc(t("fElsewhere")) + "<a href='https://futuremake.io/honeycomb'>futuremake.io/honeycomb</a></p>";
+      box.innerHTML = html; return;
+    }
+    var roles = t("roles");
+    html += "<form class='signup' id='signup'><input name='name' maxlength='60' required placeholder='" + esc(t("fName")) + "'>" +
+      "<select name='role' aria-label='" + esc(t("fRole")) + "'>" + ["student", "alumnus", "parent", "other"].map(function (r) { return "<option value='" + r + "'>" + esc(t("fRole")) + (lang === "zh" ? "：" : ": ") + esc(roles[r]) + "</option>"; }).join("") + "</select>" +
+      "<input name='school' maxlength='80' placeholder='" + esc(t("fSchool")) + "'><input name='contact' maxlength='120' required placeholder='" + esc(t("fContact")) + "'>" +
+      "<input name='note' maxlength='300' placeholder='" + esc(t("fNote")) + "'><label class='check'><input type='checkbox' name='adult' required> " + esc(t("fAdult")) + "</label>" +
+      "<button class='primary' type='submit'>" + esc(t("fSubmit")) + "</button><p id='signupMsg' class='muted' aria-live='polite'></p></form>";
+    box.innerHTML = html;
+    document.getElementById("signup").onsubmit = function (ev) {
+      ev.preventDefault();
+      var f = ev.target, msg = document.getElementById("signupMsg"), btn = f.querySelector("button");
+      btn.disabled = true;
+      fetch("/api/honeycomb-signup", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
+        event: e.id, name: f.name.value, role: f.role.value, school: f.school.value, contact: f.contact.value, note: f.note.value, adult: f.adult.checked, lang: lang }) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) {
+          btn.disabled = false;
+          if (!x.ok) { msg.textContent = t("fErr") + (x.j.error || ""); return; }
+          var link = x.j.meeting ? "<a href='" + esc(x.j.meeting) + "'>" + esc(x.j.meeting) + "</a>" : esc(t("fNoLink"));
+          f.outerHTML = "<p><b>" + esc(t("fDone")) + "</b>" + link + "</p><p class='muted'>" + x.j.count + " " + esc(t("fCount")) + " · <a href='" + esc(gcal(e)) + "'>" + esc(t("fCal")) + "</a></p>";
+        }, function () { btn.disabled = false; msg.textContent = t("fErr") + "network"; });
+    };
   }
   function drawQuestions() {
     var box = document.getElementById("questions"); box.innerHTML = "";
@@ -310,7 +367,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
     document.getElementById("lang").textContent = lang === "zh" ? "EN" : "中文";
     document.querySelectorAll("[data-t]").forEach(function (n) { var v = t(n.getAttribute("data-t")); if (n.hasAttribute("data-html")) n.innerHTML = v; else n.textContent = v; });
     document.getElementById("goCompass").onclick = function () { document.getElementById("compass").scrollIntoView({ behavior: "smooth" }); };
-    drawComb(); drawStarters(); drawArchitecture(); drawDetails(); drawQuestions();
+    drawComb(); drawStarters(); drawMeet(); drawArchitecture(); drawDetails(); drawQuestions();
     if (document.getElementById("result").innerHTML) showResult();
   }
   document.getElementById("lang").onclick = function () { lang = lang === "zh" ? "en" : "zh"; try { localStorage.setItem("lang", lang); } catch (e) {} render(); };

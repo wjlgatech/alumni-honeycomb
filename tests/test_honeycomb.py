@@ -165,3 +165,16 @@ def test_manifest_icons_exist():
 
 def test_charter_hash_is_the_signed_one():
     assert load("federation")["charters"][0]["sha256"] == charter_sha256()
+
+
+def test_first_meeting_is_after_thanksgiving_and_link_stays_private():
+    """Sat 2026-12-05 5 PM Pacific = Sun 2026-12-06 9 AM Beijing; the meeting URL never sits in the public repo."""
+    from zoneinfo import ZoneInfo
+
+    ev = load("events")["events"][0]
+    start = dt.datetime.fromisoformat(str(ev["start_utc"]).replace("Z", "+00:00"))
+    pacific, beijing = start.astimezone(ZoneInfo("America/Los_Angeles")), start.astimezone(ZoneInfo("Asia/Shanghai"))
+    assert (pacific.strftime("%a %Y-%m-%d %H:%M"), beijing.strftime("%a %Y-%m-%d %H:%M")) == ("Sat 2026-12-05 17:00", "Sun 2026-12-06 09:00")
+    assert pacific.date() > dt.date(2026, 11, 29), "must fall after the Thanksgiving weekend"
+    for path in list((ROOT / "data").glob("*.yml")) + [ROOT / "web" / "index.html", ROOT / "web" / "data.json"]:
+        assert "meet.google.com/" not in path.read_text(encoding="utf-8"), f"meeting link leaked into {path.name}"

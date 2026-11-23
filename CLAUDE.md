@@ -33,5 +33,6 @@ Asset paths in `web/` stay relative (the mirror lives under `/alumni-honeycomb/`
 | Recruit shortlist | `honeycomb/recruit.py` |
 | Federation: hash, registry, 2/3 vote | `honeycomb/federation.py`, `data/federation.yml`, `docs/GOVERNANCE.md` |
 | Calling Compass | `data/compass.yml`, `web/compass.js`, `honeycomb/compass.py`, `tests/compass.test.mjs` |
+| Meetings + sign-up | `data/events.yml` (ids must match agentic-portfolio `lib/honeycomb-signup.ts`); the form posts to futuremake.io `/api/honeycomb-signup`; the meeting URL never goes in this repo (`test_first_meeting_is_after_thanksgiving_and_link_stays_private`) |
 | Website | `web/index.html` (中文 first; three levels: concept · architecture · details), PWA files in `web/` |
 | China access | `docs/CHINA-ACCESS.md`, `scripts/publish_mirror.sh`, `scripts/china_probe.py` |
