@@ -5,6 +5,7 @@ All notable changes to this project are recorded here (Keep a Changelog).
 ## [Unreleased]
 
 ### Added
+- First online meeting, Sat 2026-12-05 5 PM Pacific = Sun 2026-12-06 9 AM Beijing (after the Thanksgiving weekend), on Google Meet. `data/events.yml` holds the event; the page shows it on Level 1 with Beijing/Pacific/Eastern/your-own time, the agenda and a sign-up form that posts to futuremake.io `/api/honeycomb-signup` (agentic-portfolio). The Meet link is never in this repo; it comes back only after a sign-up is saved. On other hosts the form points to futuremake.io/honeycomb.
 - The honeycomb model as data (`data/honeycomb.yml`): a cell = 1 CEO + 2–3 alumni advisors + 2–3 core + 2–3 apprentices for one 3-month season, with roles that switch between cells. It is the North Star mechanism: everyone is the CEO of something.
 - The federation charter (`data/charter.yml`): North Star, philosophy, principles P1–P7; hives sign it by SHA-256 and `federation check` verifies the registry; charter changes need 2/3 of hives (`federation.ratified`).
 - Rules engine `honeycomb check` (P1–P6), `pulse` (aggregate numbers + 10X verdict), `recruit` (shortlist for empty seats), and a simulated example hive.

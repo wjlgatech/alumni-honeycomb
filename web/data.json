@@ -471,6 +471,49 @@
    }
   ]
  },
+ "events": {
+  "events": [
+   {
+    "agenda": [
+     {
+      "en": "Welcome and why: from fearing AI to a calling",
+      "min": 10,
+      "zh": "欢迎，为什么做这件事：从对 AI 的恐惧到呼召"
+     },
+     {
+      "en": "The honeycomb in three levels: CEO, advisors, core, apprentices",
+      "min": 15,
+      "zh": "三层讲清蜂巢模型：CEO、顾问、核心队员、学徒"
+     },
+     {
+      "en": "Breakouts by school: draft your first cell (what you'd lead, whom you need)",
+      "min": 30,
+      "zh": "按学校分组：写下你的第一个蜂房（你想当 CEO 的那件事，需要谁）"
+     },
+     {
+      "en": "Share, and each person writes one checkable next step",
+      "min": 15,
+      "zh": "分享，每人写下一个可检验的下一步"
+     },
+     {
+      "en": "Optional closing prayer, for those who wish",
+      "min": 5,
+      "zh": "自愿参加的结尾祷告"
+     }
+    ],
+    "china_en": "In mainland China: Google Meet needs a connection that can reach Google.",
+    "china_zh": "中国大陆的朋友请注意：Google Meet 需要能访问谷歌的网络。",
+    "en": "Alumni Honeycomb: first online meeting (cameras on, face to face)",
+    "id": "2026-12-05-kickoff",
+    "minutes": 75,
+    "platform": "Google Meet",
+    "start_utc": "2026-12-06 01:00:00+00:00",
+    "why_en": "The first weekend after Thanksgiving. Sunday morning in Beijing, Saturday afternoon/evening in the US.",
+    "why_zh": "感恩节周末之后的第一个周末。北京是周日上午，美国是周六下午/晚上。",
+    "zh": "校友蜂巢第一次线上见面（开摄像头，面对面）"
+   }
+  ]
+ },
  "honeycomb": {
   "capacity": {
    "ceo_per_season": 1,
