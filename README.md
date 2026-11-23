@@ -52,7 +52,7 @@ Three layers, smallest first:
 
 ```mermaid
 flowchart LR
-  C["🌐 Charter<br/>North Star · P1–P7"] -->|hive signs sha256| H["🐝 Hive<br/>one school"]
+  C["🌐 Charter<br/>North Star · P1–P8"] -->|hive signs sha256| H["🐝 Hive<br/>one school"]
   H --> X["🔶 Cells<br/>CEO + advisors + core + apprentices"]
   X -->|check-ins → next step<br/>close → evidence| H
   H -->|pulse: numbers only| F["📊 Federation pulse"]

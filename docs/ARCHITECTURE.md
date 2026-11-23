@@ -13,7 +13,7 @@ gives orders. Every hive signs the same rules, and anyone can check a signature.
 ```mermaid
 flowchart TB
   subgraph F["🌐 Federation · data/charter.yml + data/federation.yml"]
-    C["Charter v1.0.0<br/>North Star · P1–P7"]
+    C["Charter v1.1.0<br/>North Star · P1–P8"]
     R["Registry<br/>hive → signed charter hash"]
     V["Proposals<br/>2/3 of hives, one hive one vote"]
   end

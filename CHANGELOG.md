@@ -16,6 +16,7 @@ All notable changes to this project are recorded here (Keep a Changelog).
 - Gates: `make check` (drift, charter rules, federation, pytest + node golden test, quality floor), CI workflow, `live_check.py`.
 
 ### Changed
+- Season count made consistent: the clock has 4 calendar quarters a year; most hives rest in the summer one, so 3 school seasons a year and about 12 over college (`data/honeycomb.yml`). Docs say P1–P8 (charter 1.1.0), not P1–P7.
 - Public address is now https://futuremake.io/honeycomb (futuremake.io's edge proxies the Vercel origin; reachable from mainland China). The page sets its own `<base href>` so relative assets work at `/`, `/alumni-honeycomb/` and `/honeycomb`; `data/site.yml` gains `home_url`/`origin_url`; `make china` and `make live-check` target the public address.
 - Mainland China access: `*.vercel.app` measured 0/6 mainland probes (DNS poisoned). Added a GitHub Pages mirror (8/8 probes), relative asset paths so one `web/` folder runs on any host, `make mirror` and `make china` (Globalping probe script).
 

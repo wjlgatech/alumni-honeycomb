@@ -611,10 +611,11 @@
   ],
   "season": {
    "college_total": 12,
-   "en": "A season is about 3 months. Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.",
+   "en": "A season is about 3 months, on calendar quarters (most hives rest in the summer one). Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.",
    "months": 3,
-   "per_year": 3,
-   "zh": "一季约 3 个月。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。"
+   "per_year": 4,
+   "school_year": 3,
+   "zh": "一季约 3 个月，按日历季度计（多数蜂巢暑假那一季休息）。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。"
   }
  },
  "strategy": {

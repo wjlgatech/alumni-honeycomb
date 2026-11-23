@@ -32,10 +32,11 @@ cell:
   statuses: [forming, active, closed]
 season:
   months: 3
-  per_year: 3      # spring, summer-light, autumn; a hive may choose 4
-  college_total: 12
-  zh: 一季约 3 个月。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。
-  en: A season is about 3 months. Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.
+  per_year: 4          # the federation clock: calendar quarters S1-S4 (check.season_clock)
+  school_year: 3       # most hives skip the summer quarter (S3), so 3 seasons in each school year
+  college_total: 12    # 4 school years x 3 = about 12 seasons
+  zh: 一季约 3 个月，按日历季度计（多数蜂巢暑假那一季休息）。大学四年约 12 季：12 次被辅导、也辅导别人的完整经历。
+  en: A season is about 3 months, on calendar quarters (most hives rest in the summer one). Four years of college is about 12 seasons, 12 full turns of being coached and coaching others.
 capacity:
   roles_per_season: 3
   ceo_per_season: 1

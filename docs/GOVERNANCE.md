@@ -7,7 +7,7 @@ food-safety rules, trains new owners, and improves the tools. Each restaurant ch
 
 | Analogy | Exact handle |
 |---|---|
-| The recipe book and the safety rules | `data/charter.yml` (North Star, philosophy, P1–P7) |
+| The recipe book and the safety rules | `data/charter.yml` (North Star, philosophy, P1–P8) |
 | A restaurant | a hive: one school's operation, `hives-private/<school>.yml` |
 | Owner's licence on the wall | `hive.charter.sha256`, verified by `python -m honeycomb federation check` |
 | The owners' assembly | the **Council**: one steward per registered, non-simulated hive |
