@@ -180,3 +180,11 @@ def test_first_meeting_is_after_thanksgiving_and_link_stays_private():
     assert pacific.date() > dt.date(2026, 11, 29), "must fall after the Thanksgiving weekend"
     for path in list((ROOT / "data").glob("*.yml")) + [ROOT / "web" / "index.html", ROOT / "web" / "data.json"]:
         assert "meet.google.com/" not in path.read_text(encoding="utf-8"), f"meeting link leaked into {path.name}"
+
+
+def test_page_links_the_ecosystem():
+    """Paul (2026-11-23): the honeycomb page links FM-SC, Stanford Eden, ALL-IN AI and the ecosystem hub."""
+    html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    for url in ("https://fmsc.futuremake.io/", "https://eden.futuremake.io/", "https://futuremake.io/all-in-ai",
+                "https://futuremake.io/hub/ecosystem"):
+        assert f'url: "{url}"' in html
