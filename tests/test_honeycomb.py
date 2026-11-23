@@ -113,7 +113,8 @@ def test_federation_registry_verifies():
 
 def test_changed_charter_is_caught():
     reg = copy.deepcopy(load("federation"))
-    reg["charters"][0]["sha256"] = "0" * 64
+    current = str(load("charter")["version"])
+    next(c for c in reg["charters"] if str(c["version"]) == current)["sha256"] = "0" * 64
     assert any("charter:" in p for p in federation.check(reg))
 
 
@@ -164,7 +165,8 @@ def test_manifest_icons_exist():
 
 
 def test_charter_hash_is_the_signed_one():
-    assert load("federation")["charters"][0]["sha256"] == charter_sha256()
+    reg = load("federation")
+    assert federation.known_hashes(reg)[str(load("charter")["version"])] == charter_sha256()
 
 
 def test_first_meeting_is_after_thanksgiving_and_link_stays_private():

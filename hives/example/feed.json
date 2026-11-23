@@ -1,0 +1,58 @@
+{
+ "as_of": "2026-11-14",
+ "charter": {
+  "sha256": "ea431e302186349970b7c978ccc4656b758a028a956f09442b22daf62fd70357",
+  "version": "1.1.0"
+ },
+ "hive": "example",
+ "latest_season": "2026-S4",
+ "learnings": [
+  {
+   "builds_on": [],
+   "evidence": "7 first-years used it weekly for 5 weeks (sign-in sheet); 6 of 7 passed the mid-term (self-reported)",
+   "good": "Good: 6 first-years use it weekly for 6 weeks and all pass the mid-term",
+   "hive": "example",
+   "id": "example/c-ai-tutor",
+   "learned": "Weekly use dropped after week 5 when exams moved; next time align with the exam calendar",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "tutoring"
+   ],
+   "vision": "An AI-assisted biology study group that helps first-years pass the hardest course"
+  }
+ ],
+ "open_seats": [
+  {
+   "hive": "example",
+   "id": "example/c-calling-salon",
+   "needs": {
+    "advisors": 1,
+    "apprentices": 2,
+    "core": 2
+   },
+   "season": "2026-S4",
+   "tags": [
+    "calling",
+    "salon"
+   ],
+   "vision": "A monthly salon where alumni and students talk honestly about AI, fear and calling"
+  }
+ ],
+ "pulse": {
+  "active_cells": 2,
+  "cells_total": 4,
+  "ceo_share": 0.33,
+  "checkins": 5,
+  "closed_with_evidence": 1,
+  "members": 10,
+  "role_switchers": 4,
+  "season": "2026-S4"
+ },
+ "schema": "ah-feed/1",
+ "seasons": [
+  "2026-S3",
+  "2026-S4"
+ ],
+ "simulated": true
+}

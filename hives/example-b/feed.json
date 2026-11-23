@@ -1,0 +1,76 @@
+{
+ "as_of": "2026-11-02",
+ "charter": {
+  "sha256": "4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30",
+  "version": "1.0.0"
+ },
+ "hive": "example-b",
+ "latest_season": "2026-S4",
+ "learnings": [
+  {
+   "builds_on": [
+    "example/c-ai-tutor"
+   ],
+   "evidence": "9 first-years used it weekly for 8 weeks, through the mid-term (sign-in sheet)",
+   "good": "Good: 8 first-years use it weekly through the mid-term",
+   "hive": "example-b",
+   "id": "example-b/c-chem-ai",
+   "learned": "Aligning the weekly sessions with the exam calendar kept attendance; the week-5 drop seen elsewhere did not happen",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "tutoring"
+   ],
+   "vision": "An AI-assisted chemistry study group for first-years, aligned with the exam calendar"
+  },
+  {
+   "builds_on": [
+    "example/c-ai-tutor"
+   ],
+   "evidence": "4 of 5 students presented (teacher's note); one dropped out after week 2",
+   "good": "Good: 5 students each present one animation to their class",
+   "hive": "example-b",
+   "id": "example-b/c-math-ai",
+   "learned": "Pair each middle-schooler with one apprentice; the one who dropped out had no pair",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "k12-outreach"
+   ],
+   "vision": "Middle-school students explain one maths idea with an AI-made animation"
+  }
+ ],
+ "open_seats": [
+  {
+   "hive": "example-b",
+   "id": "example-b/c-history-ai",
+   "needs": {
+    "advisors": 1,
+    "apprentices": 2,
+    "core": 1
+   },
+   "season": "2026-S4",
+   "tags": [
+    "ai-study",
+    "humanities"
+   ],
+   "vision": "Use AI to read primary sources in history, with a study group that meets weekly"
+  }
+ ],
+ "pulse": {
+  "active_cells": 0,
+  "cells_total": 3,
+  "ceo_share": 0.0,
+  "checkins": 3,
+  "closed_with_evidence": 2,
+  "members": 8,
+  "role_switchers": 4,
+  "season": "2026-S4"
+ },
+ "schema": "ah-feed/1",
+ "seasons": [
+  "2026-S3",
+  "2026-S4"
+ ],
+ "simulated": true
+}

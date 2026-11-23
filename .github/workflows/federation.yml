@@ -1,0 +1,17 @@
+# The federation heartbeat, on a schedule: re-pull every registered feed (paths and https URLs) and fail
+# if federation/index.json no longer matches them, so a stale index or a broken feed shows up as a red run
+# instead of silently going out of date. Fix: `make build` and commit.
+name: federation-heartbeat
+on:
+  schedule: [{cron: "0 6 * * 1"}]   # Mondays 06:00 UTC (14:00 Beijing)
+  workflow_dispatch: {}
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pyyaml
+      - run: python -m honeycomb federation check
+      - run: python -m honeycomb federation pull --check

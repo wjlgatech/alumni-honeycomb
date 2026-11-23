@@ -17,6 +17,11 @@ targets:
     target: 2
     due: 2027-06-30
     why: A second school runs its own hive under the same charter = the federation exists, not just one club.
+  - id: T4
+    measure: cross_hive_builds_on
+    target: 1
+    due: 2027-06-30
+    why: One cell in one school builds on a learning card from another school = the federation compounds, not just coexists.
 tripwire: >
   If T1 is below 1 on 2026-12-19, do not add a second school, a token, or any feature. Ask the people who
   stopped what stopped them, and build that.

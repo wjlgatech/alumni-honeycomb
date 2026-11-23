@@ -1,0 +1,147 @@
+{
+ "as_of": "2026-11-14",
+ "charter_latest": "1.1.0",
+ "cross_hive_builds_on": 2,
+ "hives": [
+  {
+   "charter": "current",
+   "heartbeat": "current",
+   "id": "example",
+   "latest_season": "2026-S4",
+   "pulse": {
+    "active_cells": 2,
+    "cells_total": 4,
+    "ceo_share": 0.33,
+    "checkins": 5,
+    "closed_with_evidence": 1,
+    "members": 10,
+    "role_switchers": 4,
+    "season": "2026-S4"
+   },
+   "status": "simulated"
+  },
+  {
+   "charter": "older: re-sign",
+   "heartbeat": "current",
+   "id": "example-b",
+   "latest_season": "2026-S4",
+   "pulse": {
+    "active_cells": 0,
+    "cells_total": 3,
+    "ceo_share": 0.0,
+    "checkins": 3,
+    "closed_with_evidence": 2,
+    "members": 8,
+    "role_switchers": 4,
+    "season": "2026-S4"
+   },
+   "status": "simulated"
+  }
+ ],
+ "learnings": [
+  {
+   "builds_on": [],
+   "evidence": "7 first-years used it weekly for 5 weeks (sign-in sheet); 6 of 7 passed the mid-term (self-reported)",
+   "good": "Good: 6 first-years use it weekly for 6 weeks and all pass the mid-term",
+   "hive": "example",
+   "id": "example/c-ai-tutor",
+   "learned": "Weekly use dropped after week 5 when exams moved; next time align with the exam calendar",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "tutoring"
+   ],
+   "vision": "An AI-assisted biology study group that helps first-years pass the hardest course"
+  },
+  {
+   "builds_on": [
+    "example/c-ai-tutor"
+   ],
+   "evidence": "9 first-years used it weekly for 8 weeks, through the mid-term (sign-in sheet)",
+   "good": "Good: 8 first-years use it weekly through the mid-term",
+   "hive": "example-b",
+   "id": "example-b/c-chem-ai",
+   "learned": "Aligning the weekly sessions with the exam calendar kept attendance; the week-5 drop seen elsewhere did not happen",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "tutoring"
+   ],
+   "vision": "An AI-assisted chemistry study group for first-years, aligned with the exam calendar"
+  },
+  {
+   "builds_on": [
+    "example/c-ai-tutor"
+   ],
+   "evidence": "4 of 5 students presented (teacher's note); one dropped out after week 2",
+   "good": "Good: 5 students each present one animation to their class",
+   "hive": "example-b",
+   "id": "example-b/c-math-ai",
+   "learned": "Pair each middle-schooler with one apprentice; the one who dropped out had no pair",
+   "season": "2026-S3",
+   "tags": [
+    "ai-study",
+    "k12-outreach"
+   ],
+   "vision": "Middle-school students explain one maths idea with an AI-made animation"
+  }
+ ],
+ "open_seats": [
+  {
+   "hive": "example",
+   "id": "example/c-calling-salon",
+   "needs": {
+    "advisors": 1,
+    "apprentices": 2,
+    "core": 2
+   },
+   "season": "2026-S4",
+   "tags": [
+    "calling",
+    "salon"
+   ],
+   "vision": "A monthly salon where alumni and students talk honestly about AI, fear and calling"
+  },
+  {
+   "hive": "example-b",
+   "id": "example-b/c-history-ai",
+   "needs": {
+    "advisors": 1,
+    "apprentices": 2,
+    "core": 1
+   },
+   "season": "2026-S4",
+   "tags": [
+    "ai-study",
+    "humanities"
+   ],
+   "vision": "Use AI to read primary sources in history, with a study group that meets weekly"
+  }
+ ],
+ "ripe": [
+  {
+   "cards": [
+    "example-b/c-chem-ai",
+    "example-b/c-math-ai",
+    "example/c-ai-tutor"
+   ],
+   "draft": "Write a shared 'ai-study' playbook from 3 closed cells in 2 hives; every hive votes (charter: 2/3, one hive one vote).",
+   "hives": [
+    "example",
+    "example-b"
+   ],
+   "status": "draft",
+   "tag": "ai-study"
+  }
+ ],
+ "schema": "ah-federation/1",
+ "season_now": "2026-S4",
+ "totals": {
+  "active_cells": 2,
+  "cells_total": 7,
+  "checkins": 8,
+  "closed_with_evidence": 3,
+  "members": 18,
+  "role_switchers": 8
+ }
+}

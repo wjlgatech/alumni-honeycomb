@@ -7,7 +7,7 @@ hive:
   school_en: Example University (simulated)
   simulated: true
   operator: Organizer (sim)
-  charter: {version: 1.0.0, sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30}
+  charter: {version: 1.1.0, sha256: ea431e302186349970b7c978ccc4656b758a028a956f09442b22daf62fd70357}
 
 members:
   # type: student | alumnus.  school: lets advisors come from another school.
@@ -23,13 +23,14 @@ members:
   - {id: s-xin, name: Xin (sim), type: student, year: 1, field: design, languages: [zh], age_band: adult}
 
 seasons:
-  - {id: 2026-S3, start: 2026-06-01, end: 2026-08-31}
+  - {id: 2026-S3, start: 2026-07-01, end: 2026-09-30}
   - {id: 2026-S4, start: 2026-10-01, end: 2026-12-31}
 
 cells:
   - id: c-ai-tutor
     season: 2026-S3
     status: closed
+    tags: [ai-study, tutoring]
     ceo: s-ying
     vision: An AI-assisted biology study group that helps first-years pass the hardest course
     good: "Good: 6 first-years use it weekly for 6 weeks and all pass the mid-term"
@@ -42,6 +43,7 @@ cells:
   - id: c-physics-ai
     season: 2026-S4
     status: active
+    tags: [ai-study, k12-outreach]
     ceo: s-mei
     vision: Help high-school students see physics with AI-made simulations they build themselves
     good: "Good: 3 high-schoolers each build one simulation and explain it to their class"
@@ -51,6 +53,7 @@ cells:
   - id: c-food-waste
     season: 2026-S4
     status: active
+    tags: [campus-venture, sustainability]
     ceo: s-jun
     vision: Cut canteen food waste with a pre-order app the canteen actually uses
     good: "Good: the canteen runs the pre-order for 4 weeks and logged waste falls by 20%"
@@ -60,6 +63,7 @@ cells:
   - id: c-calling-salon
     season: 2026-S4
     status: forming
+    tags: [calling, salon]
     ceo: a-zhao
     vision: A monthly salon where alumni and students talk honestly about AI, fear and calling
     good: "Good: 3 salons, 12+ students each, and 5 students ask to join a cell"

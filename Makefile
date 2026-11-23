@@ -1,6 +1,9 @@
 .PHONY: build check test score score-bump demo deploy live-check
 
-build:        ## data/*.yml -> web/data.json, and the icons
+build:        ## feeds -> federation/index.json -> web/data.json, and the icons
+	python3 -m honeycomb publish hives/example/hive.yml
+	python3 -m honeycomb publish hives/example-b/hive.yml
+	python3 -m honeycomb federation pull
 	python3 -m honeycomb build
 	python3 scripts/icons.py web >/dev/null
 
@@ -17,6 +20,9 @@ check:        ## the finish line: drift + charter + federation + tests + quality
 	python3 -m honeycomb build --check
 	python3 -m honeycomb check hives/example/hive.yml
 	python3 -m honeycomb federation check
+	python3 -m honeycomb publish hives/example/hive.yml --check
+	python3 -m honeycomb publish hives/example-b/hive.yml --check
+	python3 -m honeycomb federation pull --check
 	$(MAKE) test score
 
 demo:         ## open the site locally at http://127.0.0.1:8799

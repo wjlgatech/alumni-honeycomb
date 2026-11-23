@@ -64,6 +64,12 @@ fork. Membership is a hash anyone can verify. Each school owns its data. Rule ch
 Any hive can fork and leave. There is no token: it would be illegal in mainland China, and student data must never sit on
 a public ledger. Details: [docs/ARCHITECTURE.md §3](docs/ARCHITECTURE.md), [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
 
+**Many schools, one rhythm: synchronize · harmonize · compound.** Every hive uses the same season clock and publishes a
+public feed once a season (its heartbeat). Every feed is signed with the charter's fingerprint. Every closed cell
+becomes a learning card (no names), which cells at other schools read before they start and cite in `builds_on`.
+When a tag appears in 3+ cards from 2+ schools, the steward drafts a shared playbook, and the hives vote. Research
+and handles: [docs/FEDERATION.md](docs/FEDERATION.md).
+
 **The committee empowers; it doesn't command.** One steward per hive sits on the Council. It keeps the charter, trains new
 operators, maintains this code and publishes the federation's numbers. It never chooses a hive's members, holds its
 roster or charges anything. [docs/GOVERNANCE.md](docs/GOVERNANCE.md)
@@ -93,7 +99,9 @@ make china                             # measure both URLs from mainland probes 
 python -m honeycomb check   hives/example/hive.yml          # P1–P6 on a hive file; exit 1 on any problem
 python -m honeycomb pulse   hives/example/hive.yml          # vital signs + the 10X targets
 python -m honeycomb recruit hives/example/hive.yml c-calling-salon   # shortlist for empty seats
-python -m honeycomb federation check | hash                  # verify the registry / the charter fingerprint
+python -m honeycomb federation check | hash | pull           # verify / charter fingerprint / merge every feed
+python -m honeycomb publish hives/example/hive.yml           # the public feed: numbers, learning cards, open seats
+python -m honeycomb learn   hives/example-b/hive.yml c-history-ai   # what other hives already learned
 python -m honeycomb compass 3 2 1 1 2 0 3 3                  # score 8 compass answers
 ```
 
@@ -108,7 +116,7 @@ cells:    - {id, season, status: forming|active|closed, ceo, vision, good: "Good
 checkins: - {cell, date, dims: [spirit|mind|heart|strategy], next_step}
 ```
 
-A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10 people, 4 cells, 2 seasons, 4 role-switchers).
+A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10 people, 4 cells, 2 seasons, 4 role-switchers). Cells also carry `tags: [...]` and, when they build on another cell's learning card, `builds_on: [<hive>/<cell>]`.
 
 ### The charter's principles and the code that enforces them
 
@@ -121,6 +129,7 @@ A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10
 | P5 at most 3 roles and 1 CEO role per person per season | `check.capacity` |
 | P6 guardians for minors, pseudonyms, no contact details | `check.safety` |
 | P7 no fees, no selling, no tokens | the Council |
+| P8 share learnings, never people: closed cells carry tags + `learned` | `check.closed_shares_learning`, `feed.leaks` |
 
 ### The 10X, defined so it can fail
 
@@ -129,6 +138,7 @@ A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10
 | T1 | `active_cells` in the first real hive | ≥ 2 | 2026-12-19 |
 | T2 | `role_switchers` (2+ different roles held) | ≥ 3 | 2027-03-31 |
 | T3 | `hives` registered, non-simulated | ≥ 2 | 2027-06-30 |
+| T4 | `cross_hive_builds_on`: a cell builds on another school's learning card | ≥ 1 | 2027-06-30 |
 
 If T1 is below 1 on 2026-12-19: no second school, no feature, no token. Ask the people who stopped why. ([docs/SPEC.md](docs/SPEC.md) §0)
 
@@ -143,10 +153,11 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 |---|---|
 | `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
 | `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `build`, CLI (`__main__`) |
-| `hives/example/` | a simulated hive; real hives live in `hives-private/` (gitignored) |
+| `hives/example/`, `hives/example-b/` | two simulated hives (and their public `feed.json`); real hives live in `hives-private/` (gitignored) |
+| `federation/index.json` | every feed merged: sync status, learning cards, open seats, ripe drafts (generated, drift-gated) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
 | `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
-| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [STATUS](docs/STATUS.md) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges
 

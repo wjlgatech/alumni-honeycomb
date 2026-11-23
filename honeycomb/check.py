@@ -5,6 +5,7 @@ Each rule is a small function returning a list of problem strings; `check()` run
 
 from __future__ import annotations
 
+import datetime as dt
 import re
 from typing import Any
 
@@ -12,6 +13,7 @@ from .data import ROLE_KEYS, load, roles_in
 
 FORBIDDEN_KEYS = {"phone", "email", "wechat", "weixin", "id_number", "real_name", "address", "qq"}
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")
+SHA256 = re.compile(r"[0-9a-f]{64}")  # a charter fingerprint is never contact details
 PHONE = re.compile(r"(?<!\d)(?:\+?\d[\d\s-]{9,}\d)(?!\d)")
 
 
@@ -32,7 +34,7 @@ def safety(hive: dict[str, Any], model: dict[str, Any]) -> list[str]:
     for path, key, value in _walk(hive):
         if key.lower() in FORBIDDEN_KEYS:
             out.append(f"P6 safety: field '{key}' at {path or 'top'} is not allowed")
-        if isinstance(value, str) and (EMAIL.search(value) or PHONE.search(value)):
+        if isinstance(value, str) and not SHA256.fullmatch(value) and (EMAIL.search(value) or PHONE.search(value)):
             out.append(f"P6 safety: {path}.{key} looks like contact details")
     simulated = bool(hive["hive"].get("simulated"))
     for m in hive["members"]:
@@ -114,7 +116,34 @@ def capacity(hive: dict[str, Any], model: dict[str, Any]) -> list[str]:
     return out
 
 
-RULES = (safety, cell_shape, vision_and_good, closed_has_evidence, checkin_next_step, capacity)
+def closed_shares_learning(hive: dict[str, Any], model: dict[str, Any]) -> list[str]:
+    """P8: a closed cell has tags and outcome.learned (its learning card); builds_on names `<hive>/<cell>`."""
+    out = []
+    for c in hive["cells"]:
+        if c.get("status") == "closed":
+            if not c.get("tags"):
+                out.append(f"P8 share-learnings: closed cell {c['id']} has no tags")
+            if not str((c.get("outcome") or {}).get("learned") or "").strip():
+                out.append(f"P8 share-learnings: closed cell {c['id']} has no outcome.learned")
+        out += [f"P8 share-learnings: {c['id']} builds_on {ref!r} is not '<hive>/<cell>'"
+                for ref in c.get("builds_on") or [] if not re.fullmatch(r"[a-z0-9-]+/[a-z0-9-]+", str(ref))]
+    return out
+
+
+def season_clock(hive: dict[str, Any], model: dict[str, Any]) -> list[str]:
+    """The federation clock: a season id must be the calendar quarter of its start (YYYY-S1..S4)."""
+    from .feed import season_of  # local import: feed imports pulse, which must not depend on check
+
+    out = []
+    for s in hive["seasons"]:
+        start = s["start"] if isinstance(s["start"], dt.date) else dt.date.fromisoformat(str(s["start"]))
+        if s["id"] != season_of(start):
+            out.append(f"clock: season {s['id']} starts {start}, which is {season_of(start)} on the federation clock")
+    return out
+
+
+RULES = (safety, cell_shape, vision_and_good, closed_has_evidence, checkin_next_step, capacity,
+         closed_shares_learning, season_clock)
 
 
 def check(hive: dict[str, Any], model: dict[str, Any] | None = None) -> list[str]:

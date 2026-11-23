@@ -1,20 +1,31 @@
-# The federation registry: which hives exist and which charter they signed.
-# A hive joins by pull request: add a row here, with its charter_sha256 equal to a known charter hash.
-# `python -m honeycomb federation check` verifies every row. Aggregate numbers only; never names.
+# The federation registry: which hives exist, which charters are ratified, and every proposal.
+# A hive joins by pull request: one row here whose `feed` is its PUBLIC feed (a repo path or an https URL)
+# made by `python -m honeycomb publish <hive.yml>`. Feeds carry numbers, learning cards and open seats; never people.
+# `python -m honeycomb federation check` verifies every row; `federation pull` merges all feeds into federation/index.json.
 charters:
   - version: 1.0.0
-    sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30   # = sha256(data/charter.yml); `python -m honeycomb federation hash`
+    sha256: 4cc52a2633281635cb0074312db6b99036be7b68b2c0775a7b058126aee80c30
+  - version: 1.1.0
+    sha256: ea431e302186349970b7c978ccc4656b758a028a956f09442b22daf62fd70357   # = sha256(data/charter.yml); `python -m honeycomb federation hash`
 hives:
   - id: example
     school_zh: 示例大学（模拟）
     school_en: Example University (simulated)
     operator: Organizer (sim)
-    charter_version: 1.0.0
     status: simulated
-    path: hives/example/hive.yml
-proposals: []
-#  - id: CP-001
-#    title: ...
-#    diff: the charter change, as a PR link
-#    votes: {example: yes}
-#    status: open | ratified | rejected   # ratified when yes >= 2/3 of registered, non-simulated hives
+    feed: hives/example/feed.json
+  - id: example-b
+    school_zh: 第二示例大学（模拟）
+    school_en: Second Example University (simulated)
+    operator: Organizer B (sim)
+    status: simulated
+    feed: hives/example-b/feed.json
+proposals:
+  - id: CP-001
+    title: "Charter 1.1.0: P8 share learnings never people; one season clock; a feed heartbeat each season"
+    why: Hives cannot compound what they never write down, and cannot sync without one clock (docs/FEDERATION.md).
+    status: founding          # fewer than 3 voting hives: the founders decide, on the record (docs/GOVERNANCE.md)
+    decided_by: founders
+    date: 2026-11-23
+    votes: {}
+#  status: open | ratified | rejected | founding   (ratified = yes from >= 2/3 of registered, non-simulated hives)

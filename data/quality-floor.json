@@ -1,10 +1,10 @@
 {
-  "documented": 93,
-  "score": 98,
+  "documented": 96,
+  "score": 99,
   "shallow": 100,
   "sized": 100,
   "tested": 100,
-  "tests": 30,
+  "tests": 47,
   "typed": 98,
-  "updated": "2026-11-19"
+  "updated": "2026-11-23"
 }

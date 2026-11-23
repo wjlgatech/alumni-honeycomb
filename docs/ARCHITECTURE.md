@@ -50,6 +50,10 @@ flowchart TB
 monthly check-ins, each ending in a `next_step`) → `closed` (an `outcome.evidence` line: what was observed).
 A cell must state `vision` and a `good: "Good: …"` criterion before it acts (P2).
 
+### Many hives in step
+
+One clock, one feed format, learning cards and a draft-only steward: [FEDERATION.md](FEDERATION.md).
+
 ### §3 Decentralization: web3 ideas, no chain
 
 | Web3 idea | Here | Why no chain |
