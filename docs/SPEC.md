@@ -42,7 +42,7 @@ apprentices, and they switch roles between cells. The differentiator is companio
 
 | Built | Where |
 |---|---|
-| The charter: North Star, philosophy, principles P1–P7, federation rules | `data/charter.yml` |
+| The charter: North Star, philosophy, principles P1–P8, federation rules | `data/charter.yml` |
 | The honeycomb model: four roles, cell shape, season clock, capacity | `data/honeycomb.yml` |
 | The rules engine: P1–P6 checked on any hive file | `honeycomb/check.py` |
 | Vital signs and the North Star (aggregate numbers only) | `honeycomb/pulse.py` |
