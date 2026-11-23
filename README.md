@@ -166,5 +166,7 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 - The example hive is fiction. Its numbers prove the tools run; they are not the 10X.
 - A volunteer alumni project. It does not represent any university or company.
 
+Sibling communities, linked from the page: [ALL-IN AI 2027](https://futuremake.io/all-in-ai) · [FM-SC](https://fmsc.futuremake.io/) · [Stanford Eden](https://eden.futuremake.io/) · [the FutureMake Ecosystem](https://futuremake.io/hub/ecosystem).
+
 MIT licensed. Lineage: the loop discipline comes from Stanford Eden's core-team app, and the "each engagement compounds the
 next" idea comes from Future Makers Strategic Collab.
