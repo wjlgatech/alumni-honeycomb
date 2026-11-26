@@ -142,6 +142,21 @@ A full simulated example: [`hives/example/hive.yml`](hives/example/hive.yml) (10
 
 If T1 is below 1 on 2026-12-19: no second school, no feature, no token. Ask the people who stopped why. ([docs/SPEC.md](docs/SPEC.md) §0)
 
+### Before the first meeting: 1:1s with the people others listen to
+
+The first public meeting goes better when the cells already have their first members before anyone joins the call. So before Dec 5 we meet 6–8 people one at a time.
+Most of them are **hubs**, people their circle listens to. Two are the actual users, and one is a skeptic who expects it to fail.
+**People first, business second.** Each 1:1 is a relationship before it is research: we ask what they are building and give something first. Then we ask only about things that already happened. We record what they *did* at the end, not what they said. Technology does the tallying and never stands in for the meeting.
+
+| Step | Command (real files stay in `hives-private/discovery/`) |
+|---|---|
+| Whom to meet, with a reason per pick | `python -m honeycomb discovery plan <people.yml>` |
+| The bilingual question card to carry in | [docs/DISCOVERY-CARD.md](docs/DISCOVERY-CARD.md) (generated, drift-gated) |
+| What we learned, as numbers + which pre-committed rule fires | `python -m honeycomb discovery tally <interviews.yml>` · `make discover` |
+
+The 12X, defined so it can fail: **12 committed seats before Dec 5** (`seats_committed`; walking in cold, the start is about 1).
+The guide, the research behind it and the rules: [docs/DISCOVERY.md](docs/DISCOVERY.md).
+
 ### Start a hive at your school
 
 Fork → write `hives-private/<school>.yml` → `check` until green → put `federation hash` in your file → PR one row into
@@ -152,12 +167,12 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 | Path | What |
 |---|---|
 | `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
-| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `build`, CLI (`__main__`) |
+| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `build`, CLI (`__main__`) |
 | `hives/example/`, `hives/example-b/` | two simulated hives (and their public `feed.json`); real hives live in `hives-private/` (gitignored) |
 | `federation/index.json` | every feed merged: sync status, learning cards, open seats, ripe drafts (generated, drift-gated) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
 | `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
-| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [STATUS](docs/STATUS.md) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges
 

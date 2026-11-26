@@ -1,0 +1,21 @@
+# SIMULATED. Write one entry within 15 minutes of each 1:1. Real notes: hives-private/discovery/interviews.yml.
+# speaks_as: the group this person IS (student|teen|parent|advisor|organizer)
+# value 0-3: 0 no story · 1 opinion · 2 a specific past story · 3 already spent time or money on it
+# rung 0-4: compliment · time · intro · role · reputation (data/discovery.yml ladder)
+# seats: what they committed, by role; `who` is a pseudonym so two people naming one person count once
+# breaks: ids from data/discovery.yml breaks (a new id = a new break to add)
+# felt_heard: did they say or show it (asked a follow-up, booked again)? gave: what we gave them first
+interviews:
+  - {id: I-01, person: H-assoc, date: 2026-11-28, mode: in_person, speaks_as: organizer, value: 3, rung: 4,
+     seats: [{role: advisor, who: A-1}, {role: advisor, who: A-2}], breaks: [founder_bottleneck, advisor_fade],
+     felt_heard: true, gave: "intro to a robotics lab for their association's spring event"}
+  - {id: I-02, person: H-pastor, date: 2026-11-29, mode: in_person, speaks_as: parent, value: 2, rung: 3,
+     seats: [{role: ceo, who: C-1}, {role: apprentice, who: P-1}], breaks: [faith_complaint, parent_upset],
+     felt_heard: true, gave: "reviewed their youth group's AI-fear talk"}
+  - {id: I-03, person: H-prof, date: 2026-11-30, mode: video, speaks_as: advisor, value: 3, rung: 2,
+     seats: [{role: core, who: K-1}, {role: core, who: K-2}, {role: advisor, who: A-1}], breaks: [advisor_fade, hub_only],
+     felt_heard: true, gave: "a student for their lab's open project"}
+  - {id: I-04, person: U-junior, date: 2026-11-30, mode: video, speaks_as: student, value: 3, rung: 3,
+     seats: [{role: ceo, who: C-2}], breaks: [advisor_fade, politeness], felt_heard: true}
+  - {id: I-05, person: S-dad, date: 2026-12-01, mode: in_person, speaks_as: parent, value: 1, rung: 1,
+     breaks: [faith_complaint, parent_upset, homework_load], felt_heard: false}

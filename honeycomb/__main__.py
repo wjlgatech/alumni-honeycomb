@@ -8,6 +8,9 @@
   learn   <hive.yml> <cell-id> [--index F]  what other cells (any hive) already learned that fits this cell
   compass 3 2 1 1 2 0 3 3            score 8 Calling Compass answers (0..3) in question order
   build   [--check]                  data/*.yml -> web/data.json
+  discovery plan  <people.yml>       pre-launch 1:1s: whom to meet, with reasons (relationship first)
+  discovery tally <interviews.yml>   numbers, D-targets, fired rules, breaks nobody detects yet
+  discovery card  [--check]          data/discovery.yml -> docs/DISCOVERY-CARD.md (the question card)
 """
 
 from __future__ import annotations
@@ -16,8 +19,10 @@ import argparse
 import json
 import sys
 
-from . import build, check, compass, federation, feed, learn, pulse, recruit
+from . import build, check, compass, discovery, federation, feed, learn, pulse, recruit
 from pathlib import Path
+
+import yaml
 
 from .data import ROOT, charter_sha256, load, load_hive
 
@@ -116,6 +121,40 @@ def _federation(a: argparse.Namespace) -> int:
     return 1 if problems else 0
 
 
+def _discovery(a: argparse.Namespace) -> int:
+    """discovery plan <people> | tally <interviews> | card [--check]."""
+    if a.action == "card":
+        return _drift(ROOT / "docs" / "DISCOVERY-CARD.md", discovery.card(), a.check)
+    if not a.file:
+        print(f"discovery {a.action} needs a file (keep real ones in hives-private/discovery/)", file=sys.stderr)
+        return 2
+    with open(a.file, encoding="utf-8") as fh:
+        doc = yaml.safe_load(fh) or {}
+    if a.action == "plan":
+        out = discovery.plan(doc)
+        for k, p in enumerate(out["picks"], 1):
+            where = "in person" if p["in_person"] else "video"
+            print(f"{k}. {p['id']} [{p['kind']}, {where}]: " + "; ".join(p["reasons"]))
+        print("voices per group: " + ", ".join(f"{s} {n}" for s, n in sorted(out["voices"].items())))
+        print("gaps (under 2 voices): " + (", ".join(out["gaps"]) or "none"))
+        print("A plan, not a decision. Give first: ask what they are building before you ask anything.")
+        return 0
+    t = discovery.tally(doc.get("interviews", []))
+    if a.json:
+        print(json.dumps(t, ensure_ascii=False, indent=1))
+        return 0
+    print(json.dumps(t["numbers"], ensure_ascii=False, indent=1))
+    for row in t["targets"]:
+        print(f"{'✅' if row['met'] else '⬜'} {row['id']} {row['measure']}: {row['value']}/{row['target']}")
+    for r in t["fired"]:
+        print(f"⚑ {r['id']} fires ({r['when']}): {r['then_en']}")
+    for b in t["undetected"]:
+        print(f"👁 {b}: raised, and nothing detects it yet. Build a detector or a fix (R2).")
+    for b in t["unknown_breaks"]:
+        print(f"? {b}: a new break. Add it to data/discovery.yml with a detector.")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """Parse argv and run one command; return its exit code."""
     parser = argparse.ArgumentParser(prog="honeycomb", description=__doc__,
@@ -131,6 +170,8 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("learn"); p.add_argument("hive"); p.add_argument("cell"); p.add_argument("--index"); p.set_defaults(fn=_learn)
     p = sub.add_parser("compass"); p.add_argument("answers", nargs=8, type=int)
     p.set_defaults(fn=lambda a: print(json.dumps(compass.score(a.answers), indent=1)) or 0)
+    p = sub.add_parser("discovery"); p.add_argument("action", choices=["plan", "tally", "card"]); p.add_argument("file", nargs="?")
+    p.add_argument("--check", action="store_true"); p.add_argument("--json", action="store_true"); p.set_defaults(fn=_discovery)
     p = sub.add_parser("build"); p.add_argument("--check", action="store_true")
     p.set_defaults(fn=lambda a: build.main(check=a.check))
     args = parser.parse_args(argv)

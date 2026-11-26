@@ -14,7 +14,8 @@ Public, MIT-licensed repo: never commit a real roster, name, contact detail or a
 5. **No tokens, no fees, no foreign assets on the page.** P7; `test_site_loads_nothing_from_other_domains` keeps the page China-safe.
 6. **Compass parity.** `web/compass.js` and `honeycomb/compass.py` must agree on every golden case in `data/compass.yml`.
 7. **Federation steward drafts, never decides.** `federation pull` may draft proposals (`status: draft`); only hives ratify (2/3), or founders while fewer than 3 voting hives exist (`status: founding`, `decided_by`). A feed never names a person (`feed.leaks`); regenerate feeds and the index with `make build` (drift-gated).
-8. **Never contact anyone, spend money, or register a hive on someone's behalf.** Founders own direction, money and evaluation.
+8. **People relationship >> business; tech magnifies both** (Paul, 2026-11-26). A 1:1 gives first and is scored first on `felt_heard`; tools tally, never replace the meeting. Discovery rules R1–R5 are code (`discovery.RULES`), one per data row.
+9. **Never contact anyone, spend money, or register a hive on someone's behalf.** Founders own direction, money and evaluation.
 
 ## Gates
 `make check` before every PR (drift · example hive · federation · pytest + node golden test · quality floor).
@@ -37,4 +38,5 @@ Asset paths in `web/` stay relative (the mirror lives under `/alumni-honeycomb/`
 | Meetings + sign-up | `data/events.yml` (ids must match agentic-portfolio `lib/honeycomb-signup.ts`); the form posts to futuremake.io `/api/honeycomb-signup`; the meeting URL never goes in this repo (`test_first_meeting_is_after_thanksgiving_and_link_stays_private`) |
 | Federation: clock, feeds, learning cards, index, ripe drafts | `honeycomb/feed.py`, `honeycomb/federation.py`, `honeycomb/learn.py`, `data/federation.yml`, `federation/index.json`, `docs/FEDERATION.md`, `tests/test_federation_sync.py` |
 | Website | `web/index.html` (中文 first; three levels: concept · architecture · details), PWA files in `web/` |
+| Pre-launch 1:1s (whom to meet, question card, tally, pre-committed rules) | `data/discovery.yml`, `honeycomb/discovery.py`, `docs/DISCOVERY.md`, `docs/DISCOVERY-CARD.md` (generated; `discovery card --check`), `hives/example/discovery/` (simulated); real people and notes only in `hives-private/discovery/` |
 | China access | `docs/CHINA-ACCESS.md`, `scripts/publish_mirror.sh`, `scripts/china_probe.py` |
