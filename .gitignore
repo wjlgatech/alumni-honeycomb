@@ -5,3 +5,4 @@ __pycache__/
 .vercel
 .DS_Store
 data/quality-history.jsonl
+.gstack/
