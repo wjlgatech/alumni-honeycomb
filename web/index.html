@@ -141,7 +141,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       brand: "校友蜂巢", install: "安装到桌面", ecoTitle: "同一个生态里的伙伴：",
       meetKicker: "报名 · 线上见面", meetBeijing: "北京", meetPacific: "美西", meetEastern: "美东", meetYours: "你的时间", meetAgenda: "流程（75 分钟）",
       fName: "称呼", fRole: "我是", fSchool: "学校（选填）", fContact: "邮箱或微信号（用来提醒你）", fNote: "想说的话（选填）",
-      fAdult: "我已满 18 岁，或我是家长、替孩子报名。", fSubmit: "报名，拿到会议链接", roles: { student: "学生", alumnus: "校友", parent: "家长", other: "其他" },
+      fAdult: "我已满 18 岁，或我是家长、替孩子报名。", fConsent: "我同意：这些报名信息（称呼、身份、学校、联系方式）保存在美国的服务器上（futuremake.io），只用来提醒这次会议，不公开、不出售，回复提醒即可要求删除。请不要填写宗教信仰或孩子的信息。", fSubmit: "报名，拿到会议链接", roles: { student: "学生", alumnus: "校友", parent: "家长", other: "其他" },
       fDone: "报名成功！这是会议链接：", fCount: "人已报名", fCal: "加到 Google 日历", fNoLink: "链接会在会前发给你。",
       fElsewhere: "报名请到：", fErr: "没有保存成功：",
       h1: "每一季，你都是某件你热爱之事的 CEO。",
@@ -182,7 +182,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       brand: "Alumni Honeycomb", install: "Install", ecoTitle: "Part of the same ecosystem:",
       meetKicker: "Sign up · online meeting", meetBeijing: "Beijing", meetPacific: "Pacific", meetEastern: "Eastern", meetYours: "Your time", meetAgenda: "Agenda (75 minutes)",
       fName: "Your name", fRole: "I am a", fSchool: "School (optional)", fContact: "Email or WeChat ID (for the reminder)", fNote: "Anything you'd like to say (optional)",
-      fAdult: "I am 18 or older, or I am a parent signing up for my child.", fSubmit: "Sign up and get the meeting link", roles: { student: "student", alumnus: "alumnus", parent: "parent", other: "other" },
+      fAdult: "I am 18 or older, or I am a parent signing up for my child.", fConsent: "I agree: these details (name, role, school, contact) are stored on a server in the United States (futuremake.io), used only to remind me of this meeting, never published or sold; reply to the reminder to have them deleted. Please don't enter religious beliefs or a child's details.", fSubmit: "Sign up and get the meeting link", roles: { student: "student", alumnus: "alumnus", parent: "parent", other: "other" },
       fDone: "You're in! Here is the meeting link: ", fCount: "people signed up", fCal: "Add to Google Calendar", fNoLink: "We'll send you the link before the meeting.",
       fElsewhere: "Sign up at: ", fErr: "Not saved: ",
       h1: "Every season, you are the CEO of something you love.",
@@ -344,6 +344,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       "<select name='role' aria-label='" + esc(t("fRole")) + "'>" + ["student", "alumnus", "parent", "other"].map(function (r) { return "<option value='" + r + "'>" + esc(t("fRole")) + (lang === "zh" ? "：" : ": ") + esc(roles[r]) + "</option>"; }).join("") + "</select>" +
       "<input name='school' maxlength='80' placeholder='" + esc(t("fSchool")) + "'><input name='contact' maxlength='120' required placeholder='" + esc(t("fContact")) + "'>" +
       "<input name='note' maxlength='300' placeholder='" + esc(t("fNote")) + "'><label class='check'><input type='checkbox' name='adult' required> " + esc(t("fAdult")) + "</label>" +
+      "<label class='check'><input type='checkbox' name='consent' required> " + esc(t("fConsent")) + "</label>" +
       "<button class='primary' type='submit'>" + esc(t("fSubmit")) + "</button><p id='signupMsg' class='muted' aria-live='polite'></p></form>";
     box.innerHTML = html;
     document.getElementById("signup").onsubmit = function (ev) {
@@ -351,7 +352,7 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       var f = ev.target, msg = document.getElementById("signupMsg"), btn = f.querySelector("button");
       btn.disabled = true;
       fetch("/api/honeycomb-signup", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
-        event: e.id, name: f.name.value, role: f.role.value, school: f.school.value, contact: f.contact.value, note: f.note.value, adult: f.adult.checked, lang: lang }) })
+        event: e.id, name: f.name.value, role: f.role.value, school: f.school.value, contact: f.contact.value, note: f.note.value, adult: f.adult.checked, consent: f.consent.checked, lang: lang }) })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (x) {
           btn.disabled = false;

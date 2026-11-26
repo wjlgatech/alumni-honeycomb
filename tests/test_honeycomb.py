@@ -188,3 +188,11 @@ def test_page_links_the_ecosystem():
     for url in ("https://fmsc.futuremake.io/", "https://eden.futuremake.io/", "https://futuremake.io/all-in-ai",
                 "https://futuremake.io/hub/ecosystem"):
         assert f'url: "{url}"' in html
+
+
+def test_signup_form_asks_cross_border_consent_and_no_faith():
+    """PIPL Art. 39: say where the data goes and get a separate yes; Art. 28: never collect religious belief."""
+    html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    assert "name='consent' required" in html and "consent: f.consent.checked" in html
+    assert html.count("fConsent:") == 2  # zh + en
+    assert "name='faith'" not in html and "name='religion'" not in html
