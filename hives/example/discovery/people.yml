@@ -1,0 +1,17 @@
+# SIMULATED. Fictional pseudonyms that prove `discovery plan` runs. Real people go in
+# hives-private/discovery/people.yml (gitignored), same shape.
+# kind: hub (speaks FOR groups) | end_user (IS the user) | skeptic (expects it to fail)
+# trust 0-3: would people act on this person's introduction? 0 is never picked.
+first_hive_cluster: sysu-bay
+people:
+  - {id: H-assoc, kind: hub, segments: [organizer, advisor], cluster: sysu-bay, trust: 3, in_person: true}
+  - {id: H-pastor, kind: hub, segments: [parent, teen], cluster: sysu-bay, trust: 3, in_person: true}
+  - {id: H-prof, kind: hub, segments: [student, advisor], cluster: sysu-gz, trust: 3, in_person: false}
+  - {id: H-mom, kind: hub, segments: [parent, teen], cluster: sysu-bay, trust: 2, in_person: true}
+  - {id: H-founder, kind: hub, segments: [advisor, student], cluster: tsinghua-sv, trust: 2, in_person: true}
+  - {id: H-counselor, kind: hub, segments: [student, organizer], cluster: sysu-gz, trust: 2, in_person: false}
+  - {id: H-famous, kind: hub, segments: [advisor], cluster: far, trust: 0, in_person: false}
+  - {id: U-junior, kind: end_user, segments: [student], cluster: sysu-gz, trust: 1, in_person: false}
+  - {id: U-teen, kind: end_user, segments: [teen], cluster: sysu-bay, trust: 1, in_person: true}
+  - {id: U-grad, kind: end_user, segments: [student], cluster: far, trust: 1, in_person: false}
+  - {id: S-dad, kind: skeptic, segments: [parent], cluster: sysu-bay, trust: 2, in_person: true}

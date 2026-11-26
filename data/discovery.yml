@@ -1,0 +1,98 @@
+# Pre-launch discovery: whom to meet 1:1 before the first public meeting, what to ask, and which answers
+# change the plan. Read by honeycomb/discovery.py (`python -m honeycomb discovery plan|tally|card`).
+# Real hubs and interview notes live in hives-private/discovery/ (gitignored). Only tally numbers leave it.
+#
+# Order of values (Paul, 2026-11-26): people relationship >> business; technology (AI, robotics, web3,
+# quantum ...) magnifies and accelerates both, and never replaces the meeting. So every 1:1 is a
+# relationship act first and research second: we give before we ask, and the first thing we score is
+# whether the person left feeling heard.
+
+window: {from: 2026-11-27, to: 2026-12-04, meeting: 2026-12-05-kickoff}
+
+# The 12X, defined so it can fail (computed by `discovery tally`).
+# Baseline: walking into Dec 5 cold, about 1 committed seat (Paul's own). Target: 12 committed seats,
+# which is most of two minimal cells (1 CEO + 2 advisors + 2 core + 2 apprentices = 7 each) and so
+# makes T1 (2 active cells by 2026-12-19) reachable.
+targets:
+  - {id: D1, measure: seats_committed, target: 12, why: "12 named-by-role seats before the meeting = 12X the cold start; most of two cells (T1)"}
+  - {id: D2, measure: ceo_candidates, target: 2, why: "No CEO, no cell. Two people who would lead something this season"}
+  - {id: D3, measure: interviews, target: 6, why: "Enough voices that one opinion is not the plan"}
+  - {id: D4, measure: segments_heard, target: 4, why: "Demand measured per people group, not averaged into one"}
+  - {id: D5, measure: felt_heard, target: 6, why: "Relationship first: each person left feeling heard and got something they asked for"}
+
+# The people groups whose demand we measure separately. A hub speaks FOR a group; an end user speaks AS one.
+segments:
+  - {id: student, zh: 大学生（准 CEO）, en: University student (the would-be CEO)}
+  - {id: teen, zh: 未成年孩子（需监护人）, en: Under-18 child (needs a guardian)}
+  - {id: parent, zh: 校友家长（信任的闸门）, en: Alumni parent (the trust gate)}
+  - {id: advisor, zh: 校友顾问（供给侧）, en: Alumnus advisor (the supply side)}
+  - {id: organizer, zh: 校友会/学校组织者（渠道与名分）, en: Alumni-association or school organizer (reach and legitimacy)}
+
+# How we pick whom to meet (honeycomb/discovery.py plan). Greedy, so every pick prints its reason.
+selection:
+  max_meetings: 8
+  voices_per_segment: 2     # two voices per group, so one opinion is never "the group"
+  cluster_voices: 3         # complex contagion (Centola): a high-commitment act spreads through overlapping
+                            # ties, so the first hive's circle needs 3 hubs who know each other, not 8 far-apart ones
+  reserve: {end_user: 2, skeptic: 1}   # hub bias correction: 2 people who ARE the user, 1 who expects it to fail
+  in_person_bonus: 1
+
+# The relationship ladder (Mom Test "advancement"): what the person DID at the end, not what they said.
+ladder:
+  - {rung: 0, id: compliment, zh: 只是称赞, en: "Compliment only (noise)"}
+  - {rung: 1, id: time, zh: 约了下一次, en: "Gave more time: a second conversation is booked"}
+  - {rung: 2, id: intro, zh: 按角色介绍了具体的人, en: "Introduced specific people, by role"}
+  - {rung: 3, id: role, zh: 自己认领一个座位, en: "Took a seat themselves (CEO, advisor, core)"}
+  - {rung: 4, id: reputation, zh: 用自己的名义邀请圈子来 12 月 5 日, en: "Invited their circle to Dec 5 under their own name"}
+
+# What can break the system. Silent = we would miss it; loud = we would not. Each needs a detector.
+# `detector` names the handle that sees it today, or "none" (that is the robustness gap tally reports).
+breaks:
+  - {id: advisor_fade, kind: silent, zh: 顾问第二个月不再出现, en: "Advisors stop showing up in month 2", detector: "check.checkin_next_step + checkins per cell per month"}
+  - {id: ceo_burnout, kind: silent, zh: CEO 同时扛太多，悄悄放弃, en: "The CEO carries too much and quietly quits", detector: "check.capacity (P5)"}
+  - {id: group_quiet, kind: silent, zh: 微信群变安静，没人宣布结束, en: "The WeChat group goes quiet; nobody declares it over", detector: "feed heartbeat (federation pull)"}
+  - {id: hub_only, kind: silent, zh: 只有组织者在说话，学生没有声音, en: "Only organizers talk; students have no voice", detector: none}
+  - {id: founder_bottleneck, kind: silent, zh: 一切都要经过 Paul, en: "Everything routes through Paul", detector: none}
+  - {id: politeness, kind: silent, zh: 大家客气地说好，但没人行动, en: "Everyone politely agrees; nobody acts", detector: "discovery tally: ladder rung >= intro"}
+  - {id: minor_incident, kind: loud, zh: 涉及未成年人的安全事件, en: "A safety incident with a minor", detector: "check.safety (P6)"}
+  - {id: faith_complaint, kind: loud, zh: 宗教内容在中国大陆引起投诉或风险, en: "Religious content draws a complaint or risk in mainland China", detector: none}
+  - {id: data_leak, kind: loud, zh: 名单或联系方式外泄, en: "A roster or contact detail leaks", detector: "feed.leaks + hives-private/ gitignored"}
+  - {id: parent_upset, kind: loud, zh: 家长觉得被推销或被越界, en: "A parent feels sold to or overstepped", detector: none}
+
+# Pre-committed decision rules. Written before the first interview, so the data decides, not the mood.
+rules:
+  - {id: R1, when: "ceo_candidates < 2 on 2026-12-02", then_zh: "12 月 5 日的分组改成「找到你的 CEO 之事」，不按学校分", then_en: "Dec 5 breakouts become 'find the thing you would lead', not by school"}
+  - {id: R2, when: "a break is raised by >= 3 people", then_zh: "它在 12 月 5 日之前得到一个检测器或一个修正", then_en: "It gets a detector or a fix before Dec 5"}
+  - {id: R3, when: "parent value < 2 (mean of parents heard)", then_zh: "第一季不收未成年人，只做大学生", then_en: "Season 1 takes no minors; university students only"}
+  - {id: R4, when: "faith_complaint raised by >= 2 people", then_zh: "祷告移出正式会议，改为会后自愿的单独时段", then_en: "Prayer moves out of the meeting into a separate, optional time afterwards"}
+  - {id: R5, when: "seats_committed < 6 on 2026-12-02", then_zh: "停止约新人，回到已见过的人：问「什么让你还没说要」", then_en: "Stop booking new people; go back to those met and ask what kept them from a yes"}
+
+# The question card. Every question asks about the PAST or a concrete act (The Mom Test), never "would you".
+# `unknown` names which of the ten things we must learn it answers.
+unknowns:
+  - {id: value, zh: 价值有多高, en: How high is the value}
+  - {id: demand, zh: 哪类人需求最强, en: How strong is demand, per group}
+  - {id: spark, zh: 什么让它点燃, en: What makes it a sparking success}
+  - {id: expensive_failure, zh: 什么让它昂贵地失败, en: What makes it an expensive failure}
+  - {id: loop, zh: 什么让它闭环复利, en: What makes it a closed, compounding loop}
+  - {id: robustness, zh: 系统有多结实, en: How robust it is}
+  - {id: silent_break, zh: 什么会让它悄悄坏掉, en: What breaks it silently}
+  - {id: loud_break, zh: 什么会让它大声坏掉, en: What breaks it loudly}
+  - {id: trust, zh: 信任与名分（谁的许可）, en: "Trust and legitimacy: whose permission"}
+  - {id: give, zh: 我们能先给对方什么, en: What we can give them first}
+
+questions:
+  - {n: 1, unknown: give, zh: "你现在最在意、正在做的一件事是什么？我们能帮上什么？", en: "What are you building or caring about most right now? How could we help?", listen: "Something we can actually give within a week. Write it down and deliver it."}
+  - {n: 2, unknown: value, zh: "最近一次有学弟学妹或孩子来找你聊前途，是什么事？后来你做了什么？", en: "The last time a younger student or a child came to you about their future: what was it, and what did you do?", listen: "A specific story with a date. No story = low value for this person."}
+  - {n: 3, unknown: demand, zh: "你圈子里有谁已经试过做类似的事（导师计划、校友群、读书会）？结果怎样？", en: "Who in your circle already tried something like this (mentoring, an alumni group, a study circle)? What happened?", listen: "Time or money already spent = real demand. Name the group (student, teen, parent, advisor, organizer)."}
+  - {n: 4, unknown: spark, zh: "你见过的最好的一段师徒/同伴关系，为什么撑过了第三个月？", en: "The best mentoring or peer relationship you have seen: why did it last past month 3?", listen: "The mechanism (a shared project, a deadline, a ritual), not a virtue word."}
+  - {n: 5, unknown: expensive_failure, zh: "假设现在是 2027 年 3 月，这件事悄悄死了。最可能的故事是什么？", en: "Imagine it is March 2027 and this died quietly. What is the most likely story?", listen: "Map it to a break id. A new one goes into data/discovery.yml."}
+  - {n: 6, unknown: loop, zh: "一个学生做完一季 CEO，什么会让他下一季回来当别人的顾问或队员？", en: "After a student leads one season, what would make them come back as someone else's advisor or teammate?", listen: "The return reason is the loop. 'Gratitude' is a hope; 'their own next project needs a team' is a mechanism."}
+  - {n: 7, unknown: robustness, zh: "如果 Paul 消失三个月，谁会让它继续运转？", en: "If Paul disappeared for three months, who would keep it running?", listen: "A name, or silence. Silence = founder_bottleneck."}
+  - {n: 8, unknown: silent_break, zh: "什么会停下来而没有人注意到？", en: "What could stop without anyone noticing?", listen: "Each answer needs a detector; 'none' is the gap."}
+  - {n: 9, unknown: loud_break, zh: "什么事一旦发生，会让家长、学校或你自己马上退出？", en: "What single event would make parents, the school or you yourself pull out at once?", listen: "Minors, faith content in China, data, being sold to."}
+  - {n: 10, unknown: trust, zh: "做这件事，需要谁点头？谁会反对？", en: "Whose yes does this need? Who would say no?", listen: "The real gatekeeper (an association head, a parent, a school office)."}
+  - {n: 11, unknown: demand, zh: "你能想到三个人，每人一个角色（CEO、顾问、队员）吗？愿意介绍吗？", en: "Can you think of three people, one per role (CEO, advisor, teammate)? Would you introduce them?", listen: "The ask. Record the rung, not the enthusiasm."}
+  - {n: 12, unknown: give, zh: "我们怎么做，才对你和你的圈子是好事，而不是又一个群？", en: "What would make this good for you and your circle, not one more group?", listen: "Their incentive. A hub with nothing to gain will fade (hub_only)."}
+  - {n: 13, unknown: silent_break, zh: "上次你答应带一个人或做一件长期的事，实际坚持了多久？为什么停下？这次你每月真实能给几个小时？", en: "The last time you took on a person or a long commitment, how long did it actually last, and why did it stop? How many hours a month do you really have now?", listen: "Expected length predicts whether a match survives; mentors end about 64% of early closures, mostly over time (Keller & Spencer 2018). Under 2 hours a month = not an advisor seat yet."}
+  - {n: 14, unknown: demand, zh: "还有谁是我一定要先聊的？", en: "Who else must I talk to before Dec 5?", listen: "Friendship paradox: the people a person nominates are more central than a random pick (Christakis & Fowler 2010). Add each nominee to people.yml."}
