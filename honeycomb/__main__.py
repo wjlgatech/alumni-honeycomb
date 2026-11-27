@@ -129,15 +129,11 @@ def _room_request(method: str, base: str, body: dict | None = None) -> dict:
     import os
     import urllib.request
 
-    import subprocess
+    from . import owner
 
-    token = os.environ.get("HONEYCOMB_OWNER_TOKEN") or os.environ.get("PORTFOLIO_OWNER_TOKEN") or ""
-    if not token:  # the macOS login keychain (server futuremake.io, account owner), where `make signin` reads it too
-        r = subprocess.run(["security", "find-internet-password", "-s", "futuremake.io", "-a", "owner", "-w"],
-                           capture_output=True, text=True)
-        token = r.stdout.strip() if r.returncode == 0 else ""
+    token = owner.secret()
     if not token:
-        raise SystemExit("no owner passphrase: put it in the login keychain (futuremake.io / owner) or set HONEYCOMB_OWNER_TOKEN")
+        raise SystemExit("no owner passphrase on this Mac (env, agentic-portfolio/.env.local, or the keychain)")
     data = json.dumps(body, ensure_ascii=False).encode() if body is not None else None
     req = urllib.request.Request(f"{base.rstrip('/')}/api/honeycomb-room", data=data, method=method,
                                  headers={"content-type": "application/json", "x-portfolio-owner": token,
