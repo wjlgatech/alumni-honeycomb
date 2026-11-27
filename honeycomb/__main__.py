@@ -11,6 +11,8 @@
   discovery plan  <people.yml>       pre-launch 1:1s: whom to meet, with reasons (relationship first)
   discovery tally <interviews.yml>   numbers, D-targets, fired rules, breaks nobody detects yet
   discovery card  [--check]          data/discovery.yml -> docs/DISCOVERY-CARD.md (the question card)
+  discovery push  [--dir D] [--base URL]   private files -> the owner-only room at futuremake.io/honeycomb/room.html
+  discovery pull  [--dir D] [--base URL]   phone notes from the room -> D/interviews.yml (then push again)
 """
 
 from __future__ import annotations
@@ -121,8 +123,48 @@ def _federation(a: argparse.Namespace) -> int:
     return 1 if problems else 0
 
 
+def _room_request(method: str, base: str, body: dict | None = None) -> dict:
+    """Call the owner-only room API with HONEYCOMB_OWNER_TOKEN (never printed, never stored in the repo)."""
+    import os
+    import urllib.request
+
+    token = os.environ.get("HONEYCOMB_OWNER_TOKEN") or os.environ.get("PORTFOLIO_OWNER_TOKEN") or ""
+    if not token:
+        raise SystemExit("set HONEYCOMB_OWNER_TOKEN (the futuremake.io owner passphrase) to reach the room")
+    data = json.dumps(body, ensure_ascii=False).encode() if body is not None else None
+    req = urllib.request.Request(f"{base.rstrip('/')}/api/honeycomb-room", data=data, method=method,
+                                 headers={"content-type": "application/json", "x-portfolio-owner": token,
+                                          "user-agent": "honeycomb-cli"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read().decode())
+
+
+def _room(a: argparse.Namespace) -> int:
+    """discovery push | pull: keep the private room on futuremake.io in step with the private files."""
+    import datetime as dt
+
+    d = Path(a.dir)
+    read = lambda n, default: (yaml.safe_load((d / n).read_text(encoding="utf-8")) if (d / n).exists() else None) or default
+    ivs = read("interviews.yml", {}).get("interviews") or []
+    if a.action == "pull":
+        notes = _room_request("GET", a.base).get("notes") or []
+        ivs, added = discovery.merge_notes(ivs, notes)
+        (d / "interviews.yml").write_text("# PRIVATE (gitignored). One entry per 1:1; phone notes are merged by `discovery pull`.\n"
+                                          + yaml.safe_dump({"interviews": ivs}, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        print(f"pulled {len(notes)} note(s), {added} new -> {d / 'interviews.yml'}")
+        return 0
+    room = discovery.build_room(read("people.yml", {}), read("names.yml", {}), read("briefs.yml", {}), ivs,
+                                today=dt.date.today().isoformat())
+    out = _room_request("PUT", a.base, {"room": room})
+    print(f"pushed room: {len(room['people'])} people, seats {room['numbers']['seats_committed']}/12 -> {a.base}/honeycomb/room.html"
+          if out.get("ok") else f"push failed: {out}")
+    return 0 if out.get("ok") else 1
+
+
 def _discovery(a: argparse.Namespace) -> int:
-    """discovery plan <people> | tally <interviews> | card [--check]."""
+    """discovery plan <people> | tally <interviews> | card [--check] | push | pull."""
+    if a.action in ("push", "pull"):
+        return _room(a)
     if a.action == "card":
         return _drift(ROOT / "docs" / "DISCOVERY-CARD.md", discovery.card(), a.check)
     if not a.file:
@@ -170,7 +212,8 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("learn"); p.add_argument("hive"); p.add_argument("cell"); p.add_argument("--index"); p.set_defaults(fn=_learn)
     p = sub.add_parser("compass"); p.add_argument("answers", nargs=8, type=int)
     p.set_defaults(fn=lambda a: print(json.dumps(compass.score(a.answers), indent=1)) or 0)
-    p = sub.add_parser("discovery"); p.add_argument("action", choices=["plan", "tally", "card"]); p.add_argument("file", nargs="?")
+    p = sub.add_parser("discovery"); p.add_argument("action", choices=["plan", "tally", "card", "push", "pull"]); p.add_argument("file", nargs="?")
+    p.add_argument("--dir", default="hives-private/discovery"); p.add_argument("--base", default="https://futuremake.io")
     p.add_argument("--check", action="store_true"); p.add_argument("--json", action="store_true"); p.set_defaults(fn=_discovery)
     p = sub.add_parser("build"); p.add_argument("--check", action="store_true")
     p.set_defaults(fn=lambda a: build.main(check=a.check))
