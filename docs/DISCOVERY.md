@@ -71,7 +71,8 @@ https://futuremake.io/honeycomb/room.html is where the week happens on the phone
 | Step | Where |
 |---|---|
 | Send the private plan up | `HONEYCOMB_OWNER_TOKEN=… python -m honeycomb discovery push` (reads `hives-private/discovery/{people,names,briefs,interviews}.yml`) |
-| After a talk | the phone: *Log this talk* on that person (rung, seat, quote, risk, what you gave, felt heard) |
+| During a talk, hands-free | *Record the talk*: read the consent line aloud, tick "everyone said yes", Start. Stop when done: AI drafts each person's note from the transcript; you check and save. Audio is never stored. Recording needs everyone's consent (Florida: all parties) |
+| After a talk, by hand | *Log this talk* on that person (rung, seat, quote, risk, what you gave, felt heard) |
 | Bring notes home and re-tally | `discovery pull` then `discovery push` |
 
 ## How the week runs

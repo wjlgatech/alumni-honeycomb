@@ -117,3 +117,11 @@ def test_room_page_is_owner_only_and_holds_no_people():
     assert 'name="robots" content="noindex, nofollow"' in html
     assert '"portfolio-owner-token"' in html and '"/api/honeycomb-room"' in html
     assert '"name":' not in html and "hives-private" not in html
+
+
+def test_room_records_only_after_everyone_agrees():
+    """Florida and other all-party-consent places: the Start button stays disabled until 'everyone said yes'."""
+    html = (ROOT / "web" / "room.html").read_text(encoding="utf-8")
+    assert 'id="recstart" disabled' in html and '$("recstart").disabled = !$("agreed").checked' in html
+    assert '"/api/honeycomb-room/talk"' in html and "JSON.stringify({ consent: true })" in html
+    assert "audioBitsPerSecond: 32000" in html and "180000" in html  # ~720 KB chunks, under the 4.5 MB request limit
