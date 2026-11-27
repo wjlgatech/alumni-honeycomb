@@ -347,12 +347,15 @@ code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:14px}
       "<label class='check'><input type='checkbox' name='consent' required> " + esc(t("fConsent")) + "</label>" +
       "<button class='primary' type='submit'>" + esc(t("fSubmit")) + "</button><p id='signupMsg' class='muted' aria-live='polite'></p></form>";
     box.innerHTML = html;
+    // Which link brought this reader (?src=hc-1 from a series article): a short tag, kept for this visit only.
+    function signupSrc() { try { var v = new URL(location.href).searchParams.get("src") || sessionStorage.getItem("hc-src") || ""; if (/^[a-z0-9-]{1,32}$/.test(v)) { sessionStorage.setItem("hc-src", v); return v; } } catch (e) {} return ""; }
+    signupSrc();
     document.getElementById("signup").onsubmit = function (ev) {
       ev.preventDefault();
       var f = ev.target, msg = document.getElementById("signupMsg"), btn = f.querySelector("button");
       btn.disabled = true;
       fetch("/api/honeycomb-signup", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
-        event: e.id, name: f.name.value, role: f.role.value, school: f.school.value, contact: f.contact.value, note: f.note.value, adult: f.adult.checked, consent: f.consent.checked, lang: lang }) })
+        event: e.id, name: f.name.value, role: f.role.value, school: f.school.value, contact: f.contact.value, note: f.note.value, adult: f.adult.checked, consent: f.consent.checked, lang: lang, src: signupSrc() }) })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (x) {
           btn.disabled = false;

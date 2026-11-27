@@ -1,6 +1,6 @@
 # 🐝 Alumni Honeycomb · 校友蜂巢
 
-**Live, everywhere including mainland China:** https://futuremake.io/honeycomb · **📅 First online meeting: Sat Dec 5, 5 PM Pacific / Sun Dec 6, 9 AM Beijing, sign up on the page** (it asks your consent to store the reminder details on a US server; never your faith or a child's details) · backup mirror: https://wjlgatech.github.io/alumni-honeycomb
+**Live, everywhere including mainland China:** https://futuremake.io/honeycomb · **📅 First online meeting: Sat Dec 5, 5 PM Pacific / Sun Dec 6, 9 AM Beijing, sign up on the page** (it asks your consent to store the reminder details on a US server; never your faith or a child's details; a `?src=` tag on the link records which article brought you) · backup mirror: https://wjlgatech.github.io/alumni-honeycomb
 
 中文 first, English one tap away · installable on any phone · measured from mainland probes, not assumed ([CHINA-ACCESS](docs/CHINA-ACCESS.md))
 
