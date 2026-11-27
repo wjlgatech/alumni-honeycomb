@@ -90,3 +90,30 @@ def test_tally_numbers_name_no_one():
 
 def test_card_is_current():
     assert (ROOT / "docs" / "DISCOVERY-CARD.md").read_text(encoding="utf-8") == discovery.card()
+
+
+def test_room_snapshot_has_people_briefs_and_tally(cfg):
+    people = _yaml("people.yml")
+    names = {p["id"]: {"name": f"Name {p['id']}", "why": "x"} for p in people["people"]}
+    briefs = {"event": "e", "people": {"H-assoc": {"q": ["When did..."]}}}
+    room = discovery.build_room(people, names, briefs, _yaml("interviews.yml")["interviews"], cfg, today="2026-11-27")
+    first = room["people"][0]
+    assert first["cluster"] == people["first_hive_cluster"] and first["picked"]
+    assert room["card"] == {"event": "e"} and room["numbers"]["seats_committed"] == 7
+    assert next(p for p in room["people"] if p["id"] == "H-assoc")["brief"]["q"]
+
+
+def test_phone_notes_merge_once():
+    notes = [{"at": "2026-11-27T20:00:00Z", "person": "G-01", "rung": 3, "seat": "ceo", "quote": "q"},
+             {"at": "2026-11-27T20:05:00Z", "person": "G-02", "rung": 1, "seat": "none"}]
+    ivs, added = discovery.merge_notes([], notes)
+    assert added == 2 and ivs[0]["seats"] == [{"role": "ceo"}] and ivs[1]["seats"] == []
+    ivs, added = discovery.merge_notes(ivs, notes)
+    assert added == 0 and discovery.numbers(ivs)["ceo_candidates"] == 1
+
+
+def test_room_page_is_owner_only_and_holds_no_people():
+    html = (ROOT / "web" / "room.html").read_text(encoding="utf-8")
+    assert 'name="robots" content="noindex, nofollow"' in html
+    assert '"portfolio-owner-token"' in html and '"/api/honeycomb-room"' in html
+    assert '"name":' not in html and "hives-private" not in html

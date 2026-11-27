@@ -165,3 +165,43 @@ def card(cfg: dict[str, Any] | None = None) -> str:
     out += ["", "## 预先承诺的规则 · Pre-committed rules", "", "| Rule | When | 那么 | Then |", "|---|---|---|---|"]
     out += [f"| {r['id']} | `{r['when']}` | {r['then_zh']} | {r['then_en']} |" for r in cfg["rules"]]
     return "\n".join(out) + "\n"
+
+
+def build_room(people: dict[str, Any], names: dict[str, Any], briefs: dict[str, Any],
+               interviews: list[dict[str, Any]], cfg: dict[str, Any] | None = None, today: str = "") -> dict[str, Any]:
+    """The private room snapshot the futuremake.io room page renders: plan, people, briefs, tally. Never committed."""
+    cfg = cfg or load("discovery")
+    t = tally(interviews, cfg)
+    plan_ = plan(people, cfg)
+    picked = {p["id"]: p for p in plan_["picks"]}
+    last = {i.get("person", ""): i for i in interviews}
+    rows = []
+    for p in people.get("people", []):
+        n, iv = names.get(p["id"], {}), last.get(p["id"])
+        rows.append({"id": p["id"], "name": n.get("name", p["id"]), "why": n.get("why", ""), "kind": p.get("kind", "hub"),
+                     "segments": p.get("segments", []), "cluster": p.get("cluster"), "in_person": bool(p.get("in_person")),
+                     "picked": p["id"] in picked, "reasons": picked.get(p["id"], {}).get("reasons", []),
+                     "brief": (briefs.get("people") or {}).get(p["id"]), "met": bool(iv),
+                     "rung": iv.get("rung") if iv else None, "seats": iv.get("seats", []) if iv else []})
+    first = people.get("first_hive_cluster")
+    rows.sort(key=lambda r: (r["cluster"] != first, not r["picked"], r["id"]))
+    return {"updated": today, "first_hive": first, "networks": people.get("networks", {}),
+            "card": {k: v for k, v in briefs.items() if k != "people"}, "people": rows, "gaps": plan_["gaps"],
+            "numbers": t["numbers"], "targets": t["targets"], "fired": t["fired"], "undetected": t["undetected"],
+            "ladder": cfg["ladder"], "rules": cfg["rules"],
+            "merged": [i["note_at"] for i in interviews if i.get("note_at")]}
+
+
+def merge_notes(interviews: list[dict[str, Any]], notes: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int]:
+    """Fold phone notes into the interview list, one interview per note keyed by its server time. Returns (list, added)."""
+    seen = {i.get("note_at") for i in interviews}
+    added = 0
+    for n in notes:
+        if n.get("at") in seen:
+            continue
+        seats = [{"role": n["seat"]}] if n.get("seat") not in (None, "", "none") else []
+        interviews.append({"id": f"N-{n['at'][:19]}", "note_at": n["at"], "person": n["person"], "date": n["at"][:10],
+                           "mode": "in_person", "rung": n.get("rung", 0), "seats": seats, "quote": n.get("quote", ""),
+                           "risk": n.get("risk", ""), "gave": n.get("gave", ""), "felt_heard": bool(n.get("heard"))})
+        added += 1
+    return interviews, added

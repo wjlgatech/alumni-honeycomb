@@ -64,6 +64,16 @@ Two rails, one domain: **a chef opening a small restaurant.**
 | Write down on the kitchen wall, before the dinners, what you'll change if X happens | `rules` R1–R5, one function each in `discovery.RULES` |
 | Smoke alarms for the fires you'd miss; you'll hear the loud ones anyway | `breaks`, `kind: silent|loud`, each with a `detector` |
 
+## The room: one private place for all of it
+
+https://futuremake.io/honeycomb/room.html is where the week happens on the phone. It shows the next person to talk to, what to give and ask each one, a *Log this talk* form, and the live tally. Zoom with Glance · Room · Detail. The page is public code with no names. Its data comes from agentic-portfolio's owner-only `/api/honeycomb-room` (404 for anyone else), which the page reads with the same owner session as futuremake.io/brief.
+
+| Step | Where |
+|---|---|
+| Send the private plan up | `HONEYCOMB_OWNER_TOKEN=… python -m honeycomb discovery push` (reads `hives-private/discovery/{people,names,briefs,interviews}.yml`) |
+| After a talk | the phone: *Log this talk* on that person (rung, seat, quote, risk, what you gave, felt heard) |
+| Bring notes home and re-tally | `discovery pull` then `discovery push` |
+
 ## How the week runs
 
 | Date (Pacific) | Step | Handle |
