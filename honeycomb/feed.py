@@ -16,7 +16,7 @@ import json
 import re
 from typing import Any
 
-from . import pulse
+from . import pulse, summary
 from .data import ROLE_KEYS, load
 
 SCHEMA = "ah-feed/1"
@@ -72,7 +72,9 @@ def build_feed(hive: dict[str, Any]) -> dict[str, Any]:
             "charter": meta.get("charter", {}), "as_of": as_of(hive),
             "seasons": [s["id"] for s in hive["seasons"]], "latest_season": numbers["season"], "pulse": numbers,
             "learnings": [learning_card(meta["id"], c) for c in cells if c.get("status") == "closed"],
-            "open_seats": [s for s in seats if s]}
+            "open_seats": [s for s in seats if s],
+            # meeting summaries the honeycomb chose to release to every beehive (data/release.yml)
+            "summaries": summary.released(hive, "federation")}
 
 
 def leaks(feed: dict[str, Any], hive: dict[str, Any]) -> list[str]:

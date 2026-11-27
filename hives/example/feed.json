@@ -54,5 +54,35 @@
   "2026-S3",
   "2026-S4"
  ],
- "simulated": true
+ "simulated": true,
+ "summaries": [
+  {
+   "asks": [
+    "A biology alum to check the AI's explanations once a month"
+   ],
+   "cell": "example/c-ai-tutor",
+   "date": "2026-10-14",
+   "decisions": [
+    "Move the session from Friday to Tuesday evening",
+    "Each first-year brings one question they got wrong"
+   ],
+   "hive": "example",
+   "id": "example/c-ai-tutor/m-2026-10-14",
+   "learned": "Attendance fell on Fridays, not because of the AI tool; a fixed weeknight and one wrong question each kept people coming",
+   "next_steps": [
+    "CEO: post Tuesday slot by 10-16",
+    "An advisor: share 3 past mid-term questions by 10-18"
+   ],
+   "purpose": "Week 6 check: is the AI study group still used, and why do people drop?",
+   "quotes": [
+    "I come back because my wrong answer becomes the lesson"
+   ],
+   "release": "federation",
+   "tags": [
+    "ai-study",
+    "tutoring",
+    "retention"
+   ]
+  }
+ ]
 }

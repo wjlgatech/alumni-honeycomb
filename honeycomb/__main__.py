@@ -11,6 +11,8 @@
   discovery plan  <people.yml>       pre-launch 1:1s: whom to meet, with reasons (relationship first)
   discovery tally <interviews.yml>   numbers, D-targets, fired rules, breaks nobody detects yet
   discovery card  [--check]          data/discovery.yml -> docs/DISCOVERY-CARD.md (the question card)
+  summary check  <hive.yml>                 each meeting summary: may it be released? (Release Agreement)
+  summary digest <hive.yml> --tags a,b      what a member following those tags sees (hive tier, newest first)
   member  check|card <card.yml>      a member card: school proof levels, roles it supports, personal loop
   discovery push  [--dir D] [--base URL]   private files -> the owner-only room at futuremake.io/honeycomb/room.html
   discovery pull  [--dir D] [--base URL]   phone notes from the room -> D/interviews.yml (then push again)
@@ -22,7 +24,7 @@ import argparse
 import json
 import sys
 
-from . import build, check, compass, discovery, member, federation, feed, learn, pulse, recruit
+from . import build, check, compass, discovery, member, summary, federation, feed, learn, pulse, recruit
 from pathlib import Path
 
 import yaml
@@ -216,6 +218,22 @@ def _discovery(a: argparse.Namespace) -> int:
     return 0
 
 
+def _summary(a: argparse.Namespace) -> int:
+    """summary check | digest <hive.yml>."""
+    hive = load_hive(a.hive)
+    if a.action == "digest":
+        for c in summary.digest(summary.released(hive, "hive"), a.tags.split(","), a.limit):
+            print(f"{c['date']} {c['id']} [{', '.join(c.get('tags', []))}]\n   {c.get('learned', '')}")
+        return 0
+    bad = 0
+    for mt in hive.get("meetings", []) or []:
+        problems = summary.check(mt, hive)
+        bad += bool(problems)
+        print(f"{'✓' if not problems else '✗'} {mt['id']} → {mt.get('release', 'cell')}" + "".join(f"\n   {p}" for p in problems))
+    print("held back summaries stay inside the honeycomb until every person approves" if bad else "all summaries may be released")
+    return 0
+
+
 def _member(a: argparse.Namespace) -> int:
     """member check | card <card.yml>."""
     card = yaml.safe_load(Path(a.card).read_text(encoding="utf-8")) or {}
@@ -252,6 +270,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--dir", default="hives-private/discovery"); p.add_argument("--base", default="https://futuremake.io")
     p.add_argument("--me", default="hives-private/members/paul.yml")
     p.add_argument("--check", action="store_true"); p.add_argument("--json", action="store_true"); p.set_defaults(fn=_discovery)
+    p = sub.add_parser("summary"); p.add_argument("action", choices=["check", "digest"]); p.add_argument("hive")
+    p.add_argument("--tags", default=""); p.add_argument("--limit", type=int, default=5); p.set_defaults(fn=_summary)
     p = sub.add_parser("member"); p.add_argument("action", choices=["check", "card"]); p.add_argument("card")
     p.set_defaults(fn=_member)
     p = sub.add_parser("build"); p.add_argument("--check", action="store_true")

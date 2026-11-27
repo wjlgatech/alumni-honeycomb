@@ -166,6 +166,14 @@ that school (`feed.json.sig`, `honeycomb/sign.py`; `federation check` fails on a
 hive, people meet through circles of 50–150 and warm, double-opt-in introductions; between hives, only feeds cross,
 and introductions go steward to steward. Web3's ideas are kept, its chains and tokens are not: [SCALE.md](docs/SCALE.md).
 
+### Sharing what a meeting taught (without sharing the people)
+
+A honeycomb's CEO can record a meeting (everyone agrees first), but only a short summary of the **work** ever leaves:
+decisions, next steps, what was learned, tags. It leaves only when every person in the meeting approves the exact text,
+and the checker refuses names, contacts, sensitive topics and unapproved quotes (the Chatham House Rule, plus everyone's
+yes). Other honeycombs and beehives follow tags and see at most 5 items a week. `python -m honeycomb summary check|digest`
+· rules in `data/release.yml` · design and the CEO's open-source toolkit in [TOOLKIT.md](docs/TOOLKIT.md).
+
 ### Your member card
 
 Trust grows with the role's risk. Each school claim earns a level (stated · supported · confirmed) from several small proofs:
@@ -185,12 +193,12 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 | Path | What |
 |---|---|
 | `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
-| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `member` (member cards), `sign` (signed feeds), `build`, CLI (`__main__`) |
+| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `member` (member cards), `sign` (signed feeds), `summary` (Release Agreement, digests), `build`, CLI (`__main__`) |
 | `hives/example/`, `hives/example-b/` | two simulated hives (and their public `feed.json`); real hives live in `hives-private/` (gitignored) |
 | `federation/index.json` | every feed merged: sync status, learning cards, open seats, ripe drafts (generated, drift-gated) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
 | `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
-| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [MEMBERSHIP](docs/MEMBERSHIP.md) · [SCALE](docs/SCALE.md) · [STATUS](docs/STATUS.md) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [MEMBERSHIP](docs/MEMBERSHIP.md) · [SCALE](docs/SCALE.md) · [TOOLKIT](docs/TOOLKIT.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges
 
