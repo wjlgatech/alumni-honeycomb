@@ -4,6 +4,9 @@ All notable changes to this project are recorded here (Keep a Changelog).
 
 ## [Unreleased]
 
+### Fixed
+- `make signin` opens the room signed in in this Mac's default browser AND shows the phone QR in one step; passphrase from agentic-portfolio `.env.local` first (`honeycomb/owner.py`), no keychain prompt; no tooltip leak. _Why:_ Paul (2026-11-27): laptop didn't open, "a roadblock instead of a stepping stone".
+
 ### Added
 - `make signin` (`scripts/signin_qr.py`): a 30-day sign-in QR for the private room, shown on the owner's Mac and deleted after 30 s. The owner passphrase now lives in the Mac's login keychain (futuremake.io / owner); `discovery push|pull` read it from there too, so nobody types or remembers it. iCloud-synced keychain items need a signed app (error -34018), so the phone signs in by QR. _Why:_ Paul (2026-11-27): "do it for me end to end".
 - Member identity and anti-fake rules (`data/membership.yml` `identity`, `sybil`; `member.check` requires `invited_by` unless founder; `member.duplicates` flags same contact or same name+school+years). Sign-in is a one-time code to one confirmed contact, never a password. The room accepts a sign-in link `?owner=<signed 30-day session>` (from a QR shown on the owner's Mac) and strips it from the address bar. _Why:_ Paul (2026-11-27): who sets the passphrase, how a member edits and stays the same person, how to stop one bad actor making many fake members.
