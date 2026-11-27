@@ -168,7 +168,8 @@ def card(cfg: dict[str, Any] | None = None) -> str:
 
 
 def build_room(people: dict[str, Any], names: dict[str, Any], briefs: dict[str, Any],
-               interviews: list[dict[str, Any]], cfg: dict[str, Any] | None = None, today: str = "") -> dict[str, Any]:
+               interviews: list[dict[str, Any]], cfg: dict[str, Any] | None = None, today: str = "",
+               me: dict[str, Any] | None = None) -> dict[str, Any]:
     """The private room snapshot the futuremake.io room page renders: plan, people, briefs, tally. Never committed."""
     cfg = cfg or load("discovery")
     t = tally(interviews, cfg)
@@ -189,7 +190,18 @@ def build_room(people: dict[str, Any], names: dict[str, Any], briefs: dict[str, 
             "card": {k: v for k, v in briefs.items() if k != "people"}, "people": rows, "gaps": plan_["gaps"],
             "numbers": t["numbers"], "targets": t["targets"], "fired": t["fired"], "undetected": t["undetected"],
             "ladder": cfg["ladder"], "rules": cfg["rules"],
-            "merged": [i["note_at"] for i in interviews if i.get("note_at")]}
+            "merged": [i["note_at"] for i in interviews if i.get("note_at")],
+            "me": _member_view(me) if me else None}
+
+
+def _member_view(card: dict[str, Any]) -> dict[str, Any]:
+    """The owner's member card, as the room page renders it (levels in words, problems, loop numbers)."""
+    from . import member
+    return {"name": card.get("name"), "purpose": card.get("purpose"), "offer": card.get("offer"), "ask": card.get("ask"),
+            "roles": card.get("roles", []), "hours_per_week": card.get("hours_per_week"),
+            "schools": [{**member.level(s), "field": s.get("field", ""), "years": s.get("years", "")} for s in card.get("schools", [])],
+            "interests": card.get("interests", []), "conflicts": card.get("conflicts", []),
+            "season_goal": card.get("season_goal"), "loop": member.loop_health(card), "problems": member.check(card)}
 
 
 def merge_notes(interviews: list[dict[str, Any]], notes: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int]:

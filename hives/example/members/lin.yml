@@ -1,0 +1,21 @@
+# SIMULATED member card (fictional). Real cards: hives-private/members/<you>.yml, same shape.
+name: Lin (sim)
+purpose: "Help first-generation engineers get their first real job, by being the alum I never had"
+schools:
+  - name: Example University
+    relation: alumnus
+    field: software engineering
+    years: 2001-2005
+    evidence:
+      - {kind: registry, note: "DegreeVerify result seen by the hive operator"}
+      - {kind: vouch, by: a-zhao, circle: "systems lab 2003-2005"}
+      - {kind: self, note: "LinkedIn"}
+roles: [advisor, core]
+hours_per_week: 4
+languages: [zh, en]
+timezone: America/Los_Angeles
+mode: online
+offer: "A mock interview and a resume pass for one student"
+ask: "Someone who knows biotech to co-advise"
+interests:
+  - {what: "Tools that help first-generation students find internships"}

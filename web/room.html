@@ -74,6 +74,7 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
     <button id="hideintro">Got it</button>
   </section>
 
+  <section id="me" class="card z1" hidden></section>
   <section id="card" class="card z1" hidden></section>
   <section id="people" style="display:grid;gap:12px" hidden></section>
   <section id="targets" class="card z1" hidden></section>
@@ -140,6 +141,22 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
 
     try { $("intro").hidden = localStorage.getItem("room-intro") === "hidden"; } catch (e) { $("intro").hidden = false; }
     $("hideintro").onclick = function () { $("intro").hidden = true; try { localStorage.setItem("room-intro", "hidden"); } catch (e) {} };
+
+    var me = R.me;
+    $("me").hidden = !me;
+    if (me) {
+      var L = me.loop || {}, g = me.season_goal || {};
+      $("me").innerHTML = '<h2>My card</h2><p><b>' + esc(me.name) + '</b> · ' + esc((me.roles || []).join(', ')) + ' · ' + esc(me.hours_per_week) + ' h/week</p>' +
+        '<p><b>Purpose:</b> ' + esc(me.purpose || '—') + '</p>' +
+        '<p><b>This season:</b> ' + esc(g.what || '—') + (g.good ? ' · <b>Good:</b> ' + esc(g.good) : '') + '</p>' +
+        '<p class="small"><b>Loop so far:</b> ' + esc(L.weeks) + ' weekly check-ins · ' + esc(L.avg_hours_given) + ' of ' + esc(L.promised) + ' h/week given · ' + esc(L.steps_kept) + '/' + esc(L.steps_due) + ' next steps kept</p>' +
+        '<div class="tw"><table><tr><th>School</th><th>Proof</th><th>Level</th></tr>' + (me.schools || []).map(function (s) {
+          return '<tr><td>' + esc(s.school) + '<br><span class="muted small">' + esc(s.field) + '</span></td><td class="small">' + esc((s.kinds || []).join(', ') || 'none yet') + ' (' + esc(s.points) + ' pts)</td><td><span class="chip ' + (s.level >= 2 ? 'ok' : s.level === 1 ? 'warn' : '') + '">' + esc(s.name) + '</span></td></tr>';
+        }).join('') + '</table></div>' +
+        '<p><b>Offers:</b> ' + esc(me.offer) + '</p><p><b>Asks:</b> ' + esc(me.ask) + '</p>' +
+        ((me.conflicts || []).length ? '<p class="small"><b>Could profit from:</b> ' + me.conflicts.map(esc).join(' · ') + '</p>' : '') +
+        ((me.problems || []).length ? '<p class="small"><b>Not yet supported:</b></p><ul class="small">' + me.problems.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '<p class="small"><span class="chip ok">card supports what it asks for</span></p>');
+    }
 
     var c = R.card || {};
     $("card").hidden = false;

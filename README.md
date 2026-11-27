@@ -158,6 +158,14 @@ Most of them are **hubs**, people their circle listens to. Two are the actual us
 The 12X, defined so it can fail: **12 committed seats before Dec 5** (`seats_committed`; walking in cold, the start is about 1).
 The guide, the research behind it and the rules: [docs/DISCOVERY.md](docs/DISCOVERY.md).
 
+### Your member card
+
+Trust grows with the role's risk. Each school claim earns a level (stated · supported · confirmed) from several small proofs:
+a school email, a degree registry report, a thesis, classmates who vouch and say how they know you. A student can lead
+with no proof. An advisor needs some proof. Working with a minor needs a safety screen, which a diploma never replaces.
+Each member also runs their own season loop: purpose, one goal with a "Good:" line, a weekly line, a review.
+`python -m honeycomb member check|card <card.yml>` · rules in `data/membership.yml` · the why and the scenarios in [MEMBERSHIP.md](docs/MEMBERSHIP.md).
+
 ### Start a hive at your school
 
 Fork → write `hives-private/<school>.yml` → `check` until green → put `federation hash` in your file → PR one row into
@@ -168,12 +176,12 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 | Path | What |
 |---|---|
 | `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
-| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `build`, CLI (`__main__`) |
+| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `member` (member cards), `build`, CLI (`__main__`) |
 | `hives/example/`, `hives/example-b/` | two simulated hives (and their public `feed.json`); real hives live in `hives-private/` (gitignored) |
 | `federation/index.json` | every feed merged: sync status, learning cards, open seats, ripe drafts (generated, drift-gated) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
 | `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
-| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [STATUS](docs/STATUS.md) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [MEMBERSHIP](docs/MEMBERSHIP.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges
 
