@@ -49,3 +49,6 @@ china:        ## measure the live URL and the mirror from mainland China probes 
 discover:     ## pre-launch 1:1s on the PRIVATE files: whom to meet, then the tally
 	python3 -m honeycomb discovery plan hives-private/discovery/people.yml
 	python3 -m honeycomb discovery tally hives-private/discovery/interviews.yml
+
+signin:       ## show a 30-day sign-in QR for the private room on this Mac's screen (passphrase from the login keychain)
+	python3 scripts/signin_qr.py

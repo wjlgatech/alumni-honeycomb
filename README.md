@@ -153,6 +153,7 @@ Most of them are **hubs**, people their circle listens to. Two are the actual us
 | Whom to meet, with a reason per pick | `python -m honeycomb discovery plan <people.yml>` |
 | The bilingual question card to carry in | [docs/DISCOVERY-CARD.md](docs/DISCOVERY-CARD.md) (generated, drift-gated) |
 | What we learned, as numbers + which pre-committed rule fires | `python -m honeycomb discovery tally <interviews.yml>` · `make discover` |
+| Sign your phone into the room (scan once, good for 30 days) | `make signin` |
 | One private place to run it all, on the phone: who's next, what to ask them, log the talk, live numbers | https://futuremake.io/honeycomb/room.html (owner only; the page holds no names) · `discovery push` sends the snapshot, `discovery pull` brings phone notes back |
 
 The 12X, defined so it can fail: **12 committed seats before Dec 5** (`seats_committed`; walking in cold, the start is about 1).
