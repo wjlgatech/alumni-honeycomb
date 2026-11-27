@@ -49,6 +49,23 @@ vouch_rules:
   - "Two vouches from the same circle (same lab, same class) count as one, and relatives count as one voucher."
   - "A vouch for a false claim costs the voucher their vouching right for a year."
 
+# Who you are, how you sign in, and how a card stays the same person's card.
+identity:
+  anchor: "One confirmed contact per member: an email or a WeChat ID, confirmed by a one-time code. No passwords to forget or leak."
+  sign_in: "A one-time link or code sent to the anchor; later a passkey on the member's own phone. Nobody, the steward included, ever sees a password."
+  one_card_per_anchor: true
+  edits: "Only a session from the member's own anchor edits the card. Changing a school, field or years puts that school back to stated until proof is re-added. Every change is kept (history, never overwritten)."
+  same_person: "Same anchor + unbroken history = same member. A member who loses the anchor gets back in when two members who know them vouch (people, not a reset email, recover an identity)."
+
+# How a bad actor is kept from making many fake members. The cheapest defence is removing the reward.
+sybil:
+  - {rule: invite_only, en: "Every member is introduced by a member who is supported at some school (founders seed the first). The card says invited_by."}
+  - {rule: invite_budget, en: "3 invites per member per season."}
+  - {rule: accountable_inviter, en: "A fake card found = its inviter loses invites for a season. The hive can see who invited whom."}
+  - {rule: duplicates, en: "The same anchor, or the same name + school + years, is flagged to the steward."}
+  - {rule: no_reward_for_numbers, en: "No fees, tokens or headcount rankings (P7). Success counts cells with evidence, not members (T1-T4), so a thousand fake members earn nothing."}
+  - {rule: power_needs_proof, en: "A fake card can join and learn, but cannot advise (needs supported) or reach a minor (needs confirmed + a screen)."}
+
 # The least each role needs. Everything not listed here is optional.
 roles:
   ceo:        {min_level: 0, hours_min: 4, en: "Leads one thing they love. Students need no proof to lead."}

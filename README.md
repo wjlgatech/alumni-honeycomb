@@ -164,6 +164,7 @@ Trust grows with the role's risk. Each school claim earns a level (stated · sup
 a school email, a degree registry report, a thesis, classmates who vouch and say how they know you. A student can lead
 with no proof. An advisor needs some proof. Working with a minor needs a safety screen, which a diploma never replaces.
 Each member also runs their own season loop: purpose, one goal with a "Good:" line, a weekly line, a review.
+No passwords: a member signs in with a one-time code to one confirmed contact. Every member is invited by a member, and nothing rewards headcount, so fake cards earn nothing.
 `python -m honeycomb member check|card <card.yml>` · rules in `data/membership.yml` · the why and the scenarios in [MEMBERSHIP.md](docs/MEMBERSHIP.md).
 
 ### Start a hive at your school

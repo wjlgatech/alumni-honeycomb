@@ -60,7 +60,7 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
 
   <section id="lock" class="card" hidden>
     <h2>Owner only</h2>
-    <p id="lockmsg">Enter your futuremake.io owner passphrase. It unlocks this room the same way it unlocks /brief.</p>
+    <p id="lockmsg">Scan the sign-in QR from your Mac, or enter your futuremake.io owner passphrase (the same one as /brief).</p>
     <form id="unlock" style="display:grid;gap:8px">
       <input id="pass" type="password" autocomplete="current-password" placeholder="Owner passphrase" required>
       <button class="primary" type="submit">Unlock</button>
@@ -218,6 +218,13 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
       '<li>Gaps: ' + esc((R.gaps || []).join(', ') || 'none') + '.</li></ul>';
   }
 
+  // A sign-in link (QR on the owner's Mac, or the emailed recovery link) carries ?owner=<signed 30-day session>.
+  // Keep the session, then take it out of the address bar so it never sits in history or a shared link.
+  try {
+    var u = new URL(location.href), s = u.searchParams.get("owner");
+    if (s && /^sess\.\d+\.[0-9a-f]{64}$/.test(s)) { localStorage.setItem(KEY, s); }
+    if (s) { u.searchParams.delete("owner"); history.replaceState({}, "", u.toString()); }
+  } catch (e) {}
   if (token()) load(); else { lock(); }
 })();
 </script>

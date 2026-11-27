@@ -61,11 +61,31 @@ def check(card: dict[str, Any], cfg: dict[str, Any] | None = None, model: dict[s
             problems.append("advisor: no school is supported yet (add a registry, public record or 2 vouches)")
     if card.get("works_with_minors") and not (card.get("safeguarding") or {}).get("screened"):
         problems.append("minors: a dated screen and the two-adult rule are needed before joining a cell with a minor")
+    if not card.get("founder") and not card.get("invited_by"):
+        problems.append("no invited_by: every member is introduced by a member (founders excepted)")
     if not card.get("purpose"):
         problems.append("no purpose yet: one sentence on what you are becoming, and for whom")
     if card.get("interests") and any(i.get("commercial") for i in card["interests"]) and not card.get("conflicts"):
         problems.append("a commercial interest is listed but no conflict is disclosed")
     return problems
+
+
+def duplicates(cards: list[dict[str, Any]]) -> list[tuple[str, str, str]]:
+    """Pairs of cards that look like the same person: same anchor, or same name + school + years."""
+    seen: dict[tuple, str] = {}
+    out = []
+    for c in cards:
+        cid = c.get("id") or c.get("name", "?")
+        keys = []
+        if c.get("anchor"):
+            keys.append(("anchor", str(c["anchor"]).strip().lower()))
+        for s in c.get("schools", []) or []:
+            keys.append(("school", (c.get("name") or "").strip().lower(), (s.get("name") or "").lower(), str(s.get("years", ""))))
+        for k in keys:
+            if k in seen and seen[k] != cid:
+                out.append((seen[k], cid, "same " + ("contact" if k[0] == "anchor" else "name, school and years")))
+            seen.setdefault(k, cid)
+    return out
 
 
 def loop_health(card: dict[str, Any]) -> dict[str, Any]:

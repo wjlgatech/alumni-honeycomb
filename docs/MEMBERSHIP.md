@@ -24,6 +24,20 @@ change. That notebook is how a line cook becomes a chef.
 | A cook who promises 3 shifts and works 1 | Stated hours vs given hours | `hours_per_week`, `member.loop_health()` |
 | The cook's notebook | Your own closed loop | `purpose`, `season_goal.good`, `weekly[]`, `review` |
 
+## Signing in, editing, staying the same person, keeping fakes out
+
+| Concern | Answer | Handle |
+|---|---|---|
+| Passwords | None. A member confirms one contact (email or WeChat) with a one-time code; later a passkey on their own phone. Nobody, the steward included, ever holds a password | `identity.anchor`, `identity.sign_in` |
+| Who edits a card | Only a session from the member's own contact. Changing a school, field or years puts that school back to *stated* until proof is re-added; every change is kept | `identity.edits` |
+| Same person next year | Same contact + unbroken history. Lost the contact? Two members who know you vouch you back in | `identity.same_person` |
+| One bad actor, many fake cards | Invite-only (every card says `invited_by`; founders seed), 3 invites a season, the inviter loses invites if a fake is found, duplicates flagged, and **no reward for numbers**: no fees or tokens (P7), and success counts cells with evidence, not members. A fake card can learn, but can't advise or reach a minor | `sybil`, `member.check`, `member.duplicates` |
+
+The owner's room (futuremake.io/honeycomb/room.html) is different: it is the site owner's private page, opened with the
+futuremake.io owner passphrase or a 30-day signed session (a sign-in QR shown on the owner's own Mac, or the emailed
+recovery link once email is configured). The passphrase guards every private page on futuremake.io, so it is long and
+random, never a short code.
+
 ## Three levels, per school
 
 | Level | Meaning | Rule (`member.level`) |
@@ -110,6 +124,8 @@ python -m honeycomb discovery push                                  # puts your 
 | Related adults count as one adult in youth safeguarding ratios | church-insurer guidance |
 | One-on-one contact with minors must be observable and interruptible, online included | US Center for SafeSport |
 | 未成年人保护法 Art. 62: pre-hire checks for people in close contact with minors | gov.cn |
+| Passkeys (WebAuthn, FIDO2) replace passwords with a key that never leaves the member's device | W3C WebAuthn Level 2/3; FIDO Alliance |
+| An invite tree where each member is accountable for whom they invited keeps a community clean without central ID checks | Lobsters' public invitation tree (practice, not a study) |
 | About 30% of youth mentoring matches end before 12 months, most often from mentor time constraints | Keller & Spencer, OJJDP |
 
 **What this design cannot see:** whether a vouch is honest (only that it is independent), and whether hours logged are
