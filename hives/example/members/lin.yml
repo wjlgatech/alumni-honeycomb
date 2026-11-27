@@ -1,5 +1,8 @@
 # SIMULATED member card (fictional). Real cards: hives-private/members/<you>.yml, same shape.
+id: a-lin
 name: Lin (sim)
+invited_by: a-zhao
+anchor: lin@example.org
 purpose: "Help first-generation engineers get their first real job, by being the alum I never had"
 schools:
   - name: Example University

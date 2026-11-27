@@ -71,3 +71,20 @@ def test_loop_health_compares_given_with_promised():
 def test_one_pager_never_says_verified():
     page = member.one_pager(LIN)
     assert "confirmed" in page and "verified" not in page.lower()
+
+
+def test_every_member_is_introduced_except_founders():
+    c = copy.deepcopy(LIN)
+    del c["invited_by"]
+    assert any("invited_by" in p for p in member.check(c))
+    c["founder"] = True
+    assert not any("invited_by" in p for p in member.check(c))
+
+
+def test_duplicates_by_contact_or_by_name_school_years():
+    a = copy.deepcopy(LIN)
+    b = copy.deepcopy(LIN) | {"id": "a-lin-2", "anchor": "LIN@example.org "}
+    c = copy.deepcopy(LIN) | {"id": "a-lin-3", "anchor": "other@example.org"}
+    pairs = member.duplicates([a, b, c])
+    assert ("a-lin", "a-lin-2", "same contact") in pairs
+    assert any(p[1] == "a-lin-3" and "name, school" in p[2] for p in pairs)
