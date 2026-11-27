@@ -77,3 +77,29 @@ checkins:
   - {cell: c-physics-ai, date: 2026-11-10, dims: [mind, heart], next_step: "Hao presents his pendulum demo to two classmates"}
   - {cell: c-food-waste, date: 2026-10-28, dims: [strategy], next_step: "Interview the canteen manager with 5 questions"}
   - {cell: c-food-waste, date: 2026-11-14, dims: [strategy, spirit], next_step: "Paper prototype tested with 10 students at lunch"}
+# Meeting summaries (Release Agreement, data/release.yml). Attendees and approvals stay in the hive; only the work is released.
+meetings:
+  - id: m-2026-10-14
+    cell: c-ai-tutor
+    date: 2026-10-14
+    attendees: [s-ying, a-lin, s-mei, s-jun]
+    approved_by: [s-ying, a-lin, s-mei, s-jun]
+    release: federation
+    purpose: "Week 6 check: is the AI study group still used, and why do people drop?"
+    decisions: ["Move the session from Friday to Tuesday evening", "Each first-year brings one question they got wrong"]
+    next_steps: ["CEO: post Tuesday slot by 10-16", "An advisor: share 3 past mid-term questions by 10-18"]
+    learned: "Attendance fell on Fridays, not because of the AI tool; a fixed weeknight and one wrong question each kept people coming"
+    tags: [ai-study, tutoring, retention]
+    asks: ["A biology alum to check the AI's explanations once a month"]
+    quotes: [{text: "I come back because my wrong answer becomes the lesson", quote_ok: true}]
+  - id: m-2026-11-02
+    cell: c-physics-ai
+    date: 2026-11-02
+    attendees: [s-mei, a-chen]
+    approved_by: [s-mei]
+    release: hive
+    purpose: "Scope the physics simulation project"
+    decisions: ["Start with one lab experiment"]
+    next_steps: ["CEO: pick the experiment by 11-09"]
+    learned: "Scoping to one experiment made the first week possible"
+    tags: [physics, simulation]

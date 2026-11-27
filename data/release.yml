@@ -1,0 +1,42 @@
+# The Release Agreement: what a honeycomb (cell) may share from its meetings, with whom, and who must agree.
+# Read by honeycomb/summary.py (`python -m honeycomb summary check|release|digest`). Every member agrees to it on joining.
+#
+# Basis: the Chatham House Rule (1927, rev. 2002): "participants are free to use the information received, but neither
+# the identity nor the affiliation of the speaker(s), nor that of any other participant, may be revealed." We add one
+# step: nothing leaves the honeycomb until every person in the meeting has approved the exact text.
+
+recording:
+  consent: "Every person in the meeting agrees out loud before recording starts (some places, like Florida, require all parties)."
+  audio: "Kept only by the CEO, only if everyone agreed to keeping it; encrypted; deleted within 90 days; never shared or published."
+  transcript: "Readable by the people who were in the meeting. Never released as is."
+
+tiers:   # who can read a released summary
+  - {id: cell, en: "Only this honeycomb's members", zh: 本蜂房成员}
+  - {id: hive, en: "Every member of this beehive (school)", zh: 本蜂巢全体成员}
+  - {id: federation, en: "Every beehive, in the signed public feed", zh: 所有蜂巢（签名的公开数据）}
+
+summary_fields:  # a summary is short, structured and about the work, never the people
+  required:
+    - {key: date, en: "Meeting date"}
+    - {key: purpose, en: "Why the meeting happened, one line"}
+    - {key: decisions, en: "What was decided"}
+    - {key: next_steps, en: "Checkable next steps, owners as roles (CEO, an advisor), never names"}
+    - {key: learned, en: "What others could learn from it"}
+    - {key: tags, en: "Topic tags others subscribe to (e.g. robotics, career, calling)"}
+  optional:
+    - {key: asks, en: "Help the honeycomb wants from others"}
+    - {key: offers, en: "Help it can give others"}
+    - {key: open_questions, en: "What it could not answer"}
+    - {key: quotes, en: "Short quotes, each with the speaker's own yes (quote_ok)"}
+
+never_release:   # checked by summary.check before any release
+  - "Any name, id, email, phone number or handle of a member or anyone mentioned"
+  - "Health, mental health, faith practice, family conflict, money or legal matters of any person"
+  - "Anything about a minor beyond 'a student under 18 took part'"
+  - "A company's confidential numbers, customers or plans"
+  - "A quote longer than 25 words, or any quote without its speaker's yes"
+
+approval:
+  rule: "Every person who was in the meeting approves the exact text and the tier (a guardian approves for a minor)."
+  default_tier: cell
+  withdraw: "Anyone can withdraw their approval later; the summary then drops back to the cell tier."
