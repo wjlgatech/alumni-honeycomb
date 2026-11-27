@@ -1,0 +1,90 @@
+# The member card: who you are, how sure we are, what you offer, how much time you really have.
+# Read by honeycomb/member.py (`python -m honeycomb member check|card <card.yml>`). Real cards live in
+# hives-private/members/ (gitignored); only the hive sees a card, the federation sees no person (P8).
+#
+# First principle: a card exists so someone else can decide to trust you, as much as THEIR decision needs.
+# A CEO choosing an advisor needs less than a parent whose 15-year-old joins the cell. So proof grows with
+# the role's risk (levels below), and school proof is never confused with safety (safeguarding is separate).
+
+tiers:
+  minimal:   # enough to join a cell this season (2 minutes to fill)
+    - {key: name, en: "Name you go by in the hive (a pseudonym is fine)"}
+    - {key: schools, en: "Each school: student or alumnus, field, years"}
+    - {key: roles, en: "Roles you want this season (ceo · advisor · core · apprentice)"}
+    - {key: hours_per_week, en: "Hours a week you really have"}
+    - {key: languages, en: "Languages"}
+    - {key: offer, en: "One thing you can give someone this season"}
+  standard:  # what a CEO needs to pick you (10 minutes)
+    - {key: interests, en: "Up to 3 things you'd lead or help with"}
+    - {key: ask, en: "One thing you need from others"}
+    - {key: timezone, en: "Time zone"}
+    - {key: mode, en: "online · in_person · both, and the city if in person"}
+    - {key: evidence, en: "Proof for each school (see evidence kinds)"}
+    - {key: conflicts, en: "Anything you could profit from (a company, a property, a paid service)"}
+  full:      # earned, not typed: grows season by season
+    - {key: vouches, en: "Members who vouch for you, and how they know you"}
+    - {key: history, en: "Roles held, cells closed with evidence (computed from the hive file)"}
+    - {key: safeguarding, en: "Screening for working with minors, when a cell has one"}
+    - {key: boundaries, en: "What you won't do (topics, hours, contact channels)"}
+
+# How a school claim is supported. Points add up per school; a peer vouch counts only if independent.
+evidence:
+  - {kind: school_email, points: 3, peer: false, en: "A current school email confirmed by a one-time code (students and staff)"}
+  - {kind: registry, points: 3, peer: false, en: "A degree registry report the member orders themselves: National Student Clearinghouse DegreeVerify (US; Georgia Tech, Yale College/GSAS, USC use it) or 学信网 CHSI (China; graduates before about 2002 get a written 学历认证报告 instead of the online record)"}
+  - {kind: public_record, points: 2, peer: false, en: "A thesis, paper, patent or lab page that names you with the school (Georgia Tech SMARTech holds every GT thesis; ProQuest; ORCID with an institution-added or verified-domain affiliation; Google Scholar)"}
+  - {kind: alumni_association, points: 2, peer: false, en: "Membership confirmed by the school's alumni association"}
+  - {kind: document, points: 1, peer: false, en: "A diploma or transcript shown to the hive operator (seen, never stored)"}
+  - {kind: photo, points: 1, peer: false, max: 1, en: "A photo or record of you at the school: supports a claim, never decides it"}
+  - {kind: vouch, points: 1, peer: true, max: 3, en: "A member already confirmed at this school, saying how they know you (lab, class, years)"}
+  - {kind: self, points: 0, peer: false, en: "Your own word, LinkedIn included: shown, never counted"}
+
+levels:   # per school
+  - {level: 0, name: stated, en: "Said, not yet supported"}
+  - {level: 1, name: supported, min_points: 2, en: "Some proof (2+ points)"}
+  - {level: 2, name: confirmed, min_points: 4, min_kinds: 2, needs_non_peer: true,
+     en: "4+ points from 2+ kinds, at least one not from a peer"}
+vouch_rules:
+  - "Only a member confirmed (level 2) at the same school can vouch for it."
+  - "A vouch says how you know each other: lab, class, team, years. A bare 'I know him' does not count."
+  - "Two vouches from the same circle (same lab, same class) count as one, and relatives count as one voucher."
+  - "A vouch for a false claim costs the voucher their vouching right for a year."
+
+# The least each role needs. Everything not listed here is optional.
+roles:
+  ceo:        {min_level: 0, hours_min: 4, en: "Leads one thing they love. Students need no proof to lead."}
+  core:       {min_level: 0, hours_min: 3, en: "Builds with the CEO."}
+  apprentice: {min_level: 0, hours_min: 1, en: "Learns by doing. A minor needs a guardian (P6)."}
+  advisor:    {min_level: 1, hours_min: 1, en: "Has walked this road: supported (level 1) at the school they advise for; confirmed (level 2) when the cell has a minor."}
+
+# Every member runs their own closed loop: the cell's rules (P2 criteria first, P4 next step, P3 evidence)
+# applied to one person. A data-science project on yourself: say it, do it, measure it, adjust it.
+loop:
+  purpose: "One sentence: what you are becoming, and for whom (the Calling Compass helps)."
+  season_goal: "This season's one goal, with a 'Good:' line someone else could check (P2)."
+  weekly:      # one line a week, 2 minutes
+    - {key: hours_given, en: "Hours you gave (advising, building, teaching)"}
+    - {key: hours_received, en: "Hours you were coached or taught"}
+    - {key: did, en: "What you did, in one line"}
+    - {key: next_step, en: "One checkable next step (P4)"}
+    - {key: energy, en: "Energy 1-5"}
+  review: "At the season's end: what was observed, not hoped (P3); what you will change next season."
+  compounding: "Next season you take a different seat (apprentice → core → CEO → advisor) and your review becomes a learning card (P8)."
+
+# Tools (AI companions, agents, templates). P7 holds inside the hive: no fees, no selling.
+tools:
+  inside_the_hive: "Shared free: listed on the maker's card with what it does and what data it touches."
+  paid_elsewhere: "A paid tool lives on the maker's own site; the card may link it, with the profit disclosed under conflicts."
+  open_question: "Charging inside the hive needs a charter change to P7 (2/3 of hives; founders while fewer than 3). Not built."
+
+# Safety is not school proof. A cell with anyone under 18 also needs, from every adult in it:
+safeguarding:
+  - "A screen done in the adult's own country (US: a background check; mainland China: 入职查询-type check where available), dated."
+  - "Observable and interruptible, online too (US Center for SafeSport): no private one-to-one channel with a minor; a guardian or a second unrelated adult is always in the thread or the room."
+  - "Crises go to qualified help (P6)."
+
+# Integrity in one line each.
+integrity:
+  - "Levels are shown as words (stated · supported · confirmed), never as 'verified' unless confirmed."
+  - "Stated hours are compared with check-ins each season; the card shows both."
+  - "Anyone who could profit from a cell's work says so on the card. Students' work on it is credited, and is paid or open-sourced (P7: no selling to members)."
+  - "A false claim resets the card to stated and is noted by the steward."

@@ -25,6 +25,7 @@ check:        ## the finish line: drift + charter + federation + tests + quality
 	python3 -m honeycomb publish hives/example-b/hive.yml --check
 	python3 -m honeycomb federation pull --check
 	python3 -m honeycomb discovery card --check
+	python3 -m honeycomb member check hives/example/members/lin.yml
 	$(MAKE) test score
 
 demo:         ## open the site locally at http://127.0.0.1:8799

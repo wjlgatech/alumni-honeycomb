@@ -11,6 +11,7 @@
   discovery plan  <people.yml>       pre-launch 1:1s: whom to meet, with reasons (relationship first)
   discovery tally <interviews.yml>   numbers, D-targets, fired rules, breaks nobody detects yet
   discovery card  [--check]          data/discovery.yml -> docs/DISCOVERY-CARD.md (the question card)
+  member  check|card <card.yml>      a member card: school proof levels, roles it supports, personal loop
   discovery push  [--dir D] [--base URL]   private files -> the owner-only room at futuremake.io/honeycomb/room.html
   discovery pull  [--dir D] [--base URL]   phone notes from the room -> D/interviews.yml (then push again)
 """
@@ -21,7 +22,7 @@ import argparse
 import json
 import sys
 
-from . import build, check, compass, discovery, federation, feed, learn, pulse, recruit
+from . import build, check, compass, discovery, member, federation, feed, learn, pulse, recruit
 from pathlib import Path
 
 import yaml
@@ -153,8 +154,10 @@ def _room(a: argparse.Namespace) -> int:
                                           + yaml.safe_dump({"interviews": ivs}, allow_unicode=True, sort_keys=False), encoding="utf-8")
         print(f"pulled {len(notes)} note(s), {added} new -> {d / 'interviews.yml'}")
         return 0
+    me_path = Path(a.me)
+    me = yaml.safe_load(me_path.read_text(encoding="utf-8")) if me_path.exists() else None
     room = discovery.build_room(read("people.yml", {}), read("names.yml", {}), read("briefs.yml", {}), ivs,
-                                today=dt.date.today().isoformat())
+                                today=dt.date.today().isoformat(), me=me)
     out = _room_request("PUT", a.base, {"room": room})
     print(f"pushed room: {len(room['people'])} people, seats {room['numbers']['seats_committed']}/12 -> {a.base}/honeycomb/room.html"
           if out.get("ok") else f"push failed: {out}")
@@ -197,6 +200,22 @@ def _discovery(a: argparse.Namespace) -> int:
     return 0
 
 
+def _member(a: argparse.Namespace) -> int:
+    """member check | card <card.yml>."""
+    card = yaml.safe_load(Path(a.card).read_text(encoding="utf-8")) or {}
+    if a.action == "card":
+        print(member.one_pager(card), end="")
+        return 0
+    problems = member.check(card)
+    for s in card.get("schools", []):
+        lv = member.level(s)
+        print(f"  {lv['school']}: {lv['name']} ({lv['points']} pts: {', '.join(lv['kinds']) or 'no proof yet'})")
+    for p in problems:
+        print(f"✗ {p}")
+    print("✓ card supports what it asks for" if not problems else f"{len(problems)} thing(s) not yet supported")
+    return 1 if problems else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """Parse argv and run one command; return its exit code."""
     parser = argparse.ArgumentParser(prog="honeycomb", description=__doc__,
@@ -214,7 +233,10 @@ def main(argv: list[str] | None = None) -> int:
     p.set_defaults(fn=lambda a: print(json.dumps(compass.score(a.answers), indent=1)) or 0)
     p = sub.add_parser("discovery"); p.add_argument("action", choices=["plan", "tally", "card", "push", "pull"]); p.add_argument("file", nargs="?")
     p.add_argument("--dir", default="hives-private/discovery"); p.add_argument("--base", default="https://futuremake.io")
+    p.add_argument("--me", default="hives-private/members/paul.yml")
     p.add_argument("--check", action="store_true"); p.add_argument("--json", action="store_true"); p.set_defaults(fn=_discovery)
+    p = sub.add_parser("member"); p.add_argument("action", choices=["check", "card"]); p.add_argument("card")
+    p.set_defaults(fn=_member)
     p = sub.add_parser("build"); p.add_argument("--check", action="store_true")
     p.set_defaults(fn=lambda a: build.main(check=a.check))
     args = parser.parse_args(argv)
