@@ -67,13 +67,13 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
     </form>
   </section>
 
+  <section id="glance" class="glance" hidden></section>
   <section id="intro" class="card z1" hidden>
     <p><b>What this is.</b> The people we talk to one at a time before the public meeting, what to ask each one, and what they actually did.
     Each talk is scored by what the person did, not by how warm it felt. The numbers update after every talk.</p>
     <button id="hideintro">Got it</button>
   </section>
 
-  <section id="glance" class="glance" hidden></section>
   <section id="card" class="card z1" hidden></section>
   <section id="people" style="display:grid;gap:12px" hidden></section>
   <section id="targets" class="card z1" hidden></section>
@@ -133,7 +133,7 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
     var talked = new Set(state.notes.map(function (x) { return x.person; })).size;
     var next = (R.people || []).filter(function (p) { return p.picked && !p.met && !notesFor(p.id).length; })[0];
     $("glance").hidden = false;
-    $("glance").innerHTML = '<p class="big">' + esc((R.first_hive || "").replace(/-.*/, "").toUpperCase()) + ' hive · ' + seatsNow + ' of ' + d1.target + ' seats · ' + talked + ' talked to</p>' +
+    $("glance").innerHTML = '<p class="big">' + esc(({ gatech: "Georgia Tech", sysu: "中大 SYSU", yale: "Yale" })[(R.first_hive || "").replace(/-.*/, "")] || R.first_hive || "") + ' hive · ' + seatsNow + ' of ' + d1.target + ' seats · ' + talked + ' talked to</p>' +
       '<p>' + (seatsNow >= d1.target ? '<span class="chip ok">on target</span>' : seatsNow > 0 ? '<span class="chip warn">moving</span>' : '<span class="chip bad">no seats yet</span>') +
       (next ? ' Next: talk to <b>' + esc(next.name) + '</b>.' : ' Everyone picked has been met. Pull notes and re-tally.') + '</p>' +
       '<p class="muted small">Updated ' + esc(R.updated) + ' · ' + fresh.length + ' phone note(s) not yet tallied on the Mac</p>';
