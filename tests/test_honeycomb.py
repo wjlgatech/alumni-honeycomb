@@ -196,3 +196,9 @@ def test_signup_form_asks_cross_border_consent_and_no_faith():
     assert "name='consent' required" in html and "consent: f.consent.checked" in html
     assert html.count("fConsent:") == 2  # zh + en
     assert "name='faith'" not in html and "name='religion'" not in html
+
+
+def test_signup_carries_the_source_tag_of_the_link():
+    """The series' 10X counts sign-ups per article (?src=hc-<n>), not views."""
+    html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    assert "src: signupSrc()" in html and "/^[a-z0-9-]{1,32}$/" in html
