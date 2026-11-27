@@ -154,7 +154,7 @@ Most of them are **hubs**, people their circle listens to. Two are the actual us
 | The bilingual question card to carry in | [docs/DISCOVERY-CARD.md](docs/DISCOVERY-CARD.md) (generated, drift-gated) |
 | What we learned, as numbers + which pre-committed rule fires | `python -m honeycomb discovery tally <interviews.yml>` · `make discover` |
 | Sign in to the room on this Mac and your phone (30 days) | `make signin`: this Mac's browser opens the room signed in, and a QR signs the phone in |
-| One private place to run it all, on the phone: who's next, what to ask them, log the talk, live numbers | https://futuremake.io/honeycomb/room.html (owner only; the page holds no names) · `discovery push` sends the snapshot, `discovery pull` brings phone notes back |
+| One private place to run it all, on the phone: who's next, what to ask them, record the talk (AI drafts the notes, you confirm), live numbers | https://futuremake.io/honeycomb/room.html (owner only; the page holds no names) · `discovery push` sends the snapshot, `discovery pull` brings phone notes back |
 
 The 12X, defined so it can fail: **12 committed seats before Dec 5** (`seats_committed`; walking in cold, the start is about 1).
 The guide, the research behind it and the rules: [docs/DISCOVERY.md](docs/DISCOVERY.md).

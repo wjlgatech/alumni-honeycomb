@@ -76,6 +76,18 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
 
   <section id="me" class="card z1" hidden></section>
   <section id="card" class="card z1" hidden></section>
+  <section id="rec" class="card z1" hidden>
+    <h2>Record the talk</h2>
+    <p class="small">Hands free: the phone records, the server turns speech into text, and AI drafts each person's note for you to confirm. The audio is deleted after it becomes text.</p>
+    <p class="say" id="consentline"></p>
+    <label class="small"><input type="checkbox" id="agreed" style="width:auto"> Everyone in the conversation said yes</label>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="primary" id="recstart" disabled>Start recording</button>
+      <button id="recstop" hidden>Stop and draft notes</button>
+    </div>
+    <p class="small muted" id="recstatus" aria-live="polite"></p>
+    <div id="drafts" style="display:grid;gap:10px"></div>
+  </section>
   <section id="people" style="display:grid;gap:12px" hidden></section>
   <section id="targets" class="card z1" hidden></section>
   <section id="detail" class="card z2" hidden></section>
@@ -225,6 +237,80 @@ body[data-z="0"] .z1,body[data-z="0"] .z2,body[data-z="1"] .z2{display:none}
     if (s && /^sess\.\d+\.[0-9a-f]{64}$/.test(s)) { localStorage.setItem(KEY, s); }
     if (s) { u.searchParams.delete("owner"); history.replaceState({}, "", u.toString()); }
   } catch (e) {}
+  // ── Record the talk: consent → 3-minute chunks → transcript → AI drafts → owner confirms each ──
+  var TALK = "/api/honeycomb-room/talk", CONSENT = "Is it OK if I record this so I don't have to take notes? Only I will see the transcript, and the audio is deleted after it is turned into text.";
+  var rec = { id: "", stream: null, mr: null, seq: 0, sent: 0, failed: 0, on: false, t0: 0, lock: null, timer: null };
+  function hdr() { return { "x-portfolio-owner": token() }; }
+  function recStatus() {
+    var m = Math.floor((Date.now() - rec.t0) / 60000), sec = Math.floor((Date.now() - rec.t0) / 1000) % 60;
+    $("recstatus").textContent = (rec.on ? "● Recording " + m + ":" + String(sec).padStart(2, "0") + " · " : "") + rec.sent + " chunk(s) turned into text" + (rec.failed ? " · " + rec.failed + " lost" : "");
+  }
+  function mime() { var c = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"]; for (var i = 0; i < c.length; i++) if (window.MediaRecorder && MediaRecorder.isTypeSupported(c[i])) return c[i]; return ""; }
+  function upload(blob, seq) {
+    var fd = new FormData(); fd.append("id", rec.id); fd.append("seq", String(seq)); fd.append("audio", blob, "chunk");
+    return fetch(TALK, { method: "PUT", headers: hdr(), body: fd }).then(function (r) { if (r.ok) rec.sent++; else rec.failed++; recStatus(); }, function () { rec.failed++; recStatus(); });
+  }
+  function segment() {
+    var chunks = [], seq = rec.seq++, mr = new MediaRecorder(rec.stream, { mimeType: mime(), audioBitsPerSecond: 32000 });
+    rec.mr = mr;
+    mr.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+    mr.onstop = function () { var p = upload(new Blob(chunks, { type: mr.mimeType }), seq); if (rec.on) segment(); else p.then(draft); };
+    mr.start();
+    clearTimeout(rec.timer); rec.timer = setTimeout(function () { if (mr.state === "recording") mr.stop(); }, 180000);
+  }
+  function draft() {
+    $("recstatus").textContent = "Drafting notes from " + rec.sent + " chunk(s)…";
+    fetch(TALK, { method: "POST", headers: Object.assign({ "content-type": "application/json" }, hdr()), body: JSON.stringify({ id: rec.id, extract: true }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (j.error) { $("recstatus").textContent = j.error; return; } showDrafts(j.drafts || []); $("recstatus").textContent = (j.drafts || []).length + " draft(s). Check each one, then save."; },
+            function () { $("recstatus").textContent = "Could not reach the server. The transcript is saved; open the room again to retry."; });
+  }
+  function nameOf(id) { var p = ((state.room || {}).people || []).filter(function (x) { return x.id === id; })[0]; return p ? p.name : id; }
+  function showDrafts(ds) {
+    $("drafts").innerHTML = ds.map(function (d, i) {
+      return '<form class="log card" data-i="' + i + '"><b>' + esc(nameOf(d.person)) + '</b>' +
+        '<div class="row"><select name="rung">' + RUNG.map(function (r, k) { return '<option value="' + k + '"' + (k === d.rung ? ' selected' : '') + '>' + esc(r) + '</option>'; }).join('') + '</select>' +
+        '<select name="seat">' + SEATS.map(function (s) { return '<option' + (s === d.seat ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select></div>' +
+        '<input name="quote" value="' + esc(d.quote) + '" placeholder="Quote"><input name="risk" value="' + esc(d.risk) + '" placeholder="Could fail by"><input name="gave" value="' + esc(d.gave) + '" placeholder="You gave">' +
+        '<label class="small"><input type="checkbox" name="heard" style="width:auto"' + (d.heard ? ' checked' : '') + '> Felt heard</label>' +
+        '<div class="row"><button class="primary" type="submit">Save</button><button type="button" class="skip">Skip</button></div><p class="small muted" aria-live="polite"></p></form>';
+    }).join('');
+    document.querySelectorAll("#drafts form").forEach(function (f) {
+      var d = ds[Number(f.getAttribute("data-i"))];
+      f.querySelector(".skip").onclick = function () { f.remove(); };
+      f.onsubmit = function (ev) {
+        ev.preventDefault();
+        var note = { person: d.person, rung: Number(f.rung.value), seat: f.seat.value, quote: f.quote.value, risk: f.risk.value, gave: f.gave.value, heard: f.heard.checked };
+        fetch(API, { method: "POST", headers: Object.assign({ "content-type": "application/json" }, hdr()), body: JSON.stringify({ note: note }) })
+          .then(function (r) { return r.json(); }).then(function (j) { if (j.notes) { state.notes = j.notes; f.remove(); render(); } else f.querySelector("[aria-live]").textContent = "Not saved: " + (j.error || "error"); });
+      };
+    });
+  }
+  function setupRec() {
+    $("rec").hidden = false; $("consentline").textContent = '"' + CONSENT + '"';
+    if (!window.MediaRecorder || !navigator.mediaDevices) { $("recstatus").textContent = "This browser can't record. Use the phone's Safari or Chrome."; return; }
+    $("agreed").onchange = function () { $("recstart").disabled = !$("agreed").checked; };
+    $("recstart").onclick = function () {
+      $("recstart").disabled = true; $("recstatus").textContent = "Asking for the microphone…";
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        return fetch(TALK, { method: "POST", headers: Object.assign({ "content-type": "application/json" }, hdr()), body: JSON.stringify({ consent: true }) })
+          .then(function (r) { return r.json(); }).then(function (j) {
+            if (!j.talk) throw new Error(j.error || "could not start");
+            Object.assign(rec, { id: j.talk.id, stream: stream, seq: 0, sent: 0, failed: 0, on: true, t0: Date.now() });
+            if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { rec.lock = l; }, function () {});
+            segment(); $("recstart").hidden = true; $("recstop").hidden = false; rec.tick = setInterval(recStatus, 1000);
+          });
+      }).catch(function (e) { $("recstart").disabled = false; $("recstatus").textContent = "Not recording: " + e.message; });
+    };
+    $("recstop").onclick = function () {
+      rec.on = false; clearInterval(rec.tick); clearTimeout(rec.timer);
+      if (rec.mr && rec.mr.state === "recording") rec.mr.stop();
+      rec.stream.getTracks().forEach(function (t) { t.stop(); }); if (rec.lock) rec.lock.release();
+      $("recstop").hidden = true; $("recstart").hidden = false; $("agreed").checked = false; $("recstart").disabled = true;
+    };
+  }
+  var _render = render; render = function () { _render(); if ($("rec").hidden) setupRec(); };
+
   if (token()) load(); else { lock(); }
 })();
 </script>
