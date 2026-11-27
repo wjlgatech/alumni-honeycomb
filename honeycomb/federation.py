@@ -87,6 +87,9 @@ def check(registry: dict[str, Any] | None = None) -> list[str]:
             continue
         if hashes.get(str(signed.get("version"))) != signed.get("sha256"):
             out.append(f"hive {row['id']}: signed charter {signed.get('version')} does not match a ratified hash")
+        sig = signature_status(row)
+        if sig in ("missing", "bad"):
+            out.append(f"hive {row['id']}: feed signature {sig} (key listed in data/federation.yml)")
     return out + _proposal_problems(registry)
 
 
@@ -122,6 +125,20 @@ def cross_hive_builds_on(cards: list[dict[str, Any]]) -> int:
     return sum(1 for c in cards for ref in c.get("builds_on", []) if ref.split("/")[0] != c["hive"])
 
 
+def signature_status(row: dict[str, Any]) -> str:
+    """ok | missing | bad | unkeyed: does the feed carry a valid signature by the key the registry lists?"""
+    if not row.get("pubkey"):
+        return "unkeyed"
+    if str(row["feed"]).startswith("http"):
+        return "unchecked"  # remote feeds: fetched and verified by the relay that pulls them (docs/SCALE.md)
+    path = ROOT / row["feed"]
+    sig = path.with_name(path.name + ".sig")
+    if not sig.exists():
+        return "missing"
+    from . import sign
+    return "ok" if sign.verify(path.read_text(encoding="utf-8"), sig.read_text(encoding="utf-8"), row["pubkey"]) else "bad"
+
+
 def build_index(registry: dict[str, Any] | None = None) -> dict[str, Any]:
     """Pull every registered feed and merge them into the federation index (deterministic)."""
     registry = registry or load("federation")
@@ -137,6 +154,7 @@ def build_index(registry: dict[str, Any] | None = None) -> dict[str, Any]:
     return {"schema": "ah-federation/1", "as_of": as_of, "season_now": season_now,
             "charter_latest": latest_version(registry),
             "hives": [{"id": row["id"], "status": row.get("status", "active"), "latest_season": f["latest_season"],
+                       "signature": signature_status(row),
                        **sync_status(f, registry, season_now), "pulse": f["pulse"]} for row, f in feeds],
             "totals": {k: int(v) for k, v in sorted(totals.items())},
             "learnings": cards, "open_seats": [s for _, f in feeds for s in f.get("open_seats", [])],

@@ -159,6 +159,13 @@ Most of them are **hubs**, people their circle listens to. Two are the actual us
 The 12X, defined so it can fail: **12 committed seats before Dec 5** (`seats_committed`; walking in cold, the start is about 1).
 The guide, the research behind it and the rules: [docs/DISCOVERY.md](docs/DISCOVERY.md).
 
+### At scale: thousands of schools
+
+Each hive signs its public feed with its own key, so any mirror or relay can carry it and anyone can check it came from
+that school (`feed.json.sig`, `honeycomb/sign.py`; `federation check` fails on a missing or bad signature). Inside a
+hive, people meet through circles of 50–150 and warm, double-opt-in introductions; between hives, only feeds cross,
+and introductions go steward to steward. Web3's ideas are kept, its chains and tokens are not: [SCALE.md](docs/SCALE.md).
+
 ### Your member card
 
 Trust grows with the role's risk. Each school claim earns a level (stated · supported · confirmed) from several small proofs:
@@ -178,12 +185,12 @@ Fork → write `hives-private/<school>.yml` → `check` until green → put `fed
 | Path | What |
 |---|---|
 | `data/` | the single source of truth: charter, honeycomb model, federation, strategy, compass, arc, dimensions, boundaries, site |
-| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `member` (member cards), `build`, CLI (`__main__`) |
+| `honeycomb/` | the engine: `check`, `pulse`, `recruit`, `federation`, `compass`, `discovery` (pre-launch 1:1s), `member` (member cards), `sign` (signed feeds), `build`, CLI (`__main__`) |
 | `hives/example/`, `hives/example-b/` | two simulated hives (and their public `feed.json`); real hives live in `hives-private/` (gitignored) |
 | `federation/index.json` | every feed merged: sync status, learning cards, open seats, ripe drafts (generated, drift-gated) |
 | `web/` | the static site; `data.json` is generated from `data/` and drift-gated |
 | `scripts/` | `icons.py` (pure-Python PNGs), `live_check.py`, `publish_mirror.sh`, `china_probe.py`, `score.py` (quality ratchet; floor in `data/quality-floor.json`) |
-| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [MEMBERSHIP](docs/MEMBERSHIP.md) · [STATUS](docs/STATUS.md) |
+| `docs/` | [SPEC](docs/SPEC.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [GOVERNANCE](docs/GOVERNANCE.md) · [CHINA-ACCESS](docs/CHINA-ACCESS.md) · [FEDERATION](docs/FEDERATION.md) · [DISCOVERY](docs/DISCOVERY.md) · [MEMBERSHIP](docs/MEMBERSHIP.md) · [SCALE](docs/SCALE.md) · [STATUS](docs/STATUS.md) |
 
 ### Honest edges
 

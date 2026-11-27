@@ -91,7 +91,21 @@ def _publish(a: argparse.Namespace) -> int:
         print("not published: fix the hive first (a feed must keep the charter and name no one)")
         return 1
     out = Path(a.out) if a.out else Path(a.hive).with_name("feed.json")
-    return _drift(out.resolve(), feed.render(f), a.check)
+    text = feed.render(f)
+    rc = _drift(out.resolve(), text, a.check)
+    key = Path(a.key) if a.key else _key_for(f["hive"], Path(a.hive))
+    if key and key.exists():  # signed feed: any mirror or relay can carry it untrusted
+        from . import sign
+        rc |= _drift(out.with_name(out.name + ".sig").resolve(), sign.sign(text, key), a.check)
+    return rc
+
+
+def _key_for(hive_id: str, hive_path: Path) -> Path | None:
+    """The hive's private signing key: hives-private/keys/<id>.key, or a simulated hive's committed TEST key."""
+    for p in (ROOT / "hives-private" / "keys" / f"{hive_id}.key", hive_path.with_name("TEST-ONLY-signing.key")):
+        if p.exists():
+            return p
+    return None
 
 
 def _learn(a: argparse.Namespace) -> int:
@@ -229,6 +243,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("federation"); p.add_argument("action", choices=["check", "hash", "pull"])
     p.add_argument("--check", action="store_true"); p.set_defaults(fn=_federation)
     p = sub.add_parser("publish"); p.add_argument("hive"); p.add_argument("--out"); p.add_argument("--check", action="store_true")
+    p.add_argument("--key", help="private Ed25519 key (default hives-private/keys/<hive>.key)")
     p.set_defaults(fn=_publish)
     p = sub.add_parser("learn"); p.add_argument("hive"); p.add_argument("cell"); p.add_argument("--index"); p.set_defaults(fn=_learn)
     p = sub.add_parser("compass"); p.add_argument("answers", nargs=8, type=int)
