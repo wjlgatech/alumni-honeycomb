@@ -14,7 +14,7 @@ apprentices, and they switch roles between cells. The differentiator is companio
    schools is five markets. The first product is one thing: **one cell that runs one season and closes with
    evidence**. Everything else (more schools, a hiring board, a venture fund) waits for that signal.
 2. **"Web3" can mean a token, and a token would kill it in China.** Issuing and trading tokens is illegal in mainland China
-   (PBoC and nine other agencies, notice of 2021-09-24), and student data must never sit on a public ledger. So we keep
+   (PBoC and nine other agencies, notice of 2021-09-24, repealed on 2026-02-06 by a broader eight-agency notice that also names stablecoins and RWA), and student data must never sit on a public ledger. So we keep
    web3's *ideas* (protocol not platform, verifiable membership, own your data, supermajority governance, free exit) and
    drop the chain. See `docs/ARCHITECTURE.md` §3.
 3. **"Internationally accessible, especially China" is an infrastructure claim that needs a measurement**, not a vibe.

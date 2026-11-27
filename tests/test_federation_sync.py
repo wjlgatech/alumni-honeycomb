@@ -119,3 +119,36 @@ def test_learn_ranks_cross_hive_cards():
     assert ranked[0]["points"] >= ranked[-1]["points"]
     assert any(r["cross_hive"] and r["id"] == "example/c-ai-tutor" for r in ranked)
     assert all(r["id"] != "example-b/c-history-ai" for r in ranked)
+
+
+def test_signed_feeds_verify_and_a_tampered_feed_fails(tmp_path):
+    """Any mirror can carry a feed untrusted: the signature, not the host, says it came from that hive."""
+    from honeycomb import sign
+    reg = load("federation")
+    row = next(r for r in reg["hives"] if r["id"] == "example")
+    assert federation.signature_status(row) == "ok"
+    text = (ROOT / row["feed"]).read_text(encoding="utf-8")
+    sig = (ROOT / (row["feed"] + ".sig")).read_text(encoding="utf-8")
+    assert sign.verify(text, sig, row["pubkey"])
+    assert not sign.verify(text.replace("2026", "2027", 1), sig, row["pubkey"])          # changed content
+    other = sign.keygen(tmp_path / "k.key")
+    assert not sign.verify(text, sig, other)                                              # someone else's key
+    assert not sign.verify(text, "not-base64!!", row["pubkey"])                           # garbage
+
+
+def test_signatures_are_deterministic_so_they_drift_gate(tmp_path):
+    from honeycomb import sign
+    key = tmp_path / "k.key"
+    sign.keygen(key)
+    assert sign.sign("feed", key) == sign.sign("feed", key)
+
+
+def test_a_keyed_hive_without_a_signature_fails_the_federation_check(tmp_path, monkeypatch):
+    reg = copy.deepcopy(load("federation"))
+    feed_copy = tmp_path / "feed.json"
+    feed_copy.write_text((ROOT / "hives/example/feed.json").read_text(encoding="utf-8"), encoding="utf-8")
+    row = next(r for r in reg["hives"] if r["id"] == "example")
+    row["feed"] = str(feed_copy)
+    monkeypatch.setattr(federation, "ROOT", ROOT)
+    assert federation.signature_status(row | {"feed": str(feed_copy)}) == "missing"
+    assert any("feed signature missing" in p for p in federation.check(reg))

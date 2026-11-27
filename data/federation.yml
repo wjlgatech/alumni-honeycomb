@@ -14,12 +14,14 @@ hives:
     operator: Organizer (sim)
     status: simulated
     feed: hives/example/feed.json
+    pubkey: 1XWjotLt0GKieMlrLReHT+QG/Y8ecn6canDyey3XfA8=   # Ed25519; TEST key of a simulated hive (private half committed on purpose)
   - id: example-b
     school_zh: 第二示例大学（模拟）
     school_en: Second Example University (simulated)
     operator: Organizer B (sim)
     status: simulated
     feed: hives/example-b/feed.json
+    pubkey: bCTlaV48i7XDbivPb70Yviyj3zEIsHsQFe7amE/v1zE=   # Ed25519; TEST key of a simulated hive (private half committed on purpose)
 proposals:
   - id: CP-001
     title: "Charter 1.1.0: P8 share learnings never people; one season clock; a feed heartbeat each season"
